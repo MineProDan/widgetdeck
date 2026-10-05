@@ -1,0 +1,272 @@
+[
+ {
+  "id": "a001",
+  "text": "I can take one slow breath before I decide.",
+  "category": "calm"
+ },
+ {
+  "id": "a002",
+  "text": "I'm allowed to go at my own pace today.",
+  "category": "calm"
+ },
+ {
+  "id": "a003",
+  "text": "Quiet moments count as progress too.",
+  "category": "calm"
+ },
+ {
+  "id": "a004",
+  "text": "I can let today be simple.",
+  "category": "calm"
+ },
+ {
+  "id": "a005",
+  "text": "I don't have to do everything at once.",
+  "category": "calm"
+ },
+ {
+  "id": "a006",
+  "text": "I can put my phone down and still be in the loop.",
+  "category": "calm"
+ },
+ {
+  "id": "a007",
+  "text": "Rest is part of the plan, not a break from it.",
+  "category": "calm"
+ },
+ {
+  "id": "a008",
+  "text": "I can notice how I feel without judging it.",
+  "category": "calm"
+ },
+ {
+  "id": "a009",
+  "text": "This moment is enough to start from.",
+  "category": "calm"
+ },
+ {
+  "id": "a010",
+  "text": "I give myself permission to pause.",
+  "category": "calm"
+ },
+ {
+  "id": "a011",
+  "text": "One small task, done well, is a good start.",
+  "category": "focus"
+ },
+ {
+  "id": "a012",
+  "text": "I show up for the next ten minutes, then the next.",
+  "category": "focus"
+ },
+ {
+  "id": "a013",
+  "text": "I choose what matters most and begin there.",
+  "category": "focus"
+ },
+ {
+  "id": "a014",
+  "text": "Done is a kind of beautiful.",
+  "category": "focus"
+ },
+ {
+  "id": "a015",
+  "text": "I can start before I feel ready.",
+  "category": "focus"
+ },
+ {
+  "id": "a016",
+  "text": "My attention is mine to spend.",
+  "category": "focus"
+ },
+ {
+  "id": "a017",
+  "text": "Small steps still move me forward.",
+  "category": "focus"
+ },
+ {
+  "id": "a018",
+  "text": "I'm building today what future me will thank me for.",
+  "category": "focus"
+ },
+ {
+  "id": "a019",
+  "text": "I can finish what I start, one piece at a time.",
+  "category": "focus"
+ },
+ {
+  "id": "a020",
+  "text": "I make room for the things I care about.",
+  "category": "focus"
+ },
+ {
+  "id": "a021",
+  "text": "I can do hard things, one step at a time.",
+  "category": "courage"
+ },
+ {
+  "id": "a022",
+  "text": "Trying is already a win.",
+  "category": "courage"
+ },
+ {
+  "id": "a023",
+  "text": "I'm allowed to ask for help.",
+  "category": "courage"
+ },
+ {
+  "id": "a024",
+  "text": "Mistakes are proof that I'm practising.",
+  "category": "courage"
+ },
+ {
+  "id": "a025",
+  "text": "I can speak up kindly and clearly.",
+  "category": "courage"
+ },
+ {
+  "id": "a026",
+  "text": "My voice belongs in the room.",
+  "category": "courage"
+ },
+ {
+  "id": "a027",
+  "text": "I can be nervous and brave at the same time.",
+  "category": "courage"
+ },
+ {
+  "id": "a028",
+  "text": "New things feel strange before they feel normal.",
+  "category": "courage"
+ },
+ {
+  "id": "a029",
+  "text": "I trust myself to figure out the next step.",
+  "category": "courage"
+ },
+ {
+  "id": "a030",
+  "text": "I've handled tough days before.",
+  "category": "courage"
+ },
+ {
+  "id": "a031",
+  "text": "I'm learning, and learning takes time.",
+  "category": "growth"
+ },
+ {
+  "id": "a032",
+  "text": "Every streak starts with day one.",
+  "category": "growth"
+ },
+ {
+  "id": "a033",
+  "text": "A missed day is a pause, not a failure.",
+  "category": "growth"
+ },
+ {
+  "id": "a034",
+  "text": "I'm proud of how far I've come.",
+  "category": "growth"
+ },
+ {
+  "id": "a035",
+  "text": "I get a little better every time I practise.",
+  "category": "growth"
+ },
+ {
+  "id": "a036",
+  "text": "Curiosity is my superpower.",
+  "category": "growth"
+ },
+ {
+  "id": "a037",
+  "text": "It's okay to change my mind when I learn something new.",
+  "category": "growth"
+ },
+ {
+  "id": "a038",
+  "text": "I celebrate small wins today.",
+  "category": "growth"
+ },
+ {
+  "id": "a039",
+  "text": "Progress, not perfection.",
+  "category": "growth"
+ },
+ {
+  "id": "a040",
+  "text": "Today I'll try one thing a little differently.",
+  "category": "growth"
+ },
+ {
+  "id": "a041",
+  "text": "I speak to myself like I'd speak to a friend.",
+  "category": "kindness"
+ },
+ {
+  "id": "a042",
+  "text": "I deserve the same kindness I give others.",
+  "category": "kindness"
+ },
+ {
+  "id": "a043",
+  "text": "A small kind act can change someone's day.",
+  "category": "kindness"
+ },
+ {
+  "id": "a044",
+  "text": "I can be gentle with myself today.",
+  "category": "kindness"
+ },
+ {
+  "id": "a045",
+  "text": "I'm grateful for one good thing right now.",
+  "category": "kindness"
+ },
+ {
+  "id": "a046",
+  "text": "My worth isn't measured by my to-do list.",
+  "category": "kindness"
+ },
+ {
+  "id": "a047",
+  "text": "I can let go of what I can't control.",
+  "category": "kindness"
+ },
+ {
+  "id": "a048",
+  "text": "I'm a good friend to the people around me.",
+  "category": "kindness"
+ },
+ {
+  "id": "a049",
+  "text": "I make space for joy, even on busy days.",
+  "category": "kindness"
+ },
+ {
+  "id": "a050",
+  "text": "I can forgive myself and start again.",
+  "category": "kindness"
+ },
+ {
+  "id": "a051",
+  "text": "I'll step outside and notice the sky today.",
+  "category": "nature"
+ },
+ {
+  "id": "a052",
+  "text": "Fresh air is always worth the walk.",
+  "category": "nature"
+ },
+ {
+  "id": "a053",
+  "text": "Like the seasons, I'm allowed to change.",
+  "category": "nature"
+ },
+ {
+  "id": "a054",
+  "text": "Slow growth is still growth, like a tree.",
+  "category": "nature"
+ }
+]

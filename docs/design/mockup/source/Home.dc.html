@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home tab</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&amp;family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F3EA;color:#22232E;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif}
+.cap{font-family:"Archivo",sans-serif;font-stretch:75%;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.25}
+.nm{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid #22232E;outline-offset:3px}
+a{color:#B2492F}a:hover{color:#8E3522}
+::selection{background:#F2CC8F}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F7F3EA">
+  <div style="position: absolute; top: 60px; left: 24px; right: 24px; display: flex; flex-direction: column; gap: 6px">
+    <h1 class="nm" style="margin: 0; font-size: 40px">Today</h1>
+    <p style="margin: 0; font-size: 15px; line-height: 1.35; color: #4A4C59">Thursday 24 September · Morning, Maya</p>
+  </div>
+
+  <a href="FlowDay.dc.html" aria-label="Flow widget: Coral Hour, BIO 201 in 14 minutes" style="position: absolute; top: 146px; left: 24px; width: 342px; height: 292px; border-radius: 16px; overflow: hidden; background: #FFFDF8; color: #22232E; text-decoration: none; box-shadow: 0 1px 2px rgba(34,35,46,.08), 0 18px 36px -16px rgba(34,35,46,.35); display: flex; flex-direction: column">
+    <div style="height: 190px; background: #E07A5F; position: relative">
+      <span style="position: absolute; width: 12px; height: 12px; border-radius: 50%; background: #F7F3EA; top: 14px; left: 14px"></span>
+      <div style="position: absolute; left: 20px; right: 20px; bottom: 20px; height: 6px; border-radius: 3px; background: rgba(255,253,248,.32)">
+        <div style="width: 72%; height: 6px; border-radius: 3px; background: #FFFDF8"></div>
+      </div>
+      <svg width="54" height="54" viewBox="0 0 54 54" fill="none" stroke="#FFFDF8" stroke-width="2.4" stroke-linecap="round" style="position: absolute; right: 20px; top: 20px; opacity: .9"><circle cx="27" cy="27" r="22"></circle><path d="M27 14v13l9 6"></path></svg>
+    </div>
+    <div style="flex-grow: 1; padding: 14px 18px; display: flex; flex-direction: column; justify-content: center; gap: 6px">
+      <span class="cap" style="color: #5B5D6B">Flow · Next up · BIO 201 · Room 3B</span>
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <span class="nm" style="font-size: 28px">Coral Hour</span>
+        <span class="nm num" style="font-size: 28px">14 min</span>
+      </div>
+      <span class="cap" style="color: #B2492F">WG 0914 · Leave by 8:40</span>
+    </div>
+  </a>
+
+  <div style="position: absolute; top: 462px; left: 24px; right: 24px; display: flex; justify-content: space-between; align-items: center">
+    <span class="cap" style="color: #5B5D6B">On your home screen · 4 live</span>
+    <a href="HomeScreen.dc.html" class="cap" style="text-decoration: none; padding: 12px 0 12px 12px">See it</a>
+  </div>
+  <div style="position: absolute; top: 490px; left: 24px; width: 342px; height: 160px">
+    <sc-for list="{{deck}}" as="c" hint-placeholder-count="4">
+      <div style="position: absolute; top: 4px; left: 122px; z-index: {{c.z}}; width: 96px; height: 138px; border-radius: 12px; overflow: hidden; background: #FFFDF8; transform: rotate({{c.r}}deg); transform-origin: 50% 215%; box-shadow: 0 1px 2px rgba(34,35,46,.08), 0 10px 22px -12px rgba(34,35,46,.4); display: flex; flex-direction: column">
+        <div style="height: 82px; background: {{c.color}}; position: relative"><span style="position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #F7F3EA; top: 9px; left: 9px"></span></div>
+        <div style="flex-grow: 1; padding: 8px 9px; display: flex; flex-direction: column; gap: 3px">
+          <span class="cap" style="font-size: 9px; color: #5B5D6B">{{c.paint}}</span>
+          <span class="nm" style="font-size: 15px">{{c.name}}</span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; top: 674px; left: 24px; width: 342px; height: 76px; border-radius: 14px; overflow: hidden; background: #FFFDF8; box-shadow: 0 1px 2px rgba(34,35,46,.08), 0 10px 24px -14px rgba(34,35,46,.3); display: flex">
+    <div style="width: 64px; background: #81B29A; position: relative"><span style="position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #F7F3EA; top: 9px; left: 9px"></span></div>
+    <div style="flex-grow: 1; padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; gap: 4px">
+      <span class="cap" style="color: #5B5D6B">Exam week · 3 deadlines by Fri</span>
+      <span class="nm" style="font-size: 17px">Add a Focus chip?</span>
+      <a href="#" class="cap" style="text-decoration: underline; text-underline-offset: 2px; color: #5B5D6B">Why am I seeing this</a>
+    </div>
+    <div style="display: flex; align-items: center; padding-right: 14px">
+      <button style="height: 44px; padding: 0 16px; border-radius: 22px; border: 0; background: #22232E; color: #FFFDF8; font-size: 15px; font-weight: 600">Add</button>
+    </div>
+  </div>
+
+  <nav aria-label="Sections" style="position: absolute; left: 0; right: 0; bottom: 0; height: 83px; background: #F7F3EA; border-top: 1px solid #E4DED1; display: flex; justify-content: space-around; align-items: flex-start; padding-top: 7px; box-sizing: border-box">
+    <a href="Home.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #22232E; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z"></path></svg><span class="cap" style="font-size: 10px">Home</span></a>
+    <a href="Student.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #6B6D7A; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-4 9 4-9 4-9-4z"></path><path d="M7 11v5c0 1.4 2.2 3 5 3s5-1.6 5-3v-5"></path></svg><span class="cap" style="font-size: 10px">Student</span></a>
+    <a href="ThemeSync.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #6B6D7A; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="6" height="17" rx="1.5"></rect><path d="M10 8l5-3 4.5 7.5L10 18"></path></svg><span class="cap" style="font-size: 10px">Aesthetic</span></a>
+    <a href="Wellness.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #6B6D7A; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"></path><path d="M5 19l8-8"></path></svg><span class="cap" style="font-size: 10px">Wellness</span></a>
+    <a href="Tech.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #6B6D7A; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16a8 8 0 1 1 16 0"></path><path d="M12 16l4-5"></path></svg><span class="cap" style="font-size: 10px">Tech</span></a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      deck: [
+        { r: -27, z: 1, color: '#81B29A', paint: 'Sage Noon', name: 'Habits' },
+        { r: -9, z: 2, color: '#F2CC8F', paint: 'Beach Hour', name: 'Palette' },
+        { r: 9, z: 3, color: '#3D405B', paint: 'Deep Tide', name: 'Battery' },
+        { r: 27, z: 4, color: '#E07A5F', paint: 'Coral Hour', name: 'Next Class' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

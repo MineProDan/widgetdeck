@@ -1,0 +1,175 @@
+{
+ "version": 1,
+ "models": [
+  {
+   "identifier": "iPhone11,2",
+   "name": "iPhone XS",
+   "chip": "A12 Bionic"
+  },
+  {
+   "identifier": "iPhone11,4",
+   "name": "iPhone XS Max",
+   "chip": "A12 Bionic"
+  },
+  {
+   "identifier": "iPhone11,6",
+   "name": "iPhone XS Max",
+   "chip": "A12 Bionic"
+  },
+  {
+   "identifier": "iPhone11,8",
+   "name": "iPhone XR",
+   "chip": "A12 Bionic"
+  },
+  {
+   "identifier": "iPhone12,1",
+   "name": "iPhone 11",
+   "chip": "A13 Bionic"
+  },
+  {
+   "identifier": "iPhone12,3",
+   "name": "iPhone 11 Pro",
+   "chip": "A13 Bionic"
+  },
+  {
+   "identifier": "iPhone12,5",
+   "name": "iPhone 11 Pro Max",
+   "chip": "A13 Bionic"
+  },
+  {
+   "identifier": "iPhone12,8",
+   "name": "iPhone SE (2nd generation)",
+   "chip": "A13 Bionic"
+  },
+  {
+   "identifier": "iPhone13,1",
+   "name": "iPhone 12 mini",
+   "chip": "A14 Bionic"
+  },
+  {
+   "identifier": "iPhone13,2",
+   "name": "iPhone 12",
+   "chip": "A14 Bionic"
+  },
+  {
+   "identifier": "iPhone13,3",
+   "name": "iPhone 12 Pro",
+   "chip": "A14 Bionic"
+  },
+  {
+   "identifier": "iPhone13,4",
+   "name": "iPhone 12 Pro Max",
+   "chip": "A14 Bionic"
+  },
+  {
+   "identifier": "iPhone14,4",
+   "name": "iPhone 13 mini",
+   "chip": "A15 Bionic"
+  },
+  {
+   "identifier": "iPhone14,5",
+   "name": "iPhone 13",
+   "chip": "A15 Bionic"
+  },
+  {
+   "identifier": "iPhone14,2",
+   "name": "iPhone 13 Pro",
+   "chip": "A15 Bionic"
+  },
+  {
+   "identifier": "iPhone14,3",
+   "name": "iPhone 13 Pro Max",
+   "chip": "A15 Bionic"
+  },
+  {
+   "identifier": "iPhone14,6",
+   "name": "iPhone SE (3rd generation)",
+   "chip": "A15 Bionic"
+  },
+  {
+   "identifier": "iPhone14,7",
+   "name": "iPhone 14",
+   "chip": "A15 Bionic"
+  },
+  {
+   "identifier": "iPhone14,8",
+   "name": "iPhone 14 Plus",
+   "chip": "A15 Bionic"
+  },
+  {
+   "identifier": "iPhone15,2",
+   "name": "iPhone 14 Pro",
+   "chip": "A16 Bionic"
+  },
+  {
+   "identifier": "iPhone15,3",
+   "name": "iPhone 14 Pro Max",
+   "chip": "A16 Bionic"
+  },
+  {
+   "identifier": "iPhone15,4",
+   "name": "iPhone 15",
+   "chip": "A16 Bionic"
+  },
+  {
+   "identifier": "iPhone15,5",
+   "name": "iPhone 15 Plus",
+   "chip": "A16 Bionic"
+  },
+  {
+   "identifier": "iPhone16,1",
+   "name": "iPhone 15 Pro",
+   "chip": "A17 Pro"
+  },
+  {
+   "identifier": "iPhone16,2",
+   "name": "iPhone 15 Pro Max",
+   "chip": "A17 Pro"
+  },
+  {
+   "identifier": "iPhone17,3",
+   "name": "iPhone 16",
+   "chip": "A18"
+  },
+  {
+   "identifier": "iPhone17,4",
+   "name": "iPhone 16 Plus",
+   "chip": "A18"
+  },
+  {
+   "identifier": "iPhone17,1",
+   "name": "iPhone 16 Pro",
+   "chip": "A18 Pro"
+  },
+  {
+   "identifier": "iPhone17,2",
+   "name": "iPhone 16 Pro Max",
+   "chip": "A18 Pro"
+  },
+  {
+   "identifier": "iPhone17,5",
+   "name": "iPhone 16e",
+   "chip": "A18"
+  },
+  {
+   "identifier": "iPhone18,3",
+   "name": "iPhone 17",
+   "chip": "A19"
+  },
+  {
+   "identifier": "iPhone18,4",
+   "name": "iPhone Air",
+   "chip": "A19 Pro"
+  },
+  {
+   "identifier": "iPhone18,1",
+   "name": "iPhone 17 Pro",
+   "chip": "A19 Pro"
+  },
+  {
+   "identifier": "iPhone18,2",
+   "name": "iPhone 17 Pro Max",
+   "chip": "A19 Pro"
+  }
+ ]
+}

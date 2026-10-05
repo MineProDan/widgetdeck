@@ -1,0 +1,394 @@
+{
+ "schemaVersion": 2,
+ "generatedAt": "2026-09-27T02:21:54.264425+00:00",
+ "title": "Design System: Widgetdeck",
+ "extensions": {
+  "colorMeta": {
+   "coral-hour": {
+    "role": "primary",
+    "displayName": "Coral Hour",
+    "canonical": "#E07A5F",
+    "tonalRamp": [
+     "#40170C",
+     "#6B2715",
+     "#96361D",
+     "#C04625",
+     "#DC6A4C",
+     "#E6947F",
+     "#F0BFB2",
+     "#FBEDEA"
+    ]
+   },
+   "sage-noon": {
+    "role": "secondary",
+    "displayName": "Sage Noon",
+    "canonical": "#81B29A",
+    "tonalRamp": [
+     "#1D2F26",
+     "#304F40",
+     "#446F5A",
+     "#578E73",
+     "#7AAE94",
+     "#A0C5B3",
+     "#C6DCD1",
+     "#EFF5F2"
+    ]
+   },
+   "beach-sand": {
+    "role": "secondary",
+    "displayName": "Beach Sand",
+    "canonical": "#F2CC8F",
+    "tonalRamp": [
+     "#452D08",
+     "#724B0D",
+     "#A06A13",
+     "#CE8818",
+     "#E9A83F",
+     "#EFC176",
+     "#F5DAAD",
+     "#FCF5E8"
+    ]
+   },
+   "deep-tide": {
+    "role": "tertiary",
+    "displayName": "Deep Tide",
+    "canonical": "#3D405B",
+    "tonalRamp": [
+     "#1F202E",
+     "#33364C",
+     "#484B6B",
+     "#5C6189",
+     "#7F83A9",
+     "#A3A6C2",
+     "#C8CADA",
+     "#F0F0F5"
+    ]
+   },
+   "plum-dusk": {
+    "role": "tertiary",
+    "displayName": "Plum Dusk",
+    "canonical": "#6D597A",
+    "tonalRamp": [
+     "#28202C",
+     "#42364A",
+     "#5C4B67",
+     "#776185",
+     "#9783A5",
+     "#B5A7BE",
+     "#D3CAD8",
+     "#F3F0F4"
+    ]
+   },
+   "paper-ivory": {
+    "role": "neutral",
+    "displayName": "Paper Ivory",
+    "canonical": "#F7F3EA",
+    "tonalRamp": [
+     "#372D15",
+     "#5C4B23",
+     "#816931",
+     "#A6873F",
+     "#C4A664",
+     "#D5C090",
+     "#E6D9BD",
+     "#F8F4ED"
+    ]
+   },
+   "label-ivory": {
+    "role": "neutral",
+    "displayName": "Label Ivory",
+    "canonical": "#FFFDF8",
+    "tonalRamp": [
+     "#4C3700",
+     "#805B00",
+     "#B28000",
+     "#E6A400",
+     "#FFC229",
+     "#FFD366",
+     "#FFE5A3",
+     "#FFF8E5"
+    ]
+   },
+   "shell": {
+    "role": "neutral",
+    "displayName": "Shell",
+    "canonical": "#F6DDB2",
+    "tonalRamp": [
+     "#442E08",
+     "#724D0D",
+     "#A06C13",
+     "#CD8B18",
+     "#E9AA3F",
+     "#EFC376",
+     "#F5DBAD",
+     "#FCF5E8"
+    ]
+   },
+   "ink": {
+    "role": "neutral",
+    "displayName": "Ink",
+    "canonical": "#22232E",
+    "tonalRamp": [
+     "#21212C",
+     "#363849",
+     "#4C4E67",
+     "#626484",
+     "#8487A4",
+     "#A7A9BE",
+     "#CACBD8",
+     "#F0F1F4"
+    ]
+   },
+   "ink-secondary": {
+    "role": "neutral",
+    "displayName": "Ink Secondary",
+    "canonical": "#5B5D6B",
+    "tonalRamp": [
+     "#232429",
+     "#3B3C45",
+     "#525460",
+     "#696C7C",
+     "#8B8D9D",
+     "#ACAEB9",
+     "#CDCED5",
+     "#F1F1F3"
+    ]
+   },
+   "ink-body": {
+    "role": "neutral",
+    "displayName": "Ink Body",
+    "canonical": "#4A4C59",
+    "tonalRamp": [
+     "#23242A",
+     "#3A3B46",
+     "#515361",
+     "#686B7D",
+     "#8A8D9E",
+     "#ABADBA",
+     "#CDCED5",
+     "#F1F1F3"
+    ]
+   },
+   "ink-inactive": {
+    "role": "neutral",
+    "displayName": "Ink Inactive",
+    "canonical": "#6B6D7A",
+    "tonalRamp": [
+     "#242429",
+     "#3C3D44",
+     "#53555F",
+     "#6B6D7A",
+     "#8D8F9B",
+     "#ADAFB8",
+     "#CECFD4",
+     "#F1F2F3"
+    ]
+   },
+   "rule": {
+    "role": "neutral",
+    "displayName": "Rule",
+    "canonical": "#E4DED1",
+    "tonalRamp": [
+     "#302A1C",
+     "#50462F",
+     "#706242",
+     "#917E55",
+     "#B09E78",
+     "#C6BA9F",
+     "#DDD6C5",
+     "#F6F3EF"
+    ]
+   },
+   "clay-link": {
+    "role": "neutral",
+    "displayName": "Clay Link",
+    "canonical": "#B2492F",
+    "tonalRamp": [
+     "#3D1910",
+     "#65291B",
+     "#8D3A25",
+     "#B64A30",
+     "#D26E56",
+     "#DF9886",
+     "#ECC1B6",
+     "#FAEEEB"
+    ]
+   },
+   "moss-positive": {
+    "role": "neutral",
+    "displayName": "Moss Positive",
+    "canonical": "#4C7A62",
+    "tonalRamp": [
+     "#1D2F26",
+     "#314F3F",
+     "#456E58",
+     "#588D72",
+     "#7BAD93",
+     "#A1C4B2",
+     "#C6DCD1",
+     "#EFF5F2"
+    ]
+   }
+  },
+  "typographyMeta": {
+   "display": {
+    "displayName": "Display",
+    "purpose": "Screen titles."
+   },
+   "headline": {
+    "displayName": "Headline",
+    "purpose": "Key values inside chips, tabular numerals."
+   },
+   "title": {
+    "displayName": "Title",
+    "purpose": "Chip and list item names."
+   },
+   "body": {
+    "displayName": "Body",
+    "purpose": "Subtitles and explanations (SF Pro)."
+   },
+   "label": {
+    "displayName": "Label",
+    "purpose": "Condensed caps: paint codes, context, trends."
+   }
+  },
+  "shadows": [
+   {
+    "name": "chip-rest",
+    "value": "0 1px 2px rgba(34,35,46,.08), 0 10px 22px -12px rgba(34,35,46,.4)",
+    "purpose": "Chips and cards resting on paper."
+   },
+   {
+    "name": "widget-on-wallpaper",
+    "value": "0 12px 30px -14px rgba(34,35,46,.45)",
+    "purpose": "Widgets over a wallpaper."
+   },
+   {
+    "name": "chip-lifted",
+    "value": "0 1px 2px rgba(34,35,46,.10), 0 14px 30px -12px rgba(34,35,46,.55)",
+    "purpose": "Selected chip lifted out of a fan."
+   }
+  ],
+  "motion": [
+   {
+    "name": "chip-lift",
+    "value": "transform .45s cubic-bezier(.2,.8,.2,1)",
+    "purpose": "Selecting a chip in a fan deck."
+   },
+   {
+    "name": "toggle",
+    "value": "background .2s ease-out",
+    "purpose": "Habit check and mood key state."
+   },
+   {
+    "name": "fill",
+    "value": "width .8s cubic-bezier(.2,.8,.2,1)",
+    "purpose": "Gauge fill bars updating."
+   }
+  ],
+  "breakpoints": [
+   {
+    "name": "iphone",
+    "value": "390px"
+   }
+  ]
+ },
+ "components": [
+  {
+   "name": "Paint Chip (small widget)",
+   "kind": "custom",
+   "refersTo": "chip-student",
+   "description": "Signature chip: colour field with punch hole over an ivory label band.",
+   "html": "<div class=\"ds-chip\"><div class=\"ds-chip-field\"></div><div class=\"ds-chip-band\"><span class=\"ds-cap\">Coral Hour · BIO 201</span><span class=\"ds-val\">in 14 min</span></div></div>",
+   "css": ".ds-chip{width:158px;height:158px;border-radius:22px;overflow:hidden;background:#FFFDF8;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(34,35,46,.08),0 10px 22px -12px rgba(34,35,46,.4);font-family:-apple-system,system-ui,sans-serif;color:#22232E}.ds-chip-field{height:86px;background:#E07A5F;position:relative}.ds-chip-field:before{content:'';position:absolute;width:10px;height:10px;border-radius:50%;background:#F7F3EA;top:10px;left:10px}.ds-chip-band{flex:1;padding:10px 13px;display:flex;flex-direction:column;justify-content:center;gap:4px}.ds-cap{font-family:Archivo,sans-serif;font-stretch:75%;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5B5D6B}.ds-val{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}"
+  },
+  {
+   "name": "Primary Button",
+   "kind": "button",
+   "refersTo": "button-primary",
+   "description": "Full-width ink action.",
+   "html": "<button class=\"ds-btn-primary\">Use Soft Coral</button>",
+   "css": ".ds-btn-primary{height:54px;width:320px;border:0;border-radius:14px;background:#22232E;color:#FFFDF8;font:600 17px -apple-system,system-ui,sans-serif;cursor:pointer;transition:background .2s}.ds-btn-primary:hover{background:#3D405B}.ds-btn-primary:focus-visible{outline:2px solid #22232E;outline-offset:3px}"
+  },
+  {
+   "name": "Pill Button",
+   "kind": "button",
+   "refersTo": "button-pill",
+   "description": "Inline 44px action.",
+   "html": "<button class=\"ds-btn-pill\">Add</button>",
+   "css": ".ds-btn-pill{height:44px;padding:0 16px;border:0;border-radius:22px;background:#22232E;color:#FFFDF8;font:600 15px -apple-system,system-ui,sans-serif;cursor:pointer}.ds-btn-pill:hover{background:#3D405B}.ds-btn-pill:focus-visible{outline:2px solid #22232E;outline-offset:3px}"
+  },
+  {
+   "name": "Segmented Control",
+   "kind": "nav",
+   "refersTo": "segmented-control",
+   "description": "Native-style view switcher.",
+   "html": "<div class=\"ds-seg\"><button class=\"on\">Schedule</button><button>Due</button><button>Grades</button></div>",
+   "css": ".ds-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px;width:300px;height:36px;box-sizing:border-box;border-radius:10px;background:#ECE6DA}.ds-seg button{border:0;border-radius:8px;background:transparent;font:13px -apple-system,system-ui,sans-serif;color:#22232E;cursor:pointer}.ds-seg button.on{background:#FFFDF8;font-weight:600;box-shadow:0 1px 3px rgba(34,35,46,.15)}.ds-seg button:focus-visible{outline:2px solid #22232E}"
+  },
+  {
+   "name": "Habit Row Chip",
+   "kind": "card",
+   "refersTo": "chip-wellness",
+   "description": "Horizontal chip with a check control on the colour field.",
+   "html": "<div class=\"ds-row\"><div class=\"ds-row-field\"><button aria-label=\"Read, done\" class=\"ds-check\">✓</button></div><div class=\"ds-row-band\"><b>Read 20 min</b><span>23-day streak · +1 today</span></div></div>",
+   "css": ".ds-row{display:flex;width:342px;height:76px;border-radius:14px;overflow:hidden;background:#FFFDF8;box-shadow:0 1px 2px rgba(34,35,46,.08),0 8px 18px -12px rgba(34,35,46,.3);font-family:-apple-system,system-ui,sans-serif}.ds-row-field{width:68px;background:#81B29A;display:flex;align-items:center;justify-content:center}.ds-check{width:44px;height:44px;border-radius:50%;border:2.5px solid #FFFDF8;background:#FFFDF8;color:#4C7A62;font-weight:700;cursor:pointer}.ds-row-band{padding:0 14px;display:flex;flex-direction:column;justify-content:center;gap:5px}.ds-row-band b{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;color:#22232E}.ds-row-band span{font-family:Archivo,sans-serif;font-stretch:75%;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#4C7A62}"
+  }
+ ],
+ "narrative": {
+  "northStar": "The Paint Chip Deck",
+  "overview": "Every widget is a paint chip from a hardware-store swatch deck: a flat, matte field of colour with a punched hole, over an ivory label band that names it like a paint (\"Coral Hour · WG 0914\"). The app is the fan deck you shuffle through, and the home screen is the wall you've painted. The system is warm, tactile and confident. The colour does the talking and the type stays calm and exact. It deliberately rejects the category's grid of rounded, glassy, gradient widget tiles.\n\nDensity is widget-honest. A chip answers one question at a glance, then gives one line of context. Flow widgets, study timers and streak strips all use the same anatomy, so a user who has read one chip can read every chip.",
+  "keyCharacteristics": [
+   "Chip anatomy: a colour field on top or left, an ivory label band holding all text, and a punch hole at the top-left.",
+   "Each section keeps its colour everywhere: Student coral, Wellness sage, Aesthetic sand, Tech ink, plus plum for evening and mood.",
+   "Hierarchy comes from weight and case: condensed caps labels against grotesk display numerals.",
+   "Warm paper ground, flat fields, soft offset shadows. No glass, no gradients."
+  ],
+  "rules": [
+   {
+    "name": "The Colour Is Law Rule",
+    "body": "A section's colour means that section everywhere: widgets, class blocks, list chips, Live Activities. Never use coral for a wellness element or sage for a class.",
+    "section": "colors"
+   },
+   {
+    "name": "The Pure Field Rule",
+    "body": "Text never sits on a colour field. The field holds only geometry: the punch hole, a fill bar, a drawn glyph or a control. Every word lives on the ivory label band.",
+    "section": "colors"
+   },
+   {
+    "name": "The Theme Stays in the Theme Rule",
+    "body": "User-theme hues (Chrome Lilac, Library Oak and so on) appear only in theme pickers and user-themed widgets, never in system chrome.",
+    "section": "colors"
+   },
+   {
+    "name": "The Two Sizes Rule",
+    "body": "A chip uses at most two type sizes: one label size and one display size. Rank inside a chip comes from weight, case and colour, never a third size.",
+    "section": "typography"
+   },
+   {
+    "name": "The Plain Subtitle Rule",
+    "body": "No caps labels sit above screen titles. Context goes in a plain body subtitle below the title.",
+    "section": "typography"
+   },
+   {
+    "name": "The Paper Rule",
+    "body": "No glass, blur or glow. Materials are flat paint on paper, and system materials appear only where iOS itself draws them.",
+    "section": "elevation"
+   }
+  ],
+  "dos": [
+   "Do give every chip a punch hole and keep every word on the label band.",
+   "Do use each section's colour for that section only, and plum only for evening and mood.",
+   "Do set values in Bricolage Grotesque with tabular numerals, and categories in condensed Archivo caps (11px, +0.08em).",
+   "Do use the fan deck when showing a set of chips together.",
+   "Do label estimates honestly (\"Est. 1h 10m to full\")."
+  ],
+  "donts": [
+   "Don't put text on a colour field.",
+   "Don't use more than two type sizes in one chip.",
+   "Don't put caps labels above screen titles; use a plain subtitle below.",
+   "Don't use glass, gradients, glow or hard zero-blur shadows.",
+   "Don't use coloured left-border stripes for list rows. Use a chip with a real colour block."
+  ]
+ }
+}

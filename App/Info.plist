@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppIdentifierPrefix</key>
+	<string>$(AppIdentifierPrefix)</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>io.github.mineprodan.iospremium.refresh</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>io.github.mineprodan.iospremium</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>widgetx</string>
+			</array>
+		</dict>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Widgetdeck reads your calendar on this iPhone to find your classes and deadlines. We never change or upload your events.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is used to estimate travel time to class with Apple Maps, for leave-by times and alerts. It is never stored.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Widgetdeck uses the photos you choose to build your widgets and match your theme. Photos stay on this iPhone.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Widgetdeck reads your reminders on this iPhone to show assignments in your widgets. We never change or upload them.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+</dict>
+</plist>

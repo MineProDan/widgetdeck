@@ -1,0 +1,890 @@
+[
+ {
+  "id": "q001",
+  "text": "The universe is transformation: life is opinion.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book IV (trans. George Long, 1862)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q002",
+  "text": "Do not act as if thou wert going to live ten thousand years. Death hangs over thee. While thou livest, while it is in thy power, be good.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book IV (trans. George Long, 1862)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q003",
+  "text": "Look within. Within is the fountain of good, and it will ever bubble up, if thou wilt ever dig.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book VII (trans. George Long, 1862)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q004",
+  "text": "No longer talk at all about the kind of man that a good man ought to be, but be such.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book X (trans. George Long, 1862)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q005",
+  "text": "Be like the promontory against which the waves continually break, but it stands firm and tames the fury of the water around it.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book IV (trans. George Long, 1862)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q006",
+  "text": "The best way of avenging thyself is not to become like the wrong doer.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book VI (trans. George Long, 1862)",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q007",
+  "text": "Such as are thy habitual thoughts, such also will be the character of thy mind; for the soul is dyed by the thoughts.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book V (trans. George Long, 1862)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q008",
+  "text": "Nowhere either with more quiet or more freedom from trouble does a man retire than into his own soul.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book IV (trans. George Long, 1862)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q009",
+  "text": "Never let the future disturb thee. For thou wilt come to it, if it shall be necessary, having with thee the same reason which now thou usest for present things.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book VII (trans. George Long, 1862)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q010",
+  "text": "Occupy thyself with few things, says the philosopher, if thou wouldst be tranquil.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book IV (trans. George Long, 1862)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q011",
+  "text": "In the morning when thou risest unwillingly, let this thought be present: I am rising to the work of a human being.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book V (trans. George Long, 1862)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q012",
+  "text": "If thou art pained by any external thing, it is not this thing that disturbs thee, but thy own judgement about it. And it is in thy power to wipe out this judgement now.",
+  "author": "Marcus Aurelius",
+  "source": "Meditations, Book VIII (trans. George Long, 1862)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q013",
+  "text": "Hold every hour in your grasp. Lay hold of to-day's task, and you will not need to depend so much upon to-morrow's.",
+  "author": "Seneca",
+  "source": "Moral Letters to Lucilius, Letter 1 (trans. Richard M. Gummere, 1917)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q014",
+  "text": "It is not the man who has too little, but the man who craves more, that is poor.",
+  "author": "Seneca",
+  "source": "Moral Letters to Lucilius, Letter 2 (trans. Richard M. Gummere, 1917)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q015",
+  "text": "We are more often frightened than hurt; and we suffer more from imagination than from reality.",
+  "author": "Seneca",
+  "source": "Moral Letters to Lucilius, Letter 13 (trans. Richard M. Gummere, 1917)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q016",
+  "text": "Men learn while they teach.",
+  "author": "Seneca",
+  "source": "Moral Letters to Lucilius, Letter 7 (trans. Richard M. Gummere, 1917)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q017",
+  "text": "You need a change of soul rather than a change of climate.",
+  "author": "Seneca",
+  "source": "Moral Letters to Lucilius, Letter 28 (trans. Richard M. Gummere, 1917)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q018",
+  "text": "When a man does not know what harbour he is making for, no wind is the right wind.",
+  "author": "Seneca",
+  "source": "Moral Letters to Lucilius, Letter 71 (trans. Richard M. Gummere, 1917)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q019",
+  "text": "Men are disturbed, not by things, but by the principles and notions which they form concerning things.",
+  "author": "Epictetus",
+  "source": "The Enchiridion, 5 (trans. Elizabeth Carter, 1758)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q020",
+  "text": "Demand not that events should happen as you wish; but wish them to happen as they do happen, and you will go on well.",
+  "author": "Epictetus",
+  "source": "The Enchiridion, 8 (trans. Elizabeth Carter, 1758)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q021",
+  "text": "Some things are in our control and others not.",
+  "author": "Epictetus",
+  "source": "The Enchiridion, 1 (trans. Elizabeth Carter, 1758)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q022",
+  "text": "Trust thyself: every heart vibrates to that iron string.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Self-Reliance (1841)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q023",
+  "text": "Nothing can bring you peace but yourself.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Self-Reliance (1841)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q024",
+  "text": "Insist on yourself; never imitate.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Self-Reliance (1841)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q025",
+  "text": "To be great is to be misunderstood.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Self-Reliance (1841)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q026",
+  "text": "Nothing great was ever achieved without enthusiasm.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Circles (1841)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q027",
+  "text": "The only way to have a friend is to be one.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Friendship (1841)",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q028",
+  "text": "Write it on your heart that every day is the best day in the year.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Works and Days, in Society and Solitude (1870)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q029",
+  "text": "Hitch your wagon to a star.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Civilization, in Society and Solitude (1870)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q030",
+  "text": "Earth laughs in flowers.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Hamatreya (1847)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q031",
+  "text": "Nature always wears the colors of the spirit.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Nature (1836)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q032",
+  "text": "In the woods, we return to reason and faith.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Nature (1836)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q033",
+  "text": "The years teach much which the days never know.",
+  "author": "Ralph Waldo Emerson",
+  "source": "Experience (1844)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q034",
+  "text": "Our greatest glory is, not in never falling, but in rising every time we fall.",
+  "author": "Oliver Goldsmith",
+  "source": "The Citizen of the World (1762)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q035",
+  "text": "I went to the woods because I wished to live deliberately, to front only the essential facts of life, and see if I could not learn what it had to teach.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q036",
+  "text": "Simplicity, simplicity, simplicity!",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q037",
+  "text": "If one advances confidently in the direction of his dreams, and endeavors to live the life which he has imagined, he will meet with a success unexpected in common hours.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q038",
+  "text": "Let him step to the music which he hears, however measured or far away.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q039",
+  "text": "Heaven is under our feet as well as over our heads.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q040",
+  "text": "I have a great deal of company in my house; especially in the morning, when nobody calls.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q041",
+  "text": "We need the tonic of wildness.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q042",
+  "text": "Time is but the stream I go a-fishing in.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q043",
+  "text": "Every morning was a cheerful invitation to make my life of equal simplicity, and I may say innocence, with Nature herself.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q044",
+  "text": "Rather than love, than money, than fame, give me truth.",
+  "author": "Henry David Thoreau",
+  "source": "Walden (1854)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q045",
+  "text": "In wildness is the preservation of the world.",
+  "author": "Henry David Thoreau",
+  "source": "Walking (1862)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q046",
+  "text": "Live in each season as it passes; breathe the air, drink the drink, taste the fruit, and resign yourself to the influences of each.",
+  "author": "Henry David Thoreau",
+  "source": "Journal, August 23, 1853",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q047",
+  "text": "Early to bed and early to rise, makes a man healthy, wealthy, and wise.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1735)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q048",
+  "text": "Well done is better than well said.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1737)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q049",
+  "text": "Lost time is never found again.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1748)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q050",
+  "text": "Dost thou love life? Then do not squander time, for that's the stuff life is made of.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1746)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q051",
+  "text": "Have you somewhat to do to-morrow, do it to-day.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1742)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q052",
+  "text": "Little strokes fell great oaks.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1750)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q053",
+  "text": "Diligence is the mother of good luck.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1736)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q054",
+  "text": "One to-day is worth two to-morrows.",
+  "author": "Benjamin Franklin",
+  "source": "The Way to Wealth (1758)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q055",
+  "text": "He that can have patience can have what he will.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1736)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q056",
+  "text": "Eat to live, and not live to eat.",
+  "author": "Benjamin Franklin",
+  "source": "Poor Richard's Almanack (1733)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q057",
+  "text": "He who knows other men is discerning; he who knows himself is intelligent.",
+  "author": "Lao Tzu",
+  "source": "Tao Te Ching, 33 (trans. James Legge, 1891)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q058",
+  "text": "He who overcomes others is strong; he who overcomes himself is mighty.",
+  "author": "Lao Tzu",
+  "source": "Tao Te Ching, 33 (trans. James Legge, 1891)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q059",
+  "text": "He who is satisfied with his lot is rich.",
+  "author": "Lao Tzu",
+  "source": "Tao Te Ching, 33 (trans. James Legge, 1891)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q060",
+  "text": "The highest excellence is like (that of) water.",
+  "author": "Lao Tzu",
+  "source": "Tao Te Ching, 8 (trans. James Legge, 1891)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q061",
+  "text": "Is it not pleasant to learn with a constant perseverance and application?",
+  "author": "Confucius",
+  "source": "The Analects, I (trans. James Legge, 1861)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q062",
+  "text": "When you know a thing, to hold that you know it; and when you do not know a thing, to allow that you do not know it; this is knowledge.",
+  "author": "Confucius",
+  "source": "The Analects, II (trans. James Legge, 1861)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q063",
+  "text": "What you do not want done to yourself, do not do to others.",
+  "author": "Confucius",
+  "source": "The Analects, XV (trans. James Legge, 1861)",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q064",
+  "text": "The superior man is satisfied and composed; the mean man is always full of distress.",
+  "author": "Confucius",
+  "source": "The Analects, VII (trans. James Legge, 1861)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q065",
+  "text": "All that we are is the result of what we have thought: it is founded on our thoughts, it is made up of our thoughts.",
+  "author": "The Dhammapada",
+  "source": "Verse 1 (trans. F. Max Müller, 1881)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q066",
+  "text": "Hatred does not cease by hatred at any time: hatred ceases by love; this is an old rule.",
+  "author": "The Dhammapada",
+  "source": "Verse 5 (trans. F. Max Müller, 1881)",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q067",
+  "text": "If one man conquer in battle a thousand times thousand men, and if another conquer himself, he is the greatest of conquerors.",
+  "author": "The Dhammapada",
+  "source": "Verse 103 (trans. F. Max Müller, 1881)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q068",
+  "text": "Contentedness the best riches.",
+  "author": "The Dhammapada",
+  "source": "Verse 204 (trans. F. Max Müller, 1881)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q069",
+  "text": "There is nothing either good or bad, but thinking makes it so.",
+  "author": "William Shakespeare",
+  "source": "Hamlet, Act II, Scene 2",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q070",
+  "text": "This above all: to thine own self be true.",
+  "author": "William Shakespeare",
+  "source": "Hamlet, Act I, Scene 3",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q071",
+  "text": "Give every man thy ear, but few thy voice.",
+  "author": "William Shakespeare",
+  "source": "Hamlet, Act I, Scene 3",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q072",
+  "text": "Sweet are the uses of adversity.",
+  "author": "William Shakespeare",
+  "source": "As You Like It, Act II, Scene 1",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q073",
+  "text": "Be not afraid of greatness.",
+  "author": "William Shakespeare",
+  "source": "Twelfth Night, Act II, Scene 5",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q074",
+  "text": "Our doubts are traitors, and make us lose the good we oft might win, by fearing to attempt.",
+  "author": "William Shakespeare",
+  "source": "Measure for Measure, Act I, Scene 4",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q075",
+  "text": "Our remedies oft in ourselves do lie.",
+  "author": "William Shakespeare",
+  "source": "All's Well That Ends Well, Act I, Scene 1",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q076",
+  "text": "The fault, dear Brutus, is not in our stars, but in ourselves.",
+  "author": "William Shakespeare",
+  "source": "Julius Caesar, Act I, Scene 2",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q077",
+  "text": "I exist as I am, that is enough.",
+  "author": "Walt Whitman",
+  "source": "Song of Myself, in Leaves of Grass",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q078",
+  "text": "Do I contradict myself? Very well then I contradict myself, (I am large, I contain multitudes.)",
+  "author": "Walt Whitman",
+  "source": "Song of Myself, in Leaves of Grass",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q079",
+  "text": "Afoot and light-hearted I take to the open road, healthy, free, the world before me.",
+  "author": "Walt Whitman",
+  "source": "Song of the Open Road, in Leaves of Grass",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q080",
+  "text": "I believe a leaf of grass is no less than the journey-work of the stars.",
+  "author": "Walt Whitman",
+  "source": "Song of Myself, in Leaves of Grass",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q081",
+  "text": "Re-examine all you have been told at school or church or in any book, dismiss whatever insults your own soul.",
+  "author": "Walt Whitman",
+  "source": "Preface to Leaves of Grass (1855)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q082",
+  "text": "Hope is the thing with feathers that perches in the soul.",
+  "author": "Emily Dickinson",
+  "source": "Poem 254 (published 1891)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q083",
+  "text": "Forever is composed of Nows.",
+  "author": "Emily Dickinson",
+  "source": "Poem 624 (published 1929)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q084",
+  "text": "I dwell in Possibility.",
+  "author": "Emily Dickinson",
+  "source": "Poem 657 (published 1929)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q085",
+  "text": "Let us, then, be up and doing, with a heart for any fate; still achieving, still pursuing, learn to labor and to wait.",
+  "author": "Henry Wadsworth Longfellow",
+  "source": "A Psalm of Life (1838)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q086",
+  "text": "Into each life some rain must fall.",
+  "author": "Henry Wadsworth Longfellow",
+  "source": "The Rainy Day (1842)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q087",
+  "text": "The heights by great men reached and kept were not attained by sudden flight, but they, while their companions slept, were toiling upward in the night.",
+  "author": "Henry Wadsworth Longfellow",
+  "source": "The Ladder of Saint Augustine (1858)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q088",
+  "text": "To strive, to seek, to find, and not to yield.",
+  "author": "Alfred, Lord Tennyson",
+  "source": "Ulysses (1842)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q089",
+  "text": "I am a part of all that I have met.",
+  "author": "Alfred, Lord Tennyson",
+  "source": "Ulysses (1842)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q090",
+  "text": "'Tis better to have loved and lost than never to have loved at all.",
+  "author": "Alfred, Lord Tennyson",
+  "source": "In Memoriam A.H.H. (1850)",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q091",
+  "text": "To err is human, to forgive divine.",
+  "author": "Alexander Pope",
+  "source": "An Essay on Criticism (1711)",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q092",
+  "text": "Hope springs eternal in the human breast.",
+  "author": "Alexander Pope",
+  "source": "An Essay on Man (1734)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q093",
+  "text": "A thing of beauty is a joy for ever.",
+  "author": "John Keats",
+  "source": "Endymion (1818)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q094",
+  "text": "Come forth into the light of things, let Nature be your teacher.",
+  "author": "William Wordsworth",
+  "source": "The Tables Turned (1798)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q095",
+  "text": "My heart leaps up when I behold a rainbow in the sky.",
+  "author": "William Wordsworth",
+  "source": "My Heart Leaps Up (1807)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q096",
+  "text": "To travel hopefully is a better thing than to arrive.",
+  "author": "Robert Louis Stevenson",
+  "source": "El Dorado, in Virginibus Puerisque (1881)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q097",
+  "text": "Slow but steady wins the race.",
+  "author": "Aesop",
+  "source": "The Hare and the Tortoise (trans. George Fyler Townsend, 1867)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q098",
+  "text": "I'm not afraid of storms, for I'm learning how to sail my ship.",
+  "author": "Louisa May Alcott",
+  "source": "Little Women (1868)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q099",
+  "text": "Begin at the beginning, and go on till you come to the end: then stop.",
+  "author": "Lewis Carroll",
+  "source": "Alice's Adventures in Wonderland (1865)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q100",
+  "text": "Why, sometimes I've believed as many as six impossible things before breakfast.",
+  "author": "Lewis Carroll",
+  "source": "Through the Looking-Glass (1871)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q101",
+  "text": "There is no charm equal to tenderness of heart.",
+  "author": "Jane Austen",
+  "source": "Emma (1815)",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q102",
+  "text": "I am no bird; and no net ensnares me: I am a free human being with an independent will.",
+  "author": "Charlotte Brontë",
+  "source": "Jane Eyre (1847)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q103",
+  "text": "What do we live for, if it is not to make life less difficult to each other?",
+  "author": "George Eliot",
+  "source": "Middlemarch (1871)",
+  "category": "kindness",
+  "license": "public-domain"
+ },
+ {
+  "id": "q104",
+  "text": "Courage is resistance to fear, mastery of fear, not absence of fear.",
+  "author": "Mark Twain",
+  "source": "Pudd'nhead Wilson (1894)",
+  "category": "courage",
+  "license": "public-domain"
+ },
+ {
+  "id": "q105",
+  "text": "To see a World in a Grain of Sand and a Heaven in a Wild Flower.",
+  "author": "William Blake",
+  "source": "Auguries of Innocence (c. 1803)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q106",
+  "text": "The busy bee has no time for sorrow.",
+  "author": "William Blake",
+  "source": "The Marriage of Heaven and Hell (1790)",
+  "category": "focus",
+  "license": "public-domain"
+ },
+ {
+  "id": "q107",
+  "text": "Energy is Eternal Delight.",
+  "author": "William Blake",
+  "source": "The Marriage of Heaven and Hell (1790)",
+  "category": "growth",
+  "license": "public-domain"
+ },
+ {
+  "id": "q108",
+  "text": "The mountains are calling and I must go.",
+  "author": "John Muir",
+  "source": "Letter to Sarah Muir Galloway (1873)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q109",
+  "text": "In every walk with nature one receives far more than he seeks.",
+  "author": "John Muir",
+  "source": "Steep Trails (1918)",
+  "category": "nature",
+  "license": "public-domain"
+ },
+ {
+  "id": "q110",
+  "text": "To every thing there is a season, and a time to every purpose under the heaven.",
+  "author": "Ecclesiastes 3:1",
+  "source": "King James Bible (1611)",
+  "category": "calm",
+  "license": "public-domain"
+ },
+ {
+  "id": "q111",
+  "text": "The mind is its own place, and in itself can make a Heav'n of Hell, a Hell of Heav'n.",
+  "author": "John Milton",
+  "source": "Paradise Lost, Book I (1667)",
+  "category": "growth",
+  "license": "public-domain"
+ }
+]

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding: pick your vibe</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&amp;family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F3EA;color:#22232E;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif}
+.cap{font-family:"Archivo",sans-serif;font-stretch:75%;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.25}
+.nm{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:2px solid #22232E;outline-offset:3px}
+a{color:#B2492F}a:hover{color:#8E3522}
+::selection{background:#F2CC8F}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F7F3EA; box-sizing: border-box">
+  <div style="position: absolute; top: 64px; left: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <span role="img" aria-label="Step 1 of 4" style="display: flex; gap: 6px"><span style="width: 18px; height: 6px; border-radius: 3px; background: #22232E"></span><span style="width: 6px; height: 6px; border-radius: 3px; background: #CFC8BA"></span><span style="width: 6px; height: 6px; border-radius: 3px; background: #CFC8BA"></span><span style="width: 6px; height: 6px; border-radius: 3px; background: #CFC8BA"></span></span>
+      <a href="Home.dc.html" class="cap" style="color: #5B5D6B; text-decoration: none; padding: 12px 0 12px 12px">Skip</a>
+    </div>
+    <h1 class="nm" style="margin: 0; font-size: 40px">Pick your vibe.</h1>
+    <p style="margin: 0; font-size: 16px; line-height: 1.4; color: #4A4C59; max-width: 300px">One theme runs every widget you add. You can change it any time.</p>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; top: 228px; height: 360px">
+    <sc-for list="{{vibes}}" as="v" hint-placeholder-count="6">
+      <button onClick="{{v.pick}}" aria-label="{{v.label}}" aria-pressed="{{v.pressed}}" style="position: absolute; left: 147px; top: 20px; width: 96px; height: 300px; padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: #FFFDF8; transform-origin: 50% 118%; transform: rotate({{v.angle}}deg) translateY({{v.lift}}px); z-index: {{v.z}}; transition: transform .45s cubic-bezier(.2,.8,.2,1); box-shadow: 0 1px 2px rgba(34,35,46,.10), 0 14px 30px -12px rgba(34,35,46,{{v.shadow}})">
+        <div style="height: 58px; background: {{v.s1}}; position: relative"><span style="position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #F7F3EA; top: 10px; left: 50%; margin-left: -5px"></span></div>
+        <div style="height: 58px; background: {{v.s2}}"></div>
+        <div style="height: 58px; background: {{v.s3}}"></div>
+        <div style="height: 58px; background: {{v.s4}}"></div>
+        <div style="height: 68px; background: #FFFDF8; padding: 9px 9px 0; box-sizing: border-box; text-align: left; display: flex; flex-direction: column; gap: 4px">
+          <span class="cap" style="font-size: 9px; color: #5B5D6B">{{v.code}}</span>
+          <span class="nm" style="font-size: 14px">{{v.name}}</span>
+        </div>
+      </button>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 24px; right: 24px; top: 612px; display: flex; flex-direction: column; gap: 6px">
+    <span class="cap" style="color: #5B5D6B">{{picked.code}} · {{picked.mood}}</span>
+    <span class="nm" style="font-size: 28px">{{picked.name}}</span>
+  </div>
+
+  <div style="position: absolute; left: 24px; right: 24px; bottom: 40px; display: flex; flex-direction: column; gap: 8px">
+    <a href="Home.dc.html" style="display: flex; align-items: center; justify-content: center; height: 54px; border-radius: 14px; background: #22232E; color: #FFFDF8; text-decoration: none; font-size: 17px; font-weight: 600">{{cta}}</a>
+    <span style="text-align: center; font-size: 13px; color: #5B5D6B; padding: 6px 0">Free includes 3 themes. Premium unlocks 30+.</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { picked: 1 }; }
+  renderVals() {
+    const vibes = [
+      { name: 'Clean Slate', code: 'WG 0101', mood: 'Quiet, neutral, sharp', s: ['#F1EEE8', '#D9D5CC', '#A9A49A', '#2E2F36'] },
+      { name: 'Soft Coral', code: 'WG 0914', mood: 'Warm, calm, easy to read', s: ['#FBE3DC', '#F4C1B4', '#E8947F', '#C8604A'] },
+      { name: 'Library Oak', code: 'WG 1776', mood: 'Dark academia, bookish', s: ['#D8C3A5', '#A47E5B', '#6B4A36', '#3A2A22'] },
+      { name: 'Chrome Lilac', code: 'WG 2000', mood: 'Y2K, glossy, playful', s: ['#E3E9FF', '#B9C6FF', '#8E9BFF', '#5B5BD6'] },
+      { name: 'Night Ink', code: 'WG 0404', mood: 'Minimal tech, low light', s: ['#D5D7E0', '#9A9DB3', '#5E6180', '#2F3148'] },
+      { name: 'Moss Field', code: 'WG 0521', mood: 'Nature, grounded, soft', s: ['#E1EEDF', '#B5D3B2', '#81B29A', '#4C7A62'] }
+    ];
+    const angles = [-24, -14.5, -5, 5, 14.5, 24];
+    const picked = this.state.picked;
+    return {
+      picked: vibes[picked],
+      cta: 'Use ' + vibes[picked].name,
+      vibes: vibes.map((v, i) => {
+        const lift = i === picked ? -34 : 0;
+        const z = i === picked ? 10 : i;
+        return {
+          ...v, s1: v.s[0], s2: v.s[1], s3: v.s[2], s4: v.s[3],
+          label: v.name + ' theme',
+          pressed: i === picked ? 'true' : 'false',
+          pick: () => this.setState({ picked: i }),
+          angle: angles[i], lift: lift, z: z, shadow: i === picked ? '.55' : '.28'
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

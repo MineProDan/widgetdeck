@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>iPhone home screen with WidgetX widgets</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&amp;family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F3EA;color:#22232E;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif}
+.cap{font-family:"Archivo",sans-serif;font-stretch:75%;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.25}
+.nm{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid #FFFDF8;outline-offset:2px}
+::selection{background:#F2CC8F}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F2CC8F">
+  <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+    <rect width="390" height="844" fill="#F2CC8F"></rect>
+    <rect width="390" height="300" fill="#F6DDB2"></rect>
+    <circle cx="276" cy="560" r="128" fill="#E07A5F"></circle>
+    <rect y="584" width="390" height="260" fill="#3D405B"></rect>
+    <rect y="618" width="390" height="14" fill="#5B6C8F"></rect>
+    <rect y="664" width="390" height="8" fill="#5B6C8F"></rect>
+    <rect x="180" y="600" width="190" height="6" fill="#E07A5F" opacity=".7"></rect>
+    <path d="M0 770 Q195 724 390 770 V844 H0 Z" fill="#EAD7B7"></path>
+  </svg>
+
+  <div role="group" aria-label="Flow widget" style="position: absolute; left: 26px; top: 72px; width: 338px; height: 158px; border-radius: 22px; overflow: hidden; background: #FFFDF8; box-shadow: 0 12px 30px -14px rgba(34,35,46,.45); display: flex">
+    <div style="width: 128px; background: #E07A5F; position: relative">
+      <span style="position: absolute; width: 11px; height: 11px; border-radius: 50%; background: #F7F3EA; top: 13px; left: 13px"></span>
+      <svg width="46" height="46" viewBox="0 0 54 54" fill="none" stroke="#FFFDF8" stroke-width="2.6" stroke-linecap="round" style="position: absolute; left: 41px; top: 56px"><circle cx="27" cy="27" r="22"></circle><path d="M27 14v13l9 6"></path></svg>
+    </div>
+    <div style="flex-grow: 1; padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px">
+      <span class="cap" style="color: #5B5D6B">Coral Hour · Flow</span>
+      <span class="nm" style="font-size: 25px">BIO 201</span>
+      <span class="nm num" style="font-size: 25px">in 14 min</span>
+      <span class="cap" style="color: #B2492F">Room 3B · leave by 8:40</span>
+    </div>
+  </div>
+
+  <div role="group" aria-label="Habits widget" style="position: absolute; left: 26px; top: 254px; width: 158px; height: 158px; border-radius: 22px; overflow: hidden; background: #FFFDF8; box-shadow: 0 12px 30px -14px rgba(34,35,46,.45); display: flex; flex-direction: column">
+    <div style="height: 86px; background: #81B29A; position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; padding-top: 8px; box-sizing: border-box">
+      <span style="position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #F7F3EA; top: 10px; left: 10px"></span>
+      <sc-for list="{{habits}}" as="h" hint-placeholder-count="3">
+        <button onClick="{{h.toggle}}" aria-label="{{h.label}}" aria-pressed="{{h.pressed}}" style="width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #FFFDF8; background: {{h.bg}}; padding: 0; display: flex; align-items: center; justify-content: center; transition: background .2s ease-out">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{h.tick}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+        </button>
+      </sc-for>
+    </div>
+    <div style="flex-grow: 1; padding: 10px 13px; display: flex; flex-direction: column; justify-content: center; gap: 4px">
+      <span class="cap" style="color: #5B5D6B">Water · Read · Stretch</span>
+      <span class="nm num" style="font-size: 22px">{{done}} of 3 today</span>
+    </div>
+  </div>
+
+  <div role="group" aria-label="Battery widget" style="position: absolute; left: 206px; top: 254px; width: 158px; height: 158px; border-radius: 22px; overflow: hidden; background: #FFFDF8; box-shadow: 0 12px 30px -14px rgba(34,35,46,.45); display: flex; flex-direction: column">
+    <div style="height: 76px; background: #3D405B; position: relative">
+      <span style="position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #F7F3EA; top: 10px; left: 10px"></span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#F2CC8F" style="position: absolute; right: 12px; top: 8px"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg>
+      <div style="position: absolute; left: 12px; right: 12px; bottom: 14px; height: 14px; border-radius: 7px; background: rgba(255,253,248,.18)">
+        <div style="width: 82%; height: 14px; border-radius: 7px; background: #F2CC8F"></div>
+      </div>
+    </div>
+    <div style="flex-grow: 1; padding: 9px 13px; display: flex; flex-direction: column; justify-content: center; gap: 3px">
+      <span class="cap" style="color: #5B5D6B">Battery · charging</span>
+      <span class="nm num" style="font-size: 22px">82%</span>
+      <span class="cap" style="color: #5B5D6B">Est. 1h 10m to full</span>
+    </div>
+  </div>
+
+  <div role="group" aria-label="Palette widget" style="position: absolute; left: 26px; top: 436px; width: 158px; height: 158px; border-radius: 22px; overflow: hidden; background: #FFFDF8; box-shadow: 0 12px 30px -14px rgba(34,35,46,.45); display: flex; flex-direction: column">
+    <div style="height: 96px; display: flex; position: relative">
+      <div style="flex-grow: 1; background: #F6DDB2"></div>
+      <div style="flex-grow: 1; background: #F2CC8F"></div>
+      <div style="flex-grow: 1; background: #E07A5F"></div>
+      <div style="flex-grow: 1; background: #5B6C8F"></div>
+      <div style="flex-grow: 1; background: #3D405B"></div>
+      <span style="position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #F7F3EA; top: 10px; left: 10px"></span>
+    </div>
+    <div style="flex-grow: 1; padding: 9px 13px; display: flex; flex-direction: column; justify-content: center; gap: 4px">
+      <span class="cap" style="color: #5B5D6B">From your wallpaper</span>
+      <span class="nm" style="font-size: 20px">Beach Hour</span>
+    </div>
+  </div>
+
+  <div role="group" aria-label="Mood widget" style="position: absolute; left: 206px; top: 436px; width: 158px; height: 158px; border-radius: 22px; overflow: hidden; background: #FFFDF8; box-shadow: 0 12px 30px -14px rgba(34,35,46,.45); display: flex; flex-direction: column">
+    <div style="height: 96px; background: #6D597A; position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 5px; padding-bottom: 16px; box-sizing: border-box">
+      <span style="position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #F7F3EA; top: 10px; left: 10px"></span>
+      <sc-for list="{{moods}}" as="m" hint-placeholder-count="5">
+        <button onClick="{{m.pick}}" aria-label="{{m.label}}" aria-pressed="{{m.pressed}}" style="width: 24px; height: {{m.h}}px; border-radius: 12px; border: 0; padding: 0; background: {{m.c}}; box-shadow: 0 0 0 {{m.ring}}px #FFFDF8; transition: box-shadow .2s ease-out"></button>
+      </sc-for>
+    </div>
+    <div style="flex-grow: 1; padding: 9px 13px; display: flex; flex-direction: column; justify-content: center; gap: 4px">
+      <span class="cap" style="color: #5B5D6B">Plum Dusk · Mood</span>
+      <span class="nm" style="font-size: 20px">{{moodText}}</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 26px; right: 26px; top: 626px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px">
+    <sc-for list="{{apps}}" as="a" hint-placeholder-count="4">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+        <div style="width: 62px; height: 62px; border-radius: 15px; overflow: hidden; background: {{a.bg}}; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -10px rgba(0,0,0,.5)">
+          <sc-if value="{{a.glyph}}" hint-placeholder-val="{{true}}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="{{a.fg}}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{a.d}}"></path></svg></sc-if>
+          <sc-if value="{{a.fan}}" hint-placeholder-val="{{false}}"><svg width="62" height="62" viewBox="0 0 180 180" aria-hidden="true"><g transform="translate(90 100) scale(0.78) translate(-90 -100)"><g transform="rotate(-28 90 178)"><rect x="63" y="34" width="54" height="96" rx="9" fill="#4E3F58"></rect><rect x="63" y="34" width="54" height="68" rx="9" fill="#6D597A"></rect><rect x="63" y="92" width="54" height="10" fill="#6D597A"></rect></g><g transform="rotate(-9.5 90 178)"><rect x="63" y="34" width="54" height="96" rx="9" fill="#3E6652"></rect><rect x="63" y="34" width="54" height="68" rx="9" fill="#81B29A"></rect><rect x="63" y="92" width="54" height="10" fill="#81B29A"></rect></g><g transform="rotate(9.5 90 178)"><rect x="63" y="34" width="54" height="96" rx="9" fill="#2F3148"></rect><rect x="63" y="34" width="54" height="68" rx="9" fill="#3D405B"></rect><rect x="63" y="92" width="54" height="10" fill="#3D405B"></rect></g><g transform="rotate(28 90 178)"><rect x="63" y="34" width="54" height="96" rx="9" fill="#B2492F"></rect><rect x="63" y="34" width="54" height="68" rx="9" fill="#E07A5F"></rect><rect x="63" y="92" width="54" height="10" fill="#E07A5F"></rect></g></g></svg></sc-if>
+        </div>
+        <span style="font-size: 12px; color: #FFFDF8">{{a.name}}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 96px; display: flex; justify-content: center; gap: 8px">
+    <span style="width: 7px; height: 7px; border-radius: 50%; background: #FFFDF8"></span>
+    <span style="width: 7px; height: 7px; border-radius: 50%; background: rgba(255,253,248,.45)"></span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { habits: [true, true, false], mood: -1 }; }
+  renderVals() {
+    const names = ['Water', 'Read', 'Stretch'];
+    const hs = this.state.habits;
+    const moodDefs = [
+      { word: 'Rough', c: '#A99BB3', h: 28 }, { word: 'Low', c: '#BCAFC5', h: 36 },
+      { word: 'Okay', c: '#CFC4D6', h: 44 }, { word: 'Good', c: '#E2D9E7', h: 52 }, { word: 'Great', c: '#F4EFF6', h: 60 }
+    ];
+    const mood = this.state.mood;
+    return {
+      done: hs.filter(Boolean).length,
+      habits: hs.map((on, i) => ({
+        label: names[i] + (on ? ', done' : ', not done'),
+        pressed: on ? 'true' : 'false',
+        bg: on ? '#FFFDF8' : 'transparent',
+        tick: on ? '#4C7A62' : 'rgba(255,253,248,.55)',
+        toggle: () => { const n = hs.slice(); n[i] = !n[i]; this.setState({ habits: n }); }
+      })),
+      moods: moodDefs.map((m, i) => ({
+        ...m, label: 'Log mood: ' + m.word, pressed: i === mood ? 'true' : 'false',
+        ring: i === mood ? 3 : 0, pick: () => this.setState({ mood: i })
+      })),
+      moodText: mood < 0 ? 'How was today?' : 'Logged: ' + moodDefs[mood].word,
+      apps: [
+        { glyph: true, fan: false, name: 'Calendar', bg: '#FFFDF8', fg: '#E07A5F', d: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4' },
+        { glyph: true, fan: false, name: 'Photos', bg: '#FFFDF8', fg: '#6D597A', d: 'M4 5h16v14H4zM4 16l5-5 4 4 3-3 4 4' },
+        { glyph: true, fan: false, name: 'Messages', bg: '#81B29A', fg: '#FFFDF8', d: 'M4 5h16v11H9l-5 4z' },
+        { glyph: false, fan: true, name: 'WidgetX', bg: 'linear-gradient(180deg, #FBEBCB, #F2CC8F)', fg: '#22232E', d: '' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

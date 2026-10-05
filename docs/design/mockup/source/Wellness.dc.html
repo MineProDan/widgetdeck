@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wellness: habits, mood, breathe</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&amp;family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F3EA;color:#22232E;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif}
+.cap{font-family:"Archivo",sans-serif;font-stretch:75%;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.25}
+.nm{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid #22232E;outline-offset:3px}
+a{color:#B2492F}a:hover{color:#8E3522}
+::selection{background:#F2CC8F}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F7F3EA">
+  <div style="position: absolute; top: 60px; left: 24px; right: 24px; display: flex; flex-direction: column; gap: 6px">
+    <h1 class="nm" style="margin: 0; font-size: 40px">Wellness</h1>
+    <p style="margin: 0; font-size: 15px; line-height: 1.35; color: #4A4C59">{{done}} of 3 habits done today</p>
+  </div>
+
+  <div style="position: absolute; top: 150px; left: 24px; width: 342px; display: flex; flex-direction: column; gap: 10px">
+    <sc-for list="{{habits}}" as="h" hint-placeholder-count="3">
+      <div style="display: flex; height: 76px; border-radius: 14px; overflow: hidden; background: #FFFDF8; box-shadow: 0 1px 2px rgba(34,35,46,.08), 0 8px 18px -12px rgba(34,35,46,.3)">
+        <div style="width: 68px; background: #81B29A; position: relative; display: flex; align-items: center; justify-content: center">
+          <button onClick="{{h.toggle}}" aria-label="{{h.label}}" aria-pressed="{{h.pressed}}" style="width: 44px; height: 44px; border-radius: 50%; border: 2.5px solid #FFFDF8; background: {{h.bg}}; padding: 0; display: flex; align-items: center; justify-content: center; transition: background .2s ease-out">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{h.tick}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+          </button>
+        </div>
+        <div style="flex-grow: 1; padding: 0 14px; display: flex; flex-direction: column; justify-content: center; gap: 5px">
+          <span class="nm" style="font-size: 18px">{{h.name}}</span>
+          <span class="cap num" style="color: #4C7A62">{{h.streak}}</span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; top: 412px; left: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; justify-content: space-between"><span class="cap" style="color: #5B5D6B">Mood · last 14 days</span><span class="cap" style="color: #6D597A">Mostly good</span></div>
+    <div aria-hidden="true" style="height: 64px; display: flex; align-items: flex-end; gap: 4px">
+      <sc-for list="{{history}}" as="m" hint-placeholder-count="14">
+        <span style="flex-grow: 1; height: {{m.h}}px; border-radius: 4px; background: {{m.c}}"></span>
+      </sc-for>
+    </div>
+    <div role="group" aria-label="Log today's mood" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 4px">
+      <sc-for list="{{moods}}" as="m" hint-placeholder-count="5">
+        <button onClick="{{m.pick}}" aria-pressed="{{m.pressed}}" style="height: 48px; border-radius: 12px; border: 0; padding: 0; overflow: hidden; background: #FFFDF8; display: flex; flex-direction: column; box-shadow: 0 0 0 {{m.ring}}px #22232E, 0 1px 2px rgba(34,35,46,.08)">
+          <span style="height: 14px; width: 100%; background: {{m.c}}"></span>
+          <span class="cap" style="flex-grow: 1; display: flex; align-items: center; justify-content: center; width: 100%; font-size: 10px">{{m.word}}</span>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="position: absolute; top: 626px; left: 24px; width: 342px; height: 112px; border-radius: 16px; overflow: hidden; background: #FFFDF8; display: flex; box-shadow: 0 1px 2px rgba(34,35,46,.08), 0 10px 24px -14px rgba(34,35,46,.35)">
+    <div style="width: 112px; background: #6D597A; position: relative; display: flex; align-items: center; justify-content: center">
+      <span style="position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #F7F3EA; top: 10px; left: 10px"></span>
+      <svg width="54" height="54" viewBox="0 0 54 54" fill="none" aria-hidden="true"><rect x="5" y="5" width="44" height="44" rx="6" stroke="rgba(255,253,248,.35)" stroke-width="3"></rect><path d="M11 5h32a6 6 0 0 1 6 6v20" stroke="#FFFDF8" stroke-width="3" stroke-linecap="round"></path><circle cx="49" cy="31" r="4" fill="#FFFDF8"></circle></svg>
+    </div>
+    <div style="flex-grow: 1; padding: 0 14px; display: flex; flex-direction: column; justify-content: center; gap: 5px">
+      <span class="cap" style="color: #5B5D6B">Box breathing</span>
+      <span class="nm" style="font-size: 22px">3 minutes</span>
+    </div>
+    <div style="display: flex; align-items: center; padding-right: 14px">
+      <a href="LockScreen.dc.html" style="height: 44px; padding: 0 18px; border-radius: 22px; background: #22232E; color: #FFFDF8; text-decoration: none; display: flex; align-items: center; font-size: 15px; font-weight: 600">Start</a>
+    </div>
+  </div>
+
+  <nav aria-label="Sections" style="position: absolute; left: 0; right: 0; bottom: 0; height: 83px; background: #F7F3EA; border-top: 1px solid #E4DED1; display: flex; justify-content: space-around; align-items: flex-start; padding-top: 7px; box-sizing: border-box">
+    <a href="Home.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #6B6D7A; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z"></path></svg><span class="cap" style="font-size: 10px">Home</span></a>
+    <a href="Student.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #6B6D7A; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-4 9 4-9 4-9-4z"></path><path d="M7 11v5c0 1.4 2.2 3 5 3s5-1.6 5-3v-5"></path></svg><span class="cap" style="font-size: 10px">Student</span></a>
+    <a href="ThemeSync.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #6B6D7A; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="6" height="17" rx="1.5"></rect><path d="M10 8l5-3 4.5 7.5L10 18"></path></svg><span class="cap" style="font-size: 10px">Aesthetic</span></a>
+    <a href="Wellness.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #22232E; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"></path><path d="M5 19l8-8"></path></svg><span class="cap" style="font-size: 10px">Wellness</span></a>
+    <a href="Tech.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; min-height: 44px; color: #6B6D7A; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16a8 8 0 1 1 16 0"></path><path d="M12 16l4-5"></path></svg><span class="cap" style="font-size: 10px">Tech</span></a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { habits: [true, true, false], mood: 3 }; }
+  renderVals() {
+    const defs = [
+      { name: 'Read 20 min', days: 23, week: [1, 1, 1, 1, 1, 1, 1] },
+      { name: 'Water, 8 glasses', days: 9, week: [0, 1, 1, 1, 1, 1, 1] },
+      { name: 'Stretch', days: 4, week: [1, 0, 0, 1, 1, 1, 0] }
+    ];
+    const hs = this.state.habits;
+    const tints = { 1: '#A99BB3', 2: '#BCAFC5', 3: '#9C88AA', 4: '#7E6A8C', 5: '#6D597A' };
+    const hist = [3, 4, 4, 2, 3, 4, 5, 4, 3, 4, 4, 5, 4, 4];
+    const moodDefs = [
+      { word: 'Rough', c: '#A99BB3' }, { word: 'Low', c: '#BCAFC5' }, { word: 'Okay', c: '#9C88AA' }, { word: 'Good', c: '#7E6A8C' }, { word: 'Great', c: '#6D597A' }
+    ];
+    return {
+      done: hs.filter(Boolean).length,
+      habits: defs.map((d, i) => {
+        const on = hs[i];
+        const week = d.week.slice(0, 6).concat([on ? 1 : 0]);
+        const streak = on ? d.days : d.days - 1;
+        return {
+          name: d.name,
+          streak: streak + '-day streak' + (on ? ' · +1 today' : ' · open today'),
+          label: d.name + (on ? ', done today' : ', not done yet'),
+          pressed: on ? 'true' : 'false',
+          bg: on ? '#FFFDF8' : 'transparent',
+          tick: on ? '#4C7A62' : 'rgba(255,253,248,.55)',
+          weekLabel: 'Done ' + week.filter(Boolean).length + ' of the last 7 days',
+          week: week.map((x) => ({ bg: x ? '#81B29A' : 'transparent', line: x ? '#81B29A' : '#C9C3B6' })),
+          toggle: () => { const n = hs.slice(); n[i] = !n[i]; this.setState({ habits: n }); }
+        };
+      }),
+      history: hist.map((v) => ({ h: 12 + v * 10, c: tints[v] })),
+      moods: moodDefs.map((m, i) => ({ ...m, pressed: i === this.state.mood ? 'true' : 'false', ring: i === this.state.mood ? 2 : 0, pick: () => this.setState({ mood: i }) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
