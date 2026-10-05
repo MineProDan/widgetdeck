@@ -284,7 +284,12 @@ struct WellnessSettingsSheet: View {
                     Text("Remind me at \(hourText(store.settings.moodReminderHour))").wxBody(16, color: WXColor.ink)
                 }
                 .tint(WXColor.mossPositive)
-                Text("Skipped on days you've already checked in.").wxBody(14)
+                if let message = store.errorMessage {
+                    // Shown here too: the Wellness screen's copy is hidden behind this sheet.
+                    Text(message).wxBody(14, color: WXColor.clayLink)
+                } else {
+                    Text("Skipped on days you've already checked in.").wxBody(14)
+                }
             }
             VStack(alignment: .leading, spacing: 10) {
                 Text("Quotes and affirmations").wxLabel()

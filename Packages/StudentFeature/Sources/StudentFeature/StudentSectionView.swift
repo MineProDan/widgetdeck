@@ -223,7 +223,7 @@ public struct StudentSectionView: View {
             }
             ForEach(all) { item in
                 if let assignment = store.assignment(id: item.assignmentID) {
-                    Button { sheet = .assignment(assignment) } label: { deadlineRow(item) }.buttonStyle(.plain)
+                    deadlineRow(item) { sheet = .assignment(assignment) }
                 } else {
                     deadlineRow(item)
                 }
@@ -255,11 +255,13 @@ public struct StudentSectionView: View {
         }
     }
 
-    private func deadlineRow(_ item: DeadlineItem) -> some View {
+    /// - Parameter open: when set, tapping the row (outside the tick circle) opens the item. The two
+    ///   are sibling buttons: a Button wrapping the whole row swallowed taps on the circle.
+    private func deadlineRow(_ item: DeadlineItem, open: (() -> Void)? = nil) -> some View {
         let urgent = item.due.timeIntervalSinceNow < 36 * 3600 && !item.isDone
         let meta = [item.code, ScheduleFormat.dayAndTime(item.due, now: .now)].compactMap { $0 }.joined(separator: " · ")
         return ListRowChip(color: item.paint.color, title: item.title, meta: meta,
-                           metaColor: urgent ? WXColor.clayLink : WXColor.inkSecondary) {
+                           metaColor: urgent ? WXColor.clayLink : WXColor.inkSecondary, onTap: open) {
             // Sample-week deadlines can't be ticked, so they show no tick circle at all.
             if store.mode == .live || item.assignmentID != nil {
                 Button {

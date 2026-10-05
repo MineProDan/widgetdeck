@@ -52,7 +52,10 @@ struct GradesContent: View {
 
     private var gpaTrend: String {
         let graded = store.courses.filter { store.percent(for: $0.id) != nil }.count
-        if store.courses.isEmpty { return String(localized: "Connect your calendar first") }
+        if store.courses.isEmpty {
+            return store.mode == .needsCalendars ? String(localized: "Pick your school calendars first")
+                : store.mode == .live ? String(localized: "No classes found yet") : String(localized: "Connect your calendar first")
+        }
         if graded == 0 { return String(localized: "Add grades to a course") }
         return graded == 1 ? String(localized: "1 course graded") : String(localized: "\(graded) courses graded")
     }

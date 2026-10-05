@@ -36,33 +36,46 @@ public struct ListRowChip<Trailing: View>: View {
     private let title: String
     private let meta: String
     private let metaColor: Color
+    private let onTap: (() -> Void)?
     private let trailing: Trailing
 
+    /// - Parameter onTap: makes the title area a button. Use it instead of wrapping the row in a
+    ///   Button when `trailing` has its own button, so the two don't fight over taps.
     public init(color: Color, title: String, meta: String, metaColor: Color = WXColor.inkSecondary,
-                @ViewBuilder trailing: () -> Trailing) {
+                onTap: (() -> Void)? = nil, @ViewBuilder trailing: () -> Trailing) {
         self.color = color
         self.title = title
         self.meta = meta
         self.metaColor = metaColor
+        self.onTap = onTap
         self.trailing = trailing()
     }
 
     public var body: some View {
         PaintChip(axis: .horizontal, color: color, field: .fixed(52), punchHole: .small, cornerRadius: 12, shadow: .hairline) {
             HStack(spacing: 0) {
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(title).wxGrotesk(16)
-                    Text(meta).wxLabel(color: metaColor).lineLimit(3)
+                if let onTap {
+                    Button(action: onTap) { titleStack.contentShape(Rectangle()) }
+                        .buttonStyle(.plain)
+                } else {
+                    titleStack
                 }
-                .padding(.vertical, 8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .accessibilityElement(children: .combine)
                 trailing
             }
             .padding(.leading, 12)
             .padding(.trailing, 6)
         }
         .frame(minHeight: 56)
+    }
+
+    private var titleStack: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text(title).wxGrotesk(16)
+            Text(meta).wxLabel(color: metaColor).lineLimit(3)
+        }
+        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
     }
 }
 
