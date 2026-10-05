@@ -179,7 +179,10 @@ final class AppEnvironment {
 
     func exportData() async throws -> URL {
         guard let stack else { throw CocoaError(.fileReadUnknown) }
-        let url = try await DataExporter(stack: stack).export()
+        let url = try await DataExporter(stack: stack, contributors: [
+            FeatureExportContributor.student(studentRepository),
+            FeatureExportContributor.wellness(wellnessRepository),
+        ]).export()
         Analytics.shared.track(.dataExported)
         return url
     }

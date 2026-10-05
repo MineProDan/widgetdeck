@@ -234,20 +234,28 @@ public struct MoodKeys: View {
 
 /// Mood history bars on paper (Wellness "Mood · last 14 days"). Values are 0 (rough) … 4 (great).
 public struct MoodHistoryBars: View {
-    private let values: [Int]
+    /// One slot per day, oldest first; `nil` = no check-in that day (a faint stub keeps the spacing).
+    private let values: [Int?]
 
-    public init(values: [Int]) {
+    public init(values: [Int?]) {
         self.values = values
     }
 
     public var body: some View {
         HStack(alignment: .bottom, spacing: 4) {
             ForEach(Array(values.enumerated()), id: \.offset) { _, value in
-                let v = min(max(value, 0), 4)
-                RoundedRectangle(cornerRadius: 4, style: .continuous)
-                    .fill(WXColor.moodTints[v])
-                    .frame(height: CGFloat(12 + (v + 1) * 10))
-                    .frame(maxWidth: .infinity)
+                if let value {
+                    let v = min(max(value, 0), 4)
+                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                        .fill(WXColor.moodTints[v])
+                        .frame(height: CGFloat(12 + (v + 1) * 10))
+                        .frame(maxWidth: .infinity)
+                } else {
+                    RoundedRectangle(cornerRadius: 3, style: .continuous)
+                        .fill(WXColor.rule)
+                        .frame(height: 6)
+                        .frame(maxWidth: .infinity)
+                }
             }
         }
         .frame(height: 64, alignment: .bottom)

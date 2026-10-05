@@ -347,3 +347,16 @@ struct MiscTests {
         _ = try PersistenceModel.make(contributors: [WellnessModel.self])
     }
 }
+
+@Suite("Mood strip days")
+struct MoodDailyTests {
+    @Test func oneSlotPerDayWithGaps() {
+        let today = DayKey(year: 2026, month: 10, day: 5)
+        let logs = [MoodLog(day: today, mood: .good), MoodLog(day: today.adding(days: -2), mood: .bad)]
+        let daily = MoodTrends.daily(logs, days: 14, today: today)
+        #expect(daily.count == 14)
+        #expect(daily.last == Mood.good.rawValue)
+        #expect(daily[11] == Mood.bad.rawValue)
+        #expect(daily[12] == nil)
+    }
+}

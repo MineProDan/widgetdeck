@@ -260,14 +260,16 @@ public struct StudentSectionView: View {
         let meta = [item.code, ScheduleFormat.dayAndTime(item.due, now: .now)].compactMap { $0 }.joined(separator: " · ")
         return ListRowChip(color: item.paint.color, title: item.title, meta: meta,
                            metaColor: urgent ? WXColor.clayLink : WXColor.inkSecondary) {
-            Button {
-                Task { await store.toggleDone(item) }
-            } label: {
-                CheckRing(isOn: item.isDone)
+            // Sample-week deadlines can't be ticked, so they show no tick circle at all.
+            if store.mode == .live || item.assignmentID != nil {
+                Button {
+                    Task { await store.toggleDone(item) }
+                } label: {
+                    CheckRing(isOn: item.isDone)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(item.isDone ? "Mark \(item.title) not done" : "Mark \(item.title) done")
             }
-            .buttonStyle(.plain)
-            .disabled(store.mode != .live && item.assignmentID == nil)
-            .accessibilityLabel(item.isDone ? "Mark \(item.title) not done" : "Mark \(item.title) done")
         }
     }
 

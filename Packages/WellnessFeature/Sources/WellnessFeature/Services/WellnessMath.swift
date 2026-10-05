@@ -111,6 +111,12 @@ public enum MoodTrends {
         return latestPerDay(logs).filter { $0.day >= from && $0.day <= today }.sorted { $0.day < $1.day }.map(\.mood.rawValue)
     }
 
+    /// One value per day for the `days` days ending `today`, oldest first; `nil` where nothing was logged.
+    public static func daily(_ logs: [MoodLog], days: Int, today: DayKey) -> [Int?] {
+        let byDay = Dictionary(latestPerDay(logs).map { ($0.day, $0.mood.rawValue) }, uniquingKeysWith: { a, _ in a })
+        return (0..<max(days, 0)).map { byDay[today.adding(days: -(days - 1 - $0))] }
+    }
+
     /// One log per day (the newest), even if a merge produced duplicates.
     public static func latestPerDay(_ logs: [MoodLog]) -> [MoodLog] {
         Dictionary(grouping: logs, by: \.day).compactMap { $0.value.max { $0.updatedAt < $1.updatedAt } }

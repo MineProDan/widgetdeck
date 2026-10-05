@@ -95,6 +95,13 @@ struct SettingsView: View {
                     }
                 }
                 .disabled(isDeleting)
+                // Attached to the row so the confirmation points at Delete, not at the top of the form.
+                .confirmationDialog("Delete all your Widgetdeck data?", isPresented: $isConfirmingDelete, titleVisibility: .visible) {
+                    Button("Delete everything", role: .destructive) { Task { await deleteAll() } }
+                    Button("Cancel", role: .cancel) {}
+                } message: {
+                    Text("Themes, widget settings and everything you've tracked will be removed from this iPhone and iCloud. This can't be undone.")
+                }
             } header: {
                 Text("Your data")
             } footer: {
@@ -118,11 +125,10 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
-        .confirmationDialog("Delete all your Widgetdeck data?", isPresented: $isConfirmingDelete, titleVisibility: .visible) {
-            Button("Delete everything", role: .destructive) { Task { await deleteAll() } }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text("Themes, widget settings and everything you've tracked will be removed from this iPhone and iCloud. This can't be undone.")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Done") { dismiss() }
+            }
         }
         .alert("Data deleted", isPresented: Binding(get: { deleteReport != nil }, set: { if !$0 { deleteReport = nil } })) {
             Button("OK", role: .cancel) {}

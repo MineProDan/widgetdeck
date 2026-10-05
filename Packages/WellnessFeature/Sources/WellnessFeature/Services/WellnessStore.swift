@@ -223,6 +223,8 @@ public final class WellnessStore {
     public var trend7: MoodTrend { MoodTrends.trend(moods, days: 7, today: today) }
     public var trend30: MoodTrend { MoodTrends.trend(moods, days: 30, today: today) }
     public var history14: [Int] { MoodTrends.history(moods, days: 14, today: today) }
+    /// The last 14 days oldest first, `nil` where there's no check-in (for the strip).
+    public var daily14: [Int?] { MoodTrends.daily(moods, days: 14, today: today) }
 
     public func logMood(_ mood: Mood) async {
         let log = MoodLog(day: today, mood: mood, note: todayMood?.note, updatedAt: now())

@@ -123,7 +123,7 @@ public struct WellnessSectionView: View {
                     .wxBody(14)
                     .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
             } else {
-                MoodHistoryBars(values: history)
+                MoodHistoryBars(values: store.daily14)
                     .accessibilityElement()
                     .accessibilityLabel(String(localized: "Mood over the last 14 days: \(store.trend14.summary)"))
             }
