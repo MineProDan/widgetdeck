@@ -100,7 +100,7 @@ public struct DataEraser: Sendable {
         let supportItems = (try? fileManager.contentsOfDirectory(at: appGroup.applicationSupportURL,
                                                                  includingPropertiesForKeys: nil)) ?? []
         let targets = supportItems.filter { $0.lastPathComponent != appGroup.storesURL.lastPathComponent }
-            + [appGroup.imageCacheURL]
+            + [appGroup.imageCacheURL, appGroup.cachesURL.appending(path: "sync-trace.log")]
         for url in targets
         where fileManager.fileExists(atPath: url.path(percentEncoded: false)) {
             do { try fileManager.removeItem(at: url) } catch {

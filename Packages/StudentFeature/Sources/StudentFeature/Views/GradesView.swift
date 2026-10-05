@@ -1,3 +1,4 @@
+import CoreKit
 import DesignSystem
 import StudentFeatureWidgetKit
 import SwiftUI
@@ -117,7 +118,7 @@ struct CourseGradesSheet: View {
 
     var body: some View {
         SheetScaffold(title: course.code, subtitle: summary, actionTitle: String(localized: "Done")) {
-            let value = Double(credits.replacingOccurrences(of: ",", with: "."))
+            let value = NumberInput.parse(credits, in: 0...100)
             if value != course.credits { Task { await store.setCredits(value, for: course) } }
         } content: {
             VStack(alignment: .leading, spacing: 8) {
@@ -236,7 +237,7 @@ struct CourseGradesSheet: View {
     // MARK: Helpers
 
     private func number(_ text: String) -> Double? {
-        Double(text.trimmingCharacters(in: .whitespaces).replacingOccurrences(of: ",", with: "."))
+        NumberInput.parse(text, in: 0...100_000)
     }
 
     private func removeButton(_ label: String, action: @escaping () -> Void) -> some View {

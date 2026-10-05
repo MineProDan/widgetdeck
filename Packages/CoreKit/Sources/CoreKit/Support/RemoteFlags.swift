@@ -43,7 +43,8 @@ public struct RemoteFlags {
             var request = URLRequest(url: url)
             request.cachePolicy = .reloadRevalidatingCacheData
             let remote = try await client.send(request, decoding: [String: Bool].self)
-            for (name, value) in remote { store.set(value, forKey: Self.key(name)) }
+            // Only flags this build knows: the file can't plant arbitrary keys in the shared defaults.
+            for (name, value) in remote where Self.defaults[name] != nil { store.set(value, forKey: Self.key(name)) }
         } catch {
             Self.logger.info("Flags fetch failed, keeping stored values: \(error.localizedDescription, privacy: .public)")
         }

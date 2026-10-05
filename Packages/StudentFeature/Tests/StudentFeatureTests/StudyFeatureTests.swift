@@ -487,3 +487,28 @@ struct CourseMergerTests {
         #expect(plan.replacements.isEmpty)
     }
 }
+
+@Suite("Malformed deep links")
+struct MalformedDeepLinkTests {
+    static let links = [
+        "widgetx://", "widgetx://section", "widgetx://section/", "widgetx://section/nope",
+        "widgetx://section/student?course=", "widgetx://section/student?course=not-a-uuid",
+        "widgetx://section/student?course=00000000-0000-0000-0000-000000000000&course=x",
+        "widgetx://section/student?tab=focus&tab=focus", "widgetx://section/wellness?habit=%00%ff",
+        "widgetx://section/wellness?breathe=../../etc", "widgetx://paywall",
+        "widgetx://section/tech/../../student", "https://example.com/section/student?course=00000000-0000-0000-0000-000000000000",
+        "widgetx://section/aesthetic?a=" + String(repeating: "x", count: 20_000),
+    ]
+
+    @Test func neverCrashAndOnlyNavigate() {
+        for link in Self.links {
+            guard let url = URL(string: link) else { continue }
+            _ = AppSection(deepLink: url)
+            _ = StudentDeepLink.courseID(from: url)
+            _ = FocusDeepLink.isFocus(url)
+        }
+        #expect(StudentDeepLink.courseID(from: URL(string: "widgetx://section/student?course=not-a-uuid")!) == nil)
+        #expect(AppSection(deepLink: URL(string: "https://example.com/section/student")!) == nil)
+        #expect(AppSection(deepLink: URL(string: "widgetx://section/nope")!) == nil)
+    }
+}

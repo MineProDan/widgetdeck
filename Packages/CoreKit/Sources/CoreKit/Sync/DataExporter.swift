@@ -49,6 +49,10 @@ public struct DataExporter: Sendable {
         let output = try JSONSerialization.data(withJSONObject: root, options: [.prettyPrinted, .sortedKeys])
 
         let directory = try appGroup.ensureDirectory(appGroup.exportsURL)
+        // Keep only the newest export: older copies of the user's data shouldn't pile up on disk.
+        for old in (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)) ?? [] {
+            try? FileManager.default.removeItem(at: old)
+        }
         let stamp = ISO8601DateFormatter.string(from: now, timeZone: .current, formatOptions: [.withFullDate])
         let url = directory.appending(path: "Widgetdeck-Export-\(stamp).json")
         try output.write(to: url, options: [.atomic, .completeFileProtection])

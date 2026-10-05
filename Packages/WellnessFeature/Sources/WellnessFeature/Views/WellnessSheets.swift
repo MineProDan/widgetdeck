@@ -1,3 +1,4 @@
+import CoreKit
 import DesignSystem
 import SwiftUI
 import WellnessFeatureWidgetKit
@@ -207,7 +208,7 @@ struct GoalEditorSheet: View {
     @State private var target = ""
     @State private var unit = ""
 
-    private var targetValue: Double? { Double(target.replacingOccurrences(of: ",", with: ".")) }
+    private var targetValue: Double? { NumberInput.parse(target) }
 
     var body: some View {
         WellnessSheet(title: String(localized: "New goal"), actionTitle: String(localized: "Save"),
@@ -238,7 +239,7 @@ struct GoalProgressSheet: View {
     let store: WellnessStore
     @State private var amount = ""
 
-    private var value: Double? { Double(amount.replacingOccurrences(of: ",", with: ".")) }
+    private var value: Double? { NumberInput.parse(amount, in: -1_000_000...1_000_000) }
 
     var body: some View {
         WellnessSheet(title: goal.title,

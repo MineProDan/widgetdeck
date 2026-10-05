@@ -135,3 +135,15 @@ struct CloudSyncMonitorTests {
         #expect(!CloudSyncMonitor.isQuotaExceeded(CKError(.networkUnavailable)))
     }
 }
+
+@Suite("Number input")
+struct NumberInputTests {
+    @Test func rejectsNonFiniteAndOutOfRange() {
+        #expect(NumberInput.parse("12,5") == 12.5)
+        #expect(NumberInput.parse(" 3 ") == 3)
+        for bad in ["nan", "NaN", "inf", "-infinity", "1e308", "0x10", "", "abc", "-1"] {
+            #expect(NumberInput.parse(bad) == nil, "\(bad)")
+        }
+        #expect(NumberInput.parse("-5", in: -10...10) == -5)
+    }
+}
