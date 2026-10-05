@@ -31,4 +31,4 @@ Each package also has its own tests (`xcodebuild test -scheme <Package>-Package`
 
 ## License
 
-[MIT](LICENSE). Bundled fonts (Bricolage Grotesque, Archivo) are under the SIL Open Font License; see the `OFL.txt` files next to them. Quotes are public domain.
+[MIT](LICENSE). Bundled fonts (Bricolage Grotesque, Archivo) are under the SIL Open Font License; see the `OFL-*.txt` files in `Packages/DesignSystem/Sources/DesignSystem/Resources/Fonts/`. Quotes are public domain.
