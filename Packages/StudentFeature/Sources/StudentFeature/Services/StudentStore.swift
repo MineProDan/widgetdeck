@@ -388,7 +388,7 @@ public final class StudentStore {
     /// Saves one course's answers: room, travel mode, Auto leave-by or a 15-minute reminder.
     public func applySetup(_ answer: SetupAnswer, to course: Course) async {
         var course = courses.first { $0.id == course.id } ?? course
-        course.room = answer.room.nilIfBlank
+        course.room = answer.room.nilIfBlank.map(Course.limitedRoom)
         course.travelMode = answer.travel
         course.isSetUp = true
         switch answer.headsUp {
@@ -582,7 +582,7 @@ public final class StudentStore {
         var course = course
         course.travelMode = travelMode
         course.name = name.nilIfBlank
-        course.room = room?.nilIfBlank
+        course.room = room?.nilIfBlank.map(Course.limitedRoom)
         course.leaveMinutesBefore = leaveMinutesBefore.flatMap { $0 > 0 ? $0 : nil }
         var auto = leaveAuto
         if auto, course.leaveAuto != true, await permissions.request(.locationWhenInUse).isUsable == false {

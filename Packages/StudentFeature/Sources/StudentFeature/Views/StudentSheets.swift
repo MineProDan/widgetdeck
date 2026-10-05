@@ -344,6 +344,7 @@ struct CourseSheet: View {
                 field(String(localized: "Name"), text: $name, prompt: String(localized: "e.g. Cell Biology"))
                 Rectangle().fill(WXColor.rule).frame(height: 1).padding(.leading, WXSpace.md)
                 field(String(localized: "Room"), text: $room, prompt: String(localized: "e.g. ICS 192"))
+                    .onChange(of: room) { _, new in if new.count > Course.roomMaxLength { room = Course.limitedRoom(new) } }
             }
             .background(WXColor.labelIvory, in: RoundedRectangle(cornerRadius: WXRadius.chip, style: .continuous))
             if let roomSuggestion, room.trimmingCharacters(in: .whitespaces).isEmpty {

@@ -19,8 +19,8 @@ final class OnboardingModel {
         static let dotCount = 4
     }
 
-    /// Sections offered at launch. Wellness arrives in Product Phase 2, so it isn't offered yet.
-    static let offeredSections: [AppSection] = [.student, .aesthetic, .tech]
+    /// Sections offered at launch (all four ship in 1.0).
+    static let offeredSections: [AppSection] = [.student, .aesthetic, .wellness, .tech]
 
     static let completedKey = "onboarding.completed"
     static let sectionsKey = "onboarding.sections"

@@ -419,7 +419,8 @@ struct ClassSetupFlow: View {
 
     private func binding(_ index: Int, _ keyPath: WritableKeyPath<StudentStore.SetupAnswer, String>) -> Binding<String> {
         let id = items[index].id
-        return Binding(get: { answers[id]?[keyPath: keyPath] ?? "" }, set: { answers[id]?[keyPath: keyPath] = $0 })
+        return Binding(get: { answers[id]?[keyPath: keyPath] ?? "" },
+                       set: { answers[id]?[keyPath: keyPath] = Course.limitedRoom($0) })
     }
 
     private func move(to next: Step, forward isForward: Bool = true) {

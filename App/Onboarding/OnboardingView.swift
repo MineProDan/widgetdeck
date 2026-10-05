@@ -127,18 +127,18 @@ private struct SectionsStep: View {
     var body: some View {
         StepLayout(title: "What's it for?",
                    subtitle: "Pick the sections you want on your home screen. The rest stay one tap away.") {
-            HStack(alignment: .top, spacing: 10) {
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 14) {
                 ForEach(OnboardingModel.offeredSections, id: \.self) { section in
                     let isOn = model.sections.contains(section)
                     Button { model.toggle(section) } label: {
-                        PaintChip(color: WXSection(section).color, field: .fixed(120),
+                        PaintChip(color: WXSection(section).color, field: .fixed(84),
                                   shadow: isOn ? .chipLifted : .chipRest) {
                             CheckKey(isOn: isOn)
                         } label: {
                             ChipLabelBand(caption: WXSection(section).paintName, value: section.title,
                                           captionSize: 9, valueSize: 17)
                         }
-                        .frame(height: 196)
+                        .frame(height: 156)
                         .offset(y: isOn ? -6 : 0)
                     }
                     .buttonStyle(.plain)
@@ -211,7 +211,7 @@ private struct PreviewStep: View {
         case .tech:
             ListRowChip(color: color, title: "Battery and storage", meta: "No permission needed") { EmptyView() }
         case .wellness:
-            EmptyView()
+            ListRowChip(color: color, title: "Habits and mood", meta: "No permission needed") { EmptyView() }
         }
     }
 
@@ -401,7 +401,7 @@ private extension AppSection {
         case .student: "Student shows your next class and today's schedule."
         case .aesthetic: "Aesthetic matches widgets to your wallpaper and rotates your photos."
         case .tech: "Tech shows battery, storage and heat."
-        case .wellness: ""
+        case .wellness: "Wellness tracks habits and mood, with a breathing timer."
         }
     }
 

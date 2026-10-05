@@ -52,7 +52,7 @@ public struct ListRowChip<Trailing: View>: View {
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(title).wxGrotesk(16)
-                    Text(meta).wxLabel(color: metaColor)
+                    Text(meta).wxLabel(color: metaColor).lineLimit(3)
                 }
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)

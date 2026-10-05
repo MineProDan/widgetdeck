@@ -299,7 +299,7 @@ public struct ChipLabelBand: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: spacing) {
             if let caption {
-                Text(caption).wxLabel(captionSize)
+                Text(caption).wxLabel(captionSize).lineLimit(3)
             }
             HStack(alignment: .firstTextBaseline) {
                 Text(value).wxGrotesk(valueSize, tabular: tabular)

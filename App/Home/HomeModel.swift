@@ -201,7 +201,8 @@ final class HomeModel {
                         calendarNeedsPicking: student?.mode == .needsCalendars,
                         widgetCount: widgetKinds?.count,
                         hasTheme: activeTheme() != nil,
-                        deadlines: student?.schedule.deadlines.filter { !$0.isDone }.map(\.due) ?? [],
+                        // The sample week's made-up deadlines must never read as "your" busy week.
+                        deadlines: student?.mode == .live ? student?.schedule.deadlines.filter { !$0.isDone }.map(\.due) ?? [] : [],
                         now: now)
     }
 

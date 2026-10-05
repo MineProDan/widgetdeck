@@ -71,6 +71,11 @@ public struct CalendarSource: Hashable, Sendable, Identifiable {
 
 /// A course (synced, CoreKit "Cloud" configuration).
 public struct Course: PersistableRecord, Hashable {
+    /// Room names show on one line in widgets and the Flow card, so they're capped.
+    public static let roomMaxLength = 40
+
+    public static func limitedRoom(_ room: String) -> String { String(room.prefix(roomMaxLength)) }
+
     public static var entityName: String { StudentModel.Entity.course }
     public var id: UUID
     /// Normalised course code, e.g. "BIO 201".
@@ -106,7 +111,7 @@ public struct Course: PersistableRecord, Hashable {
         self.credits = credits
         self.leaveMinutesBefore = leaveMinutesBefore
         self.leaveAuto = leaveAuto
-        self.room = room
+        self.room = room.map(Course.limitedRoom)
         self.travelMode = travelMode
         self.updatedAt = updatedAt
     }
