@@ -1,5 +1,6 @@
 import CryptoKit
 import Foundation
+import os
 import WidgetKit
 
 /// Spends the widget refresh budget (~40–70 reloads/day) only on real changes.
@@ -15,6 +16,17 @@ public actor WidgetReloadCoordinator {
 
     /// Minimum debounce allowed in production.
     public static let minimumDebounce: Duration = .seconds(60)
+    /// Debounce while the app is on screen. Reloads requested while the app is in the foreground
+    /// don't count against the widget's daily budget, so changes the user just made go out right away
+    /// instead of after they leave the app (where each reload is charged, and an empty budget makes
+    /// widgets stop updating until the next day).
+    public static let foregroundDebounce: Duration = .seconds(2)
+    private static let activeFlag = OSAllocatedUnfairLock(initialState: false)
+    /// Set by the app from its scene phase.
+    public static var appIsActive: Bool {
+        get { activeFlag.withLock { $0 } }
+        set { activeFlag.withLock { $0 = newValue } }
+    }
 
     private let store: SnapshotStore
     private let debounce: Duration
@@ -80,7 +92,7 @@ public actor WidgetReloadCoordinator {
 
     private func scheduleFlush() {
         guard flushTask == nil else { return } // Already scheduled: changes coalesce into it.
-        let delay = debounce
+        let delay = Self.appIsActive ? min(debounce, Self.foregroundDebounce) : debounce
         flushTask = Task { [weak self] in
             try? await Task.sleep(for: delay)
             guard !Task.isCancelled else { return }
@@ -98,7 +110,9 @@ public actor WidgetReloadCoordinator {
         let kinds = Set(pendingFiles.values)
         for fileName in pendingFiles.keys { reloadedHashes[fileName] = currentHashes[fileName] }
         pendingFiles.removeAll()
-        await reloader(kinds.map(\.kindIdentifier).sorted())
+        let names = kinds.map(\.kindIdentifier).sorted()
+        SyncTrace.log("reload \(names.map { $0.components(separatedBy: ".").last ?? $0 }.joined(separator: ",")) active=\(Self.appIsActive)")
+        await reloader(names)
     }
 
     static func hash(_ data: Data) -> String {

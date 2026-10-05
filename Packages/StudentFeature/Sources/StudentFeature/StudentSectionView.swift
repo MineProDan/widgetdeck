@@ -113,6 +113,11 @@ public struct StudentSectionView: View {
                 // skipped flow clears them, so a later restart can open it again.
                 setupDismissed = !store.pendingSetup.isEmpty
                 showSetup = false
+                // iOS drops a sheet presented while the cover is still closing.
+                Task {
+                    try? await Task.sleep(for: .milliseconds(450))
+                    openRequestedCourse()
+                }
             }
         }
         // New classes (first calendar, a newly picked calendar, or "Set up my classes again")
@@ -144,8 +149,12 @@ public struct StudentSectionView: View {
 
     /// Opens the deep-linked course once it's loaded (links can arrive before the first sync ends).
     private func openRequestedCourse() {
-        guard let id = requestedCourseID, store.mode == .live,
-              let course = store.schedule.courses.first(where: { $0.id == id }) else { return }
+        guard let id = requestedCourseID, store.mode == .live, !showSetup else { return }
+        guard let course = store.schedule.courses.first(where: { $0.id == id }) else {
+            // A link to a course that no longer exists (merged or deleted): just show the schedule.
+            if !store.schedule.courses.isEmpty { requestedCourseID = nil }
+            return
+        }
         segment = .schedule
         sheet = .course(course)
         requestedCourseID = nil

@@ -42,6 +42,7 @@ final class AppEnvironment {
     var wellnessRequest: WellnessRequest?
 
     let account = CloudKitAccountMonitor()
+    let cloudSync = CloudSyncMonitor()
     let permissions = PermissionManager()
     let reloadCoordinator = WidgetReloadCoordinator()
     let imageCache = ImageCache()
@@ -72,6 +73,7 @@ final class AppEnvironment {
             stack = try? await CoreDataStack.load(mode: .inMemory, contributors: Self.persistenceContributors())
         }
 
+        if let stack { cloudSync.start(container: stack.container) }
         makeSectionStores()
         await flags
         await loadActiveTheme()
@@ -82,12 +84,14 @@ final class AppEnvironment {
 
     /// Called when the scene becomes active.
     func didBecomeActive() {
+        WidgetReloadCoordinator.appIsActive = true
         permissions.refresh()
         Task { await account.refresh() }
     }
 
     /// Called when the scene goes to the background: push pending widget reloads now.
     func didEnterBackground() {
+        WidgetReloadCoordinator.appIsActive = false
         Task { await reloadCoordinator.flushNow() }
         scheduleBackgroundRefresh()
     }

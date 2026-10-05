@@ -28,6 +28,12 @@ struct SettingsView: View {
                         .font(.subheadline)
                 }
             }
+            if let message = environment.cloudSync.userMessage {
+                Section {
+                    Label(message, systemImage: "exclamationmark.icloud")
+                        .font(.subheadline)
+                }
+            }
             if let storeError = environment.storeErrorMessage {
                 Section {
                     Label("\(storeError) Changes this session won't be saved.", systemImage: "exclamationmark.triangle")
@@ -97,6 +103,11 @@ struct SettingsView: View {
 
             Section {
                 LabeledContent("Version", value: Self.versionString)
+                NavigationLink {
+                    SyncLogView()
+                } label: {
+                    Label("Sync log", systemImage: "list.bullet.rectangle")
+                }
                 NavigationLink {
                     HobbyProjectView()
                 } label: {

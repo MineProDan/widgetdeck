@@ -35,17 +35,26 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
 
     // MARK: UNUserNotificationCenterDelegate
 
-    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async
-        -> UNNotificationPresentationOptions {
-        [.banner, .list, .sound]
+    // The completion-handler versions, not `async`: with the async ones iOS finishes the tap off the
+    // main thread and UIKit crashes ("Call must be made on main thread"). Both complete on main.
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
+                                            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        nonisolated(unsafe) let done = completionHandler
+        DispatchQueue.main.async { done([.banner, .list, .sound]) }
     }
 
     /// Notifications may carry a deep link URL string under `deepLink` or `url`
     /// (Student reminders use `url`), e.g. `widgetx://section/student?course=<uuid>`.
-    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
+                                            withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        guard let link = (userInfo["deepLink"] ?? userInfo["url"]) as? String,
-              let url = URL(string: link) else { return }
-        await MainActor.run { AppEnvironment.shared.handle(url: url) }
+        let link = (userInfo["deepLink"] ?? userInfo["url"]) as? String
+        nonisolated(unsafe) let done = completionHandler
+        DispatchQueue.main.async {
+            MainActor.assumeIsolated {
+                if let link, let url = URL(string: link) { AppEnvironment.shared.handle(url: url) }
+            }
+            done()
+        }
     }
 }

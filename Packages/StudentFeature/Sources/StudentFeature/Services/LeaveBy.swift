@@ -132,7 +132,7 @@ public struct MapKitTravelTimeEstimator: TravelTimeEstimating {
 
     /// MapKit can wait indefinitely for a location fix (indoors, no GPS, the Simulator with no
     /// location set). A refresh must never hang on it, so each lookup gives up after this long.
-    public static let timeout: Duration = .seconds(8)
+    public static let timeout: Duration = .seconds(12)
 
     public func travelTime(to location: String, mode: TravelMode) async -> TimeInterval? {
         // Not a task group: a group waits for every child, and a MapKit call that ignores
@@ -147,6 +147,7 @@ public struct MapKitTravelTimeEstimator: TravelTimeEstimating {
                 try? await Task.sleep(for: Self.timeout)
                 if once.claim() {
                     Self.logger.info("Leave-by ETA timed out")
+                    SyncTrace.log("eta timed out after \(Self.timeout)")
                     lookup.cancel()
                     continuation.resume(returning: nil)
                 }
@@ -155,13 +156,30 @@ public struct MapKitTravelTimeEstimator: TravelTimeEstimating {
     }
 
     private func lookUp(_ location: String, mode: TravelMode) async -> TimeInterval? {
+        var stage = "place search"
         do {
-            let search = MKLocalSearch.Request()
-            search.naturalLanguageQuery = location
-            search.resultTypes = [.address, .pointOfInterest]
-            guard let destination = try await MKLocalSearch(request: search).start().mapItems.first else { return nil }
+            let destination: MKMapItem
+            if let cached = PlaceCache.shared.coordinate(for: location) {
+                destination = MKMapItem(placemark: MKPlacemark(coordinate: cached))
+            } else {
+                let search = MKLocalSearch.Request()
+                search.naturalLanguageQuery = location
+                search.resultTypes = [.address, .pointOfInterest]
+                guard let found = try await MKLocalSearch(request: search).start().mapItems.first else {
+                    SyncTrace.log("eta: place not found")
+                    return nil
+                }
+                PlaceCache.shared.store(found.placemark.coordinate, for: location)
+                destination = found
+            }
+            stage = "location fix"
+            guard let here = await CurrentLocation.shared.fix() else {
+                SyncTrace.log("eta: no location fix")
+                return nil
+            }
+            stage = "directions"
             let request = MKDirections.Request()
-            request.source = MKMapItem.forCurrentLocation()
+            request.source = MKMapItem(placemark: MKPlacemark(coordinate: here.coordinate))
             request.destination = destination
             request.transportType = switch mode {
             case .walking: .walking
@@ -171,8 +189,74 @@ public struct MapKitTravelTimeEstimator: TravelTimeEstimating {
             return try await MKDirections(request: request).calculateETA().expectedTravelTime
         } catch {
             // Room numbers like "Room 3B" won't resolve; that's expected, not an error to show.
+            SyncTrace.log("eta: \(stage) failed (\((error as NSError).domain) \((error as NSError).code))")
             Self.logger.info("Leave-by ETA unavailable: \(error.localizedDescription, privacy: .public)")
             return nil
+        }
+    }
+}
+
+/// Resolved class locations for this app session, so each place is searched once, not on every sync.
+final class PlaceCache: Sendable {
+    static let shared = PlaceCache()
+    private let items = OSAllocatedUnfairLock(initialState: [String: CLLocationCoordinate2D]())
+    func coordinate(for location: String) -> CLLocationCoordinate2D? { items.withLock { $0[location] } }
+    func store(_ coordinate: CLLocationCoordinate2D, for location: String) { items.withLock { $0[location] = coordinate } }
+}
+
+/// One location fix shared by every travel-time lookup. Uses Core Location's last known fix when it's
+/// recent, otherwise asks for one (city-block accuracy, which arrives fastest) and gives up after
+/// 6 s. `MKMapItem.forCurrentLocation()` instead waits for a fix with no limit, indoors forever.
+@MainActor
+final class CurrentLocation: NSObject, CLLocationManagerDelegate {
+    static let shared = CurrentLocation()
+    private let manager = CLLocationManager()
+    private var waiting: [CheckedContinuation<CLLocation?, Never>] = []
+    private var timeoutTask: Task<Void, Never>?
+
+    override private init() {
+        super.init()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    }
+
+    func fix(maxAge: TimeInterval = 10 * 60) async -> CLLocation? {
+        if let last = manager.location, -last.timestamp.timeIntervalSinceNow < maxAge { return last }
+        guard manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways else {
+            return nil
+        }
+        return await withCheckedContinuation { continuation in
+            waiting.append(continuation)
+            guard waiting.count == 1 else { return } // a request is already out
+            let started = Date.now
+            manager.requestLocation()
+            timeoutTask = Task { [weak self] in
+                try? await Task.sleep(for: .seconds(6))
+                guard !Task.isCancelled else { return }
+                SyncTrace.log("location fix timed out after \(Int(Date.now.timeIntervalSince(started)))s")
+                self?.finish(self?.manager.location)
+            }
+        }
+    }
+
+    private func finish(_ location: CLLocation?) {
+        timeoutTask?.cancel()
+        timeoutTask = nil
+        let continuations = waiting
+        waiting.removeAll()
+        continuations.forEach { $0.resume(returning: location) }
+    }
+
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last
+        Task { @MainActor in self.finish(location) }
+    }
+
+    nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        let code = (error as NSError).code
+        Task { @MainActor in
+            SyncTrace.log("location fix failed (code \(code))")
+            self.finish(nil)
         }
     }
 }

@@ -30,7 +30,7 @@ Tick in order. Everything marked **(owner)** needs a person with the Apple Devel
 - [x] Release configuration builds for device and Simulator with 0 warnings (2026-10-04). Re-check before archiving: **build the Release configuration** (`xcodebuild build -configuration Release`). A Debug-only file once broke Release while every Debug build and test passed.
 - [ ] **Dev install on the iPhone** (it has a Dynamic Island) with Xcode → Run, Release configuration:
   - [ ] Class setup flow with your real calendar: room suggestion, travel tiles, heads-up; Skip; Settings → Classes → "Set up my classes again" and "Redo calendar setup".
-  - [ ] Leave by: Auto with each travel mode and Set time on the Next Class widget; leave-by alerts and class reminders arrive; a "No thanks" course gets nothing. With no location fix, syncing still finishes (travel-time lookups time out after 8 s).
+  - [ ] Leave by: Auto with each travel mode and Set time on the Next Class widget; leave-by alerts and class reminders arrive; a "No thanks" course gets nothing. With no location fix, syncing still finishes (travel-time lookups time out after 12 s; the location fix after 6 s).
   - [ ] Smart Stack over a few days: Next Class rises an hour before class, Mood after 20:00 until logged.
   - [ ] Fresh install shows onboarding once; a relaunch goes straight to the tabs.
   - [ ] Add each widget; check light, dark, tinted and clear (iOS 26) home screens; lock screen accessories.

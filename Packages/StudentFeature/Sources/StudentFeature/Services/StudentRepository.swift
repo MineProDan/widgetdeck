@@ -54,6 +54,7 @@ public protocol StudentRepository: Sendable {
     func links() async throws -> [CourseEventLink]
     func reminderRules() async throws -> [ReminderRule]
     func save(_ course: Course) async throws
+    func deleteCourse(id: UUID) async throws
     func save(_ link: CourseEventLink) async throws
     func save(_ rule: ReminderRule) async throws
     func deleteRule(id: UUID) async throws
@@ -85,6 +86,7 @@ public struct CoreDataStudentRepository: StudentRepository {
     public func links() async throws -> [CourseEventLink] { try await RecordStore<CourseEventLink>(stack: stack).fetchAll() }
     public func reminderRules() async throws -> [ReminderRule] { try await RecordStore<ReminderRule>(stack: stack).fetchAll() }
     public func save(_ course: Course) async throws { try await RecordStore<Course>(stack: stack).upsert(course) }
+    public func deleteCourse(id: UUID) async throws { try await RecordStore<Course>(stack: stack).delete(id: id) }
     public func save(_ link: CourseEventLink) async throws { try await RecordStore<CourseEventLink>(stack: stack).upsert(link) }
     public func save(_ rule: ReminderRule) async throws { try await RecordStore<ReminderRule>(stack: stack).upsert(rule) }
     public func deleteRule(id: UUID) async throws { try await RecordStore<ReminderRule>(stack: stack).delete(id: id) }
@@ -141,6 +143,7 @@ public actor FileStudentRepository: StudentRepository {
     public func reminderRules() -> [ReminderRule] { load().rules }
 
     public func save(_ course: Course) throws { try mutate { $0.courses.upsert(course) } }
+    public func deleteCourse(id: UUID) throws { try mutate { $0.courses.removeAll { $0.id == id } } }
     public func save(_ link: CourseEventLink) throws { try mutate { $0.links.upsert(link) } }
     public func save(_ rule: ReminderRule) throws { try mutate { $0.rules.upsert(rule) } }
     public func deleteRule(id: UUID) throws { try mutate { $0.rules.removeAll { $0.id == id } } }

@@ -122,3 +122,16 @@ struct ActiveThemeStoreTests {
         #expect(ActiveThemeSnapshot(theme: theme)?.accent == .black) // accent falls back to primary
     }
 }
+
+@Suite("iCloud full detection")
+struct CloudSyncMonitorTests {
+    @Test func detectsQuotaExceededDirectlyAndInPartialFailures() {
+        #expect(CloudSyncMonitor.isQuotaExceeded(CKError(.quotaExceeded)))
+        let id = CKRecord.ID(recordName: "a")
+        let partial = CKError(.partialFailure, userInfo: [CKPartialErrorsByItemIDKey: [id: CKError(.quotaExceeded)]])
+        #expect(CloudSyncMonitor.isQuotaExceeded(partial))
+        let other = CKError(.partialFailure, userInfo: [CKPartialErrorsByItemIDKey: [id: CKError(.serverRecordChanged)]])
+        #expect(!CloudSyncMonitor.isQuotaExceeded(other))
+        #expect(!CloudSyncMonitor.isQuotaExceeded(CKError(.networkUnavailable)))
+    }
+}

@@ -461,3 +461,29 @@ struct StudyPersistenceTests {
         #expect(assignment.attributesByName[PersistenceModel.Attribute.payload]?.allowsCloudEncryption == false)
     }
 }
+
+@Suite("Course merging (one course per code across iPhones)")
+struct CourseMergerTests {
+    let old = Date(timeIntervalSince1970: 1_800_000_000)
+
+    @Test func keepsSetUpCourseThenNewestAndFillsBlanks() {
+        let a = Course(code: "ICS 31", paint: .coral, updatedAt: old.addingTimeInterval(100))
+        var b = Course(code: "ICS31", name: "Intro", paint: .sage, updatedAt: old)
+        b.isSetUp = true
+        b.room = nil
+        var c = Course(code: "ics 31", paint: .tide, updatedAt: old.addingTimeInterval(50))
+        c.room = "ICS 192"
+        let other = Course(code: "MATH 2A", paint: .sand, updatedAt: old)
+        let plan = CourseMerger.plan([a, b, c, other])
+        #expect(plan.keepers.count == 2)
+        let kept = plan.keepers.first { $0.id == b.id }
+        #expect(kept?.room == "ICS 192")
+        #expect(kept?.name == "Intro")
+        #expect(plan.replacements == [a.id: b.id, c.id: b.id])
+    }
+
+    @Test func noDuplicatesNoChanges() {
+        let plan = CourseMerger.plan([Course(code: "A 1", paint: .coral), Course(code: "B 2", paint: .sage)])
+        #expect(plan.replacements.isEmpty)
+    }
+}

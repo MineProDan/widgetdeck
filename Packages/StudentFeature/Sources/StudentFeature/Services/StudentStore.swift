@@ -95,7 +95,27 @@ public final class StudentStore {
         // A refresh requested mid-sync isn't dropped: it runs once more when the current one ends.
         // (The calendar permission alert makes the scene inactive; the refresh that starts when it
         // closes can read the old status, so the caller's refresh after granting must still run.)
-        await refreshGate.run { [weak self] in await self?.refreshOnce() }
+        if refreshGate.isRunning { SyncTrace.log("student refresh queued behind a running one") }
+        await refreshGate.run { [weak self] in await self?.tracedRefresh() }
+    }
+
+    /// Wraps a refresh with timing and a watchdog line if it runs long (a hung step blocks every
+    /// later refresh, which is how widgets "stop updating").
+    private func tracedRefresh() async {
+        let started = Date.now
+        SyncTrace.log("student refresh start")
+        let watchdog = Task {
+            var elapsed = 0
+            for wait in [20, 40, 120] {
+                try? await Task.sleep(for: .seconds(wait))
+                guard !Task.isCancelled else { return }
+                elapsed += wait
+                SyncTrace.log("student refresh STILL RUNNING after \(elapsed)s")
+            }
+        }
+        await refreshOnce()
+        watchdog.cancel()
+        SyncTrace.log("student refresh end mode=\(mode) classes=\(schedule.classes.count) in \(String(format: "%.1f", Date.now.timeIntervalSince(started)))s")
     }
 
     private func refreshOnce() async {
@@ -170,7 +190,7 @@ public final class StudentStore {
     /// Courses, assignments (+ Reminders import) and grades. Works in every mode.
     private func loadStudyData() async {
         do {
-            courses = try await repository.courses()
+            courses = try await mergeDuplicateCourses(try await repository.courses())
             assignments = try await repository.assignments()
             gradeCategories = try await repository.gradeCategories()
             gradeEntries = try await repository.gradeEntries()
@@ -179,6 +199,50 @@ public final class StudentStore {
             errorMessage = String(localized: "Couldn't load your assignments and grades.")
         }
         await importReminders()
+    }
+
+    /// Folds courses that iCloud brought in twice (one per iPhone) into one, moving everything that
+    /// points at a duplicate (corrections, reminder rules, assignments, grades) to the course kept.
+    private func mergeDuplicateCourses(_ all: [Course]) async throws -> [Course] {
+        let plan = CourseMerger.plan(all)
+        guard !plan.replacements.isEmpty else { return all }
+        let replacements = plan.replacements
+        for keeper in plan.keepers where all.first(where: { $0.id == keeper.id }) != keeper {
+            try await repository.save(keeper)
+        }
+        for var link in try await repository.links() {
+            guard let id = link.courseID, let new = replacements[id] else { continue }
+            link.courseID = new
+            try await repository.save(link)
+        }
+        let rules = try await repository.reminderRules()
+        for var rule in rules {
+            guard let id = rule.courseID, let new = replacements[id] else { continue }
+            if rules.contains(where: { $0.courseID == new }) {
+                try await repository.deleteRule(id: rule.id)
+            } else {
+                rule.courseID = new
+                try await repository.save(rule)
+            }
+        }
+        for var assignment in try await repository.assignments() {
+            guard let id = assignment.courseID, let new = replacements[id] else { continue }
+            assignment.courseID = new
+            try await repository.save(assignment)
+        }
+        for var category in try await repository.gradeCategories() {
+            guard let new = replacements[category.courseID] else { continue }
+            category.courseID = new
+            try await repository.save(category)
+        }
+        for var entry in try await repository.gradeEntries() {
+            guard let new = replacements[entry.courseID] else { continue }
+            entry.courseID = new
+            try await repository.save(entry)
+        }
+        for id in replacements.keys { try await repository.deleteCourse(id: id) }
+        Self.logger.info("Merged \(replacements.count) duplicate courses")
+        return plan.keepers
     }
 
     /// S-05: read-only import from the chosen Reminders list.
@@ -227,8 +291,11 @@ public final class StudentStore {
                     classes = LeaveByPlanner.applyAuto(to: classes, autoCourseIDs: ids, etas: etas, bufferMinutes: settings.leaveBufferMinutes)
                 }
             }
-            _ = try await reloadCoordinator.publish(ScheduleBuilder.nextClassSnapshot(classes, now: date))
-            _ = try await reloadCoordinator.publish(ScheduleBuilder.todayScheduleSnapshot(classes, now: date))
+            let next = ScheduleBuilder.nextClassSnapshot(classes, now: date)
+            let changedNext = try await reloadCoordinator.publish(next)
+            let changedToday = try await reloadCoordinator.publish(ScheduleBuilder.todayScheduleSnapshot(classes, now: date))
+            let leaveBys = classes.filter { $0.leaveBy != nil && $0.end > date }.count
+            SyncTrace.log("student publish auto=\(auto.count) leaveBy=\(leaveBys) changed next=\(changedNext) today=\(changedToday)")
         } catch {
             Self.logger.error("Student snapshot publish failed: \(error.localizedDescription, privacy: .public)")
         }
@@ -401,6 +468,7 @@ public final class StudentStore {
     private func travelETAs(for classes: [ClassSlot], now date: Date, mode: TravelMode,
                             lookahead: TimeInterval = LeaveByPlanner.lookahead) async -> [String: TimeInterval] {
         var etas: [String: TimeInterval] = [:]
+        if !permissions.status(for: .locationWhenInUse).isUsable { SyncTrace.log("eta skipped: no location permission") }
         if permissions.status(for: .locationWhenInUse).isUsable {
             for location in LeaveByPlanner.locationsToLookUp(classes, now: date, lookahead: lookahead) {
                 let key = "\(mode.rawValue)|\(location)"
@@ -409,7 +477,9 @@ public final class StudentStore {
                     if let eta = cached.eta { etas[location] = eta }
                     continue
                 }
+                let asked = Date.now
                 var eta = await travel.travelTime(to: location, mode: mode)
+                SyncTrace.log("eta \(mode.rawValue) \(eta.map { "\(Int($0 / 60))m" } ?? "none") in \(String(format: "%.1f", Date.now.timeIntervalSince(asked)))s")
                 if let eta {
                     etaMemory.remember(key: key, eta: eta, at: date)
                 } else {

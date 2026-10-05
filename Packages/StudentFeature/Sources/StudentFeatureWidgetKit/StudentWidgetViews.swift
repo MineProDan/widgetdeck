@@ -112,6 +112,9 @@ public struct StudentScheduleProvider<Snapshot: ClassScheduleSnapshot>: Timeline
     public func getTimeline(in context: Context, completion: @escaping (Timeline<StudentScheduleEntry>) -> Void) {
         let now = Date.now
         let snapshot = read()
+        let age = snapshot.map { Int(now.timeIntervalSince($0.generatedAt) / 60) }
+        let leaveBys = snapshot?.classes.filter { $0.leaveBy != nil && $0.end > now }.count ?? 0
+        SyncTrace.log("timeline \(Snapshot.kind.rawValue) snapshot=\(age.map { "\($0)m old" } ?? "missing") leaveBy=\(leaveBys)")
         completion(Timeline(entries: entries(now: now, snapshot: snapshot),
                             policy: .after(ScheduleTimeline.reloadDate(classes: snapshot?.classes, now: now))))
     }
