@@ -28,3 +28,7 @@ Each package also has its own tests (`xcodebuild test -scheme <Package>-Package`
 
 - `PRODUCT.md`: who it's for · `DESIGN.md`: the Paint Chip visual system
 - `docs/plan/`: the original plan · `docs/AppStore/`: privacy policy, privacy label and release checklist
+
+## License
+
+[MIT](LICENSE). Bundled fonts (Bricolage Grotesque, Archivo) are under the SIL Open Font License; see the `OFL.txt` files next to them. Quotes are public domain.
