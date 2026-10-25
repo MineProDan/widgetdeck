@@ -62,6 +62,8 @@ Tick in order. Everything marked **(owner)** needs a person with the Apple Devel
 - [x] **Version Release: Manually release this version**, so you control the soft-launch timing. Set (checked 2026-10-06).
 - [ ] **Phased Release for automatic updates: ON** (7-day rollout, can be paused). This is for updates; the first version goes to everyone in the chosen territories.
 
+- [x] Submitted 1.0.0 (4) for review on 2026-10-24 (Waiting for Review).
+
 ## 4. Soft launch (~2 weeks)
 
 - [x] Pricing and Availability: price **Free**; **Canada, Australia, New Zealand, Ireland only**. Set: $0.00, available only in CAN/AUS/NZL/IRL, new territories off (checked 2026-10-06).
