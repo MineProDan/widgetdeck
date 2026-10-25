@@ -1,4 +1,4 @@
-# WidgetX Paint Chip mockup (visual source of truth)
+# Widgetdeck Paint Chip mockup (visual source of truth)
 
 The approved mockup. **Built UI must match it identically**: same layout, colours, type, spacing, radii, shadows and copy style. `DESIGN.md` has the rules and tokens, and this folder holds the exact screens.
 

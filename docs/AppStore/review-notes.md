@@ -38,7 +38,7 @@ No ads, no tracking, no ATT prompt, no third-party SDKs.
 
 ## Owner: fill in App Review Information
 
-- **Contact:** Daniel Radu Betiu (App Store Connect → version → App Review Information; not shown publicly).
+- **Contact:** name, phone and email are entered in App Store Connect → version → App Review Information (not shown publicly, and kept out of this repo).
 - **Sign-in required:** No.
 - **Attachment (optional):** a 30 s screen recording of the Tech tab showing that sampling pauses in the background. It helps if T-03 is questioned.
 - If App Review rejects T-03 under 2.5.1 or 2.3: set `"T-03.cpuMemory": false` in the CDN `flags.json`, reply to the reviewer, and resubmit the **same build**. Don't block the release on it.

@@ -26,6 +26,25 @@ pick a hex value, or set a font by name.
   `UIAppFonts`. The app also calls `WXFonts.registerIfNeeded()` at launch. If registration fails,
   `Font.custom` falls back to the system font; text never disappears.
 
+## Theme decks
+
+`WXDeck` (in `Decks/`) is the user's theme: section paints, paper, band, display face, corner
+roundness and punch-hole shape. Ten ship (`WXDeck.all`); the first, `.paintChip`, is the default.
+
+- `WXDeck.current` is read from the App Group defaults, so the app and the widget extension agree.
+  `WXDeck.select(_:)` writes it; the app calls it through `AppEnvironment.applyDeck(_:)`, which
+  also clears any Theme Sync palette and reloads every widget.
+- You don't need to do anything in feature code: `WXColor.coralHour/sageNoon/beachSand/deepTide/
+  plumDusk/paperIvory/labelIvory`, `WXSection.color/paintName`, `WXFont.display/headline/title`,
+  `wxGrotesk`, `wxRounded`, `wxShadow` and `PaintChip`'s punch hole all resolve through the active deck.
+  Keep using role tokens; never hard-code a hex for a section.
+- Pickers that show several decks at once draw from an explicit deck: `DeckStrip`, `DeckPicker`,
+  `DeckPreview`, `WXFont.grotesk(_:relativeTo:deck:)`, `PunchHoleShape`.
+- The app redraws after a change because `RootView` keys its tab content on `AppEnvironment.deckID`.
+  A view that caches a colour in `@State` won't update; read the token in `body` instead.
+- Adding a deck: append a `WXDeck` to `all`, bundle its face (static TTF + `OFL-<Family>.txt`) and
+  add it to `WXFonts.fileNames`. `DeckTests` checks contrast, roles, fonts and licences.
+
 ## Tokens
 
 ```swift

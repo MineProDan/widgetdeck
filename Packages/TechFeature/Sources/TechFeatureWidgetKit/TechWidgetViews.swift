@@ -189,7 +189,7 @@ public struct SystemOverviewWidgetView: View {
     private func cell(_ metric: (caption: String, value: String), valueSize: CGFloat = 26) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(metric.caption).wxLabel(10)
-            Text(metric.value).wxGrotesk(valueSize, tabular: true).lineLimit(1)
+            Text(wxValue: metric.value, size: valueSize).wxGrotesk(valueSize, tabular: true).lineLimit(1)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

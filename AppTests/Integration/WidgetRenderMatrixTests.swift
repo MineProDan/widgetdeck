@@ -22,7 +22,7 @@ import WidgetKit
 ///   rendering modes are verified visually in the simulator widget gallery (see
 ///   docs/AppStore/test-report.md), not here.
 /// - swift-snapshot-testing was not added: the app project has no test-only SPM dependency today,
-///   and reference images from an Intel simulator would not match Apple silicon CI anyway.
+///   and reference images are tied to one Mac and Xcode version, so they break on CI or toolchain updates.
 @MainActor
 @Suite("Widget render matrix")
 struct WidgetRenderMatrixTests {
@@ -119,7 +119,7 @@ struct WidgetRenderMatrixTests {
 }
 
 /// Measurements that can be taken on the simulator. Printed as `PERF` lines and gathered into
-/// docs/AppStore/test-report.md. These are simulator numbers on an Intel Mac, not device numbers.
+/// docs/AppStore/test-report.md. These are simulator numbers, not device numbers.
 @Suite("Performance (simulator)")
 struct SimulatorPerformanceTests {
     private static let now = Date(timeIntervalSince1970: 1_790_000_000)

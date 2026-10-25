@@ -105,6 +105,15 @@ struct HomeModelTests {
         #expect(model.deckCards.first?.color == WidgetThemePaint.resolve(WXColor.deepTide, theme: theme))
     }
 
+    @Test func eveningWidgetsUsePlumNotSage() {
+        for kind in [WidgetKind.mood, .affirmation, .breathe] {
+            let card = HomeModel.card(for: kind, theme: nil)
+            #expect(card.color == WXColor.plumDusk)
+            #expect(card.paint == WXSection.evening.paintName)
+        }
+        #expect(HomeModel.card(for: .habits, theme: nil).color == WXColor.sageNoon)
+    }
+
     @Test func fanAnglesNarrowForFewerCards() {
         #expect(HomeModel.angles(for: 1) == [0])
         #expect(HomeModel.angles(for: 4) == [-27, -9, 9, 27])

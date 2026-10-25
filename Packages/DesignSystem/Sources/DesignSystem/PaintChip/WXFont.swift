@@ -21,7 +21,12 @@ public enum WXFonts {
     /// The package resource bundle that holds the fonts and their licences.
     static var bundle: Bundle { .module }
 
-    static let fileNames = ["BricolageGrotesque-Bold", "BricolageGrotesqueDisplay-Bold", "ArchivoCondensed-Bold"]
+    /// The Paint Chip faces plus each theme deck's display face (`WXDeck.displayFont`).
+    static let fileNames = [
+        "BricolageGrotesque-Bold", "BricolageGrotesqueDisplay-Bold", "ArchivoCondensed-Bold",
+        "Fredoka-Bold", "Quicksand-Bold", "PlayfairDisplay-Bold", "YoungSerif-Regular", "Silkscreen-Bold",
+        "Unbounded-Bold", "Graduate-Regular", "SpaceGrotesk-Bold", "Caveat-Bold",
+    ]
 
     private static let registration: Bool = {
         var allRegistered = true
@@ -85,11 +90,17 @@ public enum WXFont {
         return .custom(WXFonts.Name.condensed, size: size, relativeTo: .caption2)
     }
 
-    /// Bricolage at any size: picks the optical-size instance that matches the mockup.
+    /// The active deck's display face at any size (Bricolage for the Paint Chip deck, picking the
+    /// optical-size instance that matches the mockup). Faces that run wide or small are evened
+    /// out by `WXDeck.displayScale`, so layouts built for Bricolage still fit.
     public static func grotesk(_ size: CGFloat, relativeTo style: Font.TextStyle) -> Font {
+        grotesk(size, relativeTo: style, deck: WXDeck.current)
+    }
+
+    /// `grotesk` for an explicit deck (theme pickers preview every deck side by side).
+    public static func grotesk(_ size: CGFloat, relativeTo style: Font.TextStyle, deck: WXDeck) -> Font {
         _ = WXFonts.registerIfNeeded()
-        let name = size >= 21 ? WXFonts.Name.groteskDisplay : WXFonts.Name.grotesk
-        return .custom(name, size: size, relativeTo: style)
+        return .custom(deck.displayFontName(for: size), size: size * deck.displayScale, relativeTo: style)
     }
 }
 
@@ -111,24 +122,71 @@ private struct ScaledTracking: ViewModifier {
 /// Emulates CSS `line-height` (the mockup's unit): SwiftUI lays a line out at the font's natural
 /// height, so this pads single lines by half the difference and adds the difference between
 /// lines of wrapped text. Negative differences (tight display type) trim the outer padding only.
+///
+/// With `centersCaps`, the line box is also shifted so capitals sit in its middle. Bricolage is
+/// drawn that way already (bias 0, so the Paint Chip deck is unchanged); other deck faces put
+/// more room above or below their capitals (Playfair sits 0.06 em low, Young Serif 0.035 em
+/// high), which would otherwise offset values against their caps labels.
 private struct CSSLineHeight: ViewModifier {
     /// `nil` = the system font.
     let fontName: String?
     let multiple: CGFloat
+    let centersCaps: Bool
     @ScaledMetric private var size: CGFloat
 
-    init(fontName: String?, size: CGFloat, multiple: CGFloat, relativeTo style: Font.TextStyle) {
+    init(fontName: String?, size: CGFloat, multiple: CGFloat, relativeTo style: Font.TextStyle, centersCaps: Bool = false) {
         self.fontName = fontName
         self.multiple = multiple
+        self.centersCaps = centersCaps
         _size = ScaledMetric(wrappedValue: size, relativeTo: style)
     }
 
     func body(content: Content) -> some View {
         let font = fontName.flatMap { UIFont(name: $0, size: size) } ?? .systemFont(ofSize: size)
         let delta = multiple * size - font.lineHeight
+        let bias = centersCaps ? WXFont.capCentringBias(font) : 0
         content
             .lineSpacing(max(delta, 0))
-            .padding(.vertical, delta / 2)
+            .padding(.top, delta / 2 - bias)
+            .padding(.bottom, delta / 2 + bias)
+    }
+}
+
+extension WXFont {
+    /// How far (in points) a line of `font` must move up so its capitals sit in the middle of the
+    /// line box: half the difference between the room above the cap height and below the baseline.
+    /// Positive = the face draws its capitals low. About 0 for Bricolage.
+    static func capCentringBias(_ font: UIFont) -> CGFloat {
+        ((font.ascender - font.capHeight) - abs(font.descender)) / 2
+    }
+}
+
+extension Text {
+    /// A value for `wxGrotesk(size)` ("100%", "25 GB"). In decks with `percentFromLabelFace`, each
+    /// "%" is set in the condensed label face, sized so it matches the display face's digits
+    /// (Silkscreen digits are 0.4125 em of the nominal size; Archivo's are 0.711 em of its own).
+    /// A font set on a run of concatenated `Text` wins over the one `wxGrotesk` applies.
+    public init(wxValue value: String, size: CGFloat, deck: WXDeck? = nil) {
+        let deck = deck ?? WXDeck.current
+        guard deck.percentFromLabelFace, value.contains("%") else {
+            self.init(value)
+            return
+        }
+        let style = WXFont.displayStyle(for: size)
+        let percent = Text("%").font(.custom(WXFonts.Name.condensed, size: size * 0.58, relativeTo: style))
+        let parts = value.components(separatedBy: "%")
+        var text = Text(parts[0])
+        for part in parts.dropFirst() {
+            text = text + percent + Text(part)
+        }
+        self = text
+    }
+}
+
+extension WXFont {
+    /// The Dynamic Type style display text at `size` scales with (see `wxGrotesk`).
+    static func displayStyle(for size: CGFloat) -> Font.TextStyle {
+        size >= 36 ? .largeTitle : size >= 28 ? .title : size >= 21 ? .title2 : .headline
     }
 }
 
@@ -142,15 +200,20 @@ extension View {
             .foregroundStyle(color)
     }
 
-    /// Bricolage name/value text at `size` (display ≥ 36, headline 22–34, title 15–18),
-    /// −0.02 em tracking. `tabular` switches on tabular numerals for values.
-    public func wxGrotesk(_ size: CGFloat, tabular: Bool = false, color: Color = WXColor.ink) -> some View {
-        let style: Font.TextStyle = size >= 36 ? .largeTitle : size >= 28 ? .title : size >= 21 ? .title2 : .headline
-        let font = WXFont.grotesk(size, relativeTo: style)
+    /// Display-face name/value text at `size` (display ≥ 36, headline 22–34, title 15–18) in the
+    /// active deck's face and tracking (Bricolage, −0.02 em for the Paint Chip deck). `tabular` switches on tabular numerals for values.
+    /// Pass `deck` to set text in a specific deck (theme pickers); by default the active deck.
+    public func wxGrotesk(_ size: CGFloat, tabular: Bool = false, color: Color = WXColor.ink, deck: WXDeck? = nil) -> some View {
+        let style = WXFont.displayStyle(for: size)
+        let deck = deck ?? WXDeck.current
+        let font = WXFont.grotesk(size, relativeTo: style, deck: deck)
         return self.font(tabular ? font.monospacedDigit() : font)
-            .modifier(ScaledTracking(size * -0.02, relativeTo: style))
-            .modifier(CSSLineHeight(fontName: size >= 21 ? WXFonts.Name.groteskDisplay : WXFonts.Name.grotesk,
-                                    size: size, multiple: 1.05, relativeTo: style))
+            .modifier(ScaledTracking(size * deck.displayScale * deck.displayTracking, relativeTo: style))
+            // The line box stays 1.05 × the nominal size in every deck, so chips keep the
+            // heights they were designed with even when a face is scaled up or down.
+            .modifier(CSSLineHeight(fontName: deck.displayFontName(for: size),
+                                    size: size * deck.displayScale, multiple: 1.05 / deck.displayScale,
+                                    relativeTo: style, centersCaps: true))
             .foregroundStyle(color)
     }
 

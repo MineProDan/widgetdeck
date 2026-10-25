@@ -62,22 +62,12 @@ struct OnboardingIntegrationTests {
         #expect(OnboardingModel(defaults: defaults).isComplete)
     }
 
-    @Test(arguments: WXThemePaint.launchThemes)
-    func vibeThemeFeedsWidgetsAndPassesContrast(paint: WXThemePaint) throws {
-        let theme = OnboardingModel.theme(for: paint)
-        // Stable ID: picking the same vibe twice is one record (CloudKit has no unique constraints).
-        #expect(theme.id == OnboardingModel.theme(for: paint).id)
-        let snapshot = try #require(ActiveThemeSnapshot(theme: theme))
-        #expect(snapshot.primary == theme.palette[.primary])
-        #expect(snapshot.accent == theme.palette[.accent])
-        // Label text sits on Label Ivory, never on fields; the background role must still carry ink.
-        let ink = try #require(theme.palette[.textOnBackground])
-        let background = try #require(theme.palette[.background])
-        #expect(ContrastChecker.ratio(ink, background) >= 4.5)
-    }
-
-    @Test func launchThemeIDsAreDistinct() {
-        let ids = Set(WXThemePaint.launchThemes.map { OnboardingModel.theme(for: $0).id })
-        #expect(ids.count == WXThemePaint.launchThemes.count)
+    @Test func vibeStepOffersEveryDeck() {
+        let model = OnboardingModel(defaults: makeDefaults(), configurations: { .success([]) })
+        #expect(WXDeck.all.contains(model.pickedDeck))
+        model.pickedDeckID = WXDeck.pocketArcade.id
+        #expect(model.pickedDeck == .pocketArcade)
+        model.pickedDeckID = "not-a-deck"
+        #expect(model.pickedDeck == .paintChip, "unknown ids fall back to the default deck")
     }
 }

@@ -11,7 +11,7 @@
   <div class="chip"><span class="swatch" aria-hidden="true"></span><b>Widgetdeck</b></div>
   <h1>Privacy Policy</h1>
   <p class="lede">
-    Effective date: September 29, 2026<br>
+    Effective date: October 6, 2026<br>
     Developer: Daniel Radu Betiu<br>
     Contact: <a href="mailto:mineprodan@gmail.com">mineprodan@gmail.com</a>
   </p>
@@ -24,11 +24,15 @@
   <table>
     <tr><th>What</th><th>Why</th><th>Where it stays</th></tr>
     <tr><td><strong>Calendar</strong> (only if you allow it)</td><td>To find your classes for the Student widgets</td><td>Read on your iPhone. We save event identifiers and your own labels (like course names), never the events themselves. We never change your calendar.</td></tr>
+    <tr><td><strong>Event notes</strong> (part of calendar access)</td><td>To suggest a room name (like “ICS 192”) when you set up a class</td><td>Read on your iPhone only while the app is open. Notes are never saved; only a room you confirm is kept, with the course.</td></tr>
+    <tr><td><strong>Location</strong> (only if you turn on “Leave by”, While Using the App)</td><td>To estimate travel time to class for leave-by times and alerts</td><td>Your current location and the class address are sent to <strong>Apple Maps</strong> for one travel-time estimate. Widgetdeck never stores your location. The resulting travel times are kept on your iPhone for up to 12 hours, labelled by a scrambled code instead of the address.</td></tr>
+    <tr><td><strong>Reminders</strong> (only if you import assignments)</td><td>To copy to-dos with a due date from one list you choose</td><td>Read on your iPhone. We never change your reminders.</td></tr>
     <tr><td><strong>Photos you pick</strong></td><td>Photo widget and Theme Sync</td><td>Resized copies are stored on your iPhone. We never see your photo library; you choose each photo.</td></tr>
     <tr><td><strong>Notifications</strong> (only if you allow them)</td><td>Class reminders and an optional evening mood reminder</td><td>Scheduled on your iPhone.</td></tr>
     <tr><td><strong>Habits, mood check-ins and notes</strong></td><td>Wellness section and widgets</td><td>On your iPhone and in your iCloud private database. Mood notes are end-to-end encrypted by iCloud. We can’t access any of it.</td></tr>
     <tr><td><strong>Battery, storage, heat, CPU and memory readings</strong></td><td>Tech section and widgets</td><td>Calculated and stored on your iPhone. Recent readings are kept for 7 days, then deleted.</td></tr>
-    <tr><td><strong>Your courses, themes, reminder settings and widget settings</strong></td><td>So they appear on your other devices</td><td>Synced with Apple’s iCloud <strong>private database</strong>, in your iCloud account. We can’t access it.</td></tr>
+    <tr><td><strong>Sync log</strong></td><td>A short record of when data synced and widgets refreshed, to help fix widgets that stop updating. It never includes calendar contents.</td><td>On your iPhone only (the last 400 lines). It leaves your iPhone only if you share it from <strong>Settings → About → Sync log</strong>.</td></tr>
+    <tr><td><strong>Your courses, themes, reminder settings and widget settings</strong> (including the room, travel mode and leave-by choice you set for a course)</td><td>So they appear on your other devices</td><td>Synced with Apple’s iCloud <strong>private database</strong>, in your iCloud account. We can’t access it.</td></tr>
   </table>
   </div>
 
@@ -41,12 +45,15 @@
 
   <h2>Network requests the app makes</h2>
   <ul>
-    <li><strong>Apple services:</strong> iCloud (CloudKit) sync.</li>
+    <li><strong>Apple services:</strong> iCloud (CloudKit) sync, and Apple Maps for travel-time estimates when you use “Leave by” (<a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a> applies to those requests).</li>
     <li><strong>Feature settings file:</strong> the app downloads a small settings file (<code>flags.json</code>) from this website, which is hosted by GitHub Pages. The request contains no personal information. Like any web request, GitHub can see your IP address; we have no access to GitHub’s request logs. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub’s Privacy Statement</a>.</li>
   </ul>
 
   <h2>Crash reports</h2>
   <p>If you’ve chosen to share analytics with app developers in iOS Settings, Apple may give us anonymous crash and performance reports. You control this in <strong>Settings → Privacy &amp; Security → Analytics &amp; Improvements</strong>.</p>
+
+  <h2>Exporting your data</h2>
+  <p><strong>Settings → Export my data</strong> makes one file with your profile, courses, assignments, grades, reminder settings, habits, mood check-ins (with notes) and goals. It’s created on your iPhone and goes only where you save or share it.</p>
 
   <h2>Deleting your data</h2>
   <p>Open <strong>Widgetdeck → Settings → Delete All Data</strong>. This removes the app’s data from your iPhone and deletes Widgetdeck’s data from your iCloud. Deleting the app also removes its on-device data. You can also manage iCloud data in <strong>Settings → [your name] → iCloud → Manage Account Storage</strong>.</p>

@@ -80,7 +80,7 @@ struct TechDashboard: View {
 }
 
 #if DEBUG
-/// Static sample data only (previews are slow on the Intel dev Mac).
+/// Static sample data only (keeps previews fast).
 private struct PreviewReader: SystemReading {
     func cpuTicks() -> CPUTicks? { nil }
     func memoryUsedBytes() -> Int64? { 3_328_599_654 }

@@ -28,6 +28,12 @@ public struct DataExporter: Sendable {
         let widgetConfigurations: [WidgetSettings]
     }
 
+    /// Deletes any export left in the App Group. The file holds notes and grades as plain JSON, so it
+    /// shouldn't outlive the share sheet (the destination keeps its own copy).
+    public static func removeExports(appGroup: AppGroupContainer = .shared) {
+        try? FileManager.default.removeItem(at: appGroup.exportsURL)
+    }
+
     /// Builds the export and returns the file URL (in the App Group `Exports/` folder).
     public func export(now: Date = .now) async throws -> URL {
         let core = CoreExport(

@@ -164,8 +164,11 @@ public struct MoodBoardWidgetView: View {
 /// A flat paint tile: gallery preview and filler for boards with fewer photos than tiles.
 struct SampleTile: View {
     let index: Int
-    private static let paints = [WXColor.beachSand, WXColor.coralHour, WXColor.deepTide,
-                                 WXColor.sageNoon, WXColor.shell, WXColor.plumDusk]
+    /// Computed, so the tiles follow the active theme deck.
+    private static var paints: [Color] {
+        [WXColor.beachSand, WXColor.coralHour, WXColor.deepTide,
+         WXColor.sageNoon, WXColor.shell, WXColor.plumDusk]
+    }
 
     var body: some View {
         Self.paints[index % Self.paints.count].widgetAccentable()

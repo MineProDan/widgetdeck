@@ -23,7 +23,7 @@ Four apps in one (Tech, Student, Aesthetic and Wellness all ship in 1.0), **comp
 - Growth is organic: TikTok home-screen tours, Reddit r/iOSsetups, share cards.
 
 ## Capabilities and Constraints
-- Native SwiftUI, iOS 17+ minimum, built with Xcode 26.3 / iOS 26.2 SDK. Interactive widgets, Live Activities.
+- Native SwiftUI, iOS 17+ minimum, built with Xcode 27.0 / iOS 27.0 SDK. Interactive widgets, Live Activities.
 - Widgets refresh on a system budget and are never real-time. Countdowns tick through self-updating text.
 - No GPU, battery health, active-apps or per-category storage data. Apps can't read the wallpaper; the user picks it from Photos.
 - No true widget transparency: it is simulated by cropping a user-provided screenshot.

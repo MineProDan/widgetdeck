@@ -2,7 +2,7 @@
 
 Adapted from `docs/plan/08-go-to-market.md` §2.2, using only features in the 1.0 build (Tech, Student, Aesthetic, Wellness). S-08 (study timer) is now 1.0 scope (2026-09-30): once built, #3 goes back to the plan's study-timer Dynamic Island shot. Until then the breathing Live Activity holds that slot.
 
-**Required size:** 6.9" (1320 × 2868 or 1290 × 2796). App Store Connect scales it down for smaller iPhones. The app is iPhone-only, so no iPad set is needed.
+**Required size (changed by 2026-10-24):** App Store Connect's iPhone slot is "iPhone with Dynamic Island (medium display)", 6.1"/6.3": 1179 × 2556 or 1206 × 2622. The repo keeps 1320 × 2868 masters in `screenshots/`; the uploaded 1206 × 2622 set is scaled down from them. The app is iPhone-only, so no iPad set is needed.
 **Rule:** show the home screen, not the app UI, in the first three.
 
 | # | Screenshot | Caption | How to capture |
@@ -10,7 +10,7 @@ Adapted from `docs/plan/08-go-to-market.md` §2.2, using only features in the 1.
 | 1 | Themed home screen: Next Class (medium), Palette (small), Battery (small), Photo (small) on the beach wallpaper | "Your home screen, beautiful *and* useful" | Real device or 17 Pro Max simulator. Use the demo schedule so no personal events appear |
 | 2 | Theme Sync before and after | "Matches your wallpaper in one tap" | Aesthetic tab, compare slider at 50% |
 | 3 | Lock screen: Next Class (rectangular) + Battery (circular) | "Next class, right on your lock screen" | Device lock screen, `LockScreen.png` layout |
-| 4 | Onboarding vibe picker (fan deck) | "Pick a vibe. Every widget follows." | Onboarding step 1 (`docs/design/mockup/built/onboarding/1-vibe.png`) |
+| 4 | Onboarding theme-deck picker (ten decks) | "Ten looks. Every widget follows yours." | Onboarding step 1 on a fresh install, Release build (retaken 2026-10-06 after the theme decks replaced the colour-only vibe picker) |
 | 5 | Tech tab + System Overview widget | "Battery, storage and heat, beautifully" | Tech tab on a device (the simulator shows fake battery values) |
 | 6 | Student week grid | "Your classes, from your own calendar" | Student tab with the demo week |
 | 7 | Habits (small) + Mood (small) widgets on the home screen | "Tick a habit without opening the app" | Add a few habits in Wellness first; no personal notes visible |

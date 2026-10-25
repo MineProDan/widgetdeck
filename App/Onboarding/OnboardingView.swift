@@ -60,8 +60,11 @@ struct OnboardingView: View {
     }
 
     private func useVibe() {
-        let theme = OnboardingModel.theme(for: model.pickedPaint)
-        Task { await environment.applyTheme(theme) }
+        let deck = model.pickedDeck
+        // Store it now so the next step already draws in the new deck; the rest (clearing a
+        // Theme Sync palette, reloading widgets) runs async.
+        WXDeck.select(deck)
+        Task { await environment.applyDeck(deck) }
         model.advance()
     }
 
@@ -81,26 +84,21 @@ private struct VibeStep: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Pick your vibe.").wxGrotesk(40).accessibilityAddTraits(.isHeader)
-                Text("One theme runs every widget you add. You can change it any time.")
+                Text("One theme styles the app and every widget you add. Change it any time in Settings.")
                     .wxBody(16, lineHeight: 1.4)
                     .frame(maxWidth: 300, alignment: .leading)
             }
             .padding(.horizontal, WXSpace.gutter)
 
-            FanDeck(WXThemePaint.launchThemes, angles: [-24, -14.5, -5, 5, 14.5, 24], pivot: UnitPoint(x: 0.5, y: 1.18),
-                    cardSize: CGSize(width: 96, height: 300), selectedID: model.pickedPaintID,
-                    onSelect: { model.pickedPaintID = $0.id }) { paint in
-                PaintStrip(paint, shadow: paint.id == model.pickedPaintID ? .chipLifted : .chipFanned)
-                    .accessibilityLabel(paint.name)
-            }
-            .padding(.top, 20)
-            .frame(maxWidth: .infinity)
-            .frame(height: 360, alignment: .top)
-            .padding(.top, 19)
+            // Ten theme decks, flipped through like a swatch deck. Each strip is drawn in its own
+            // colours, face and punch shape; the rest of the app switches when the user taps Use.
+            DeckPicker(selection: $model.pickedDeckID)
+                .frame(height: 330)
+                .padding(.top, 16)
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("\(model.pickedPaint.code) · \(model.pickedPaint.mood)").wxLabel()
-                Text(model.pickedPaint.name).wxGrotesk(28)
+                Text("\(model.pickedDeck.code) · \(model.pickedDeck.mood)").wxLabel()
+                Text(model.pickedDeck.name).wxGrotesk(28, deck: model.pickedDeck)
             }
             .padding(.horizontal, WXSpace.gutter)
             .padding(.top, 24)
@@ -108,7 +106,7 @@ private struct VibeStep: View {
             Spacer(minLength: 16)
 
             VStack(spacing: 8) {
-                WXPrimaryButton("Use \(model.pickedPaint.name)", action: onUse)
+                WXPrimaryButton("Use \(model.pickedDeck.name)", action: onUse)
                 Text("Or match your wallpaper later with Theme Sync.")
                     .wxBody(13, color: WXColor.inkSecondary)
                     .padding(.vertical, 6)
@@ -166,24 +164,25 @@ private struct PreviewStep: View {
     @Bindable var model: OnboardingModel
     @State private var requesting: PermissionKind?
 
-    private var themeSnapshot: ActiveThemeSnapshot? {
-        ActiveThemeSnapshot(theme: OnboardingModel.theme(for: model.pickedPaint))
-    }
-
     var body: some View {
         StepLayout(title: "Here's your look.",
-                   subtitle: "\(model.pickedPaint.name) paints every widget. Allow only what each section needs.") {
+                   subtitle: "\(model.pickedDeck.name) paints every widget. Allow only what each section needs.") {
             HStack(spacing: 10) {
                 ForEach(model.orderedSections, id: \.self) { section in
-                    DeckChip(color: WidgetThemePaint.resolve(WXSection(section).color, theme: themeSnapshot),
-                             paint: model.pickedPaint.name, name: section.sampleWidget)
-                        .frame(width: 96, height: 138)
+                    // Share the row, up to 96 pt each: four fixed 96 pt chips (414 pt) were wider
+                    // than a 402 pt screen and pushed the whole step off both edges. The height
+                    // grows with Dynamic Type so the colour field isn't squeezed by a taller band.
+                    DeckChip(color: WXSection(section).color,
+                             paint: WXSection(section).paintName, name: section.sampleWidget)
+                        .frame(maxWidth: 96, minHeight: 138)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
+            .minimumScaleFactor(0.75)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel("Preview of \(model.orderedSections.map(\.sampleWidget).joined(separator: ", ")) in \(model.pickedPaint.name)")
+            .accessibilityLabel("Preview of \(model.orderedSections.map(\.sampleWidget).joined(separator: ", ")) in \(model.pickedDeck.name)")
 
             VStack(spacing: 10) {
                 ForEach(model.orderedSections, id: \.self) { section in
@@ -342,8 +341,8 @@ private struct CelebrationStep: View {
                 Text(model.detectedWidgetKinds.isEmpty ? "You're set." : "Nice. It's on.")
                     .wxGrotesk(40).accessibilityAddTraits(.isHeader)
                 Text(model.detectedWidgetKinds.isEmpty
-                     ? "Add a widget whenever you like. Your \(model.pickedPaint.name) theme is ready for it."
-                     : "Your widget updates through the day. Open the app to change what it shows.")
+                     ? "Add a widget whenever you like. Your \(model.pickedDeck.name) theme is ready for it."
+                     : "Your widget updates through the day. Habits and Mood widgets work right on the Home Screen: tap to tick a habit or log your mood.")
                     .wxBody(16, lineHeight: 1.4)
             }
             .padding(.horizontal, WXSpace.gutter)

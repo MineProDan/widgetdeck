@@ -149,7 +149,8 @@ public final class StudentStore {
             let courses = try await repository.courses()
             links = try await repository.links()
             reminderRules = try await repository.reminderRules()
-            var built = ScheduleBuilder.build(events: events, links: links, courses: courses, now: date)
+            var built = ScheduleBuilder.build(events: events, links: links, courses: courses, now: date,
+                                              inferWeeklyPatterns: settings.inferWeeklyPatterns)
             for course in built.newCourses { try await repository.save(course) }
             // Corrections saved before titleKey existed: add it while the series is still recognisable.
             for index in links.indices where links[index].titleKey == nil && links[index].userCategory != nil {
@@ -516,8 +517,17 @@ public final class StudentStore {
         await refresh()
     }
 
-    public func setSchoolCalendars(_ ids: Set<String>) async {
+    public func setSchoolCalendars(_ ids: Set<String>, inferWeeklyPatterns: Bool? = nil) async {
         settings.schoolCalendarIDs = ids
+        if let inferWeeklyPatterns { settings.inferWeeklyPatterns = inferWeeklyPatterns }
+        await repository.save(settings)
+        await refresh()
+    }
+
+    /// "Same time every week" (Settings → Classes and the School calendars sheet).
+    public func setInferWeeklyPatterns(_ enabled: Bool) async {
+        guard settings.inferWeeklyPatterns != enabled else { return }
+        settings.inferWeeklyPatterns = enabled
         await repository.save(settings)
         await refresh()
     }

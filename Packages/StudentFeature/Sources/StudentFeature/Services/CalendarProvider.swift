@@ -8,11 +8,14 @@ public protocol CalendarProviding: Sendable {
     func events(from start: Date, to end: Date, calendarIDs: Set<String>) async -> [CalendarEvent]
 }
 
-/// The rolling sync window (S-02): yesterday through two weeks ahead.
+/// The rolling sync window (S-02): from Monday of this week (or yesterday, if earlier) through two
+/// weeks ahead. It must reach back to Monday because the week grid shows the whole week; starting
+/// at yesterday dropped Monday's classes from Wednesday on, Tuesday's from Thursday on, and so on.
 public enum SyncWindow {
     public static func range(now: Date, calendar: Calendar = .current) -> (start: Date, end: Date) {
         let today = calendar.startOfDay(for: now)
-        let start = calendar.date(byAdding: .day, value: -1, to: today) ?? today
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: today) ?? today
+        let start = min(yesterday, WeekMath.monday(of: now, calendar: calendar))
         let end = calendar.date(byAdding: .day, value: 15, to: today) ?? now
         return (start, end)
     }

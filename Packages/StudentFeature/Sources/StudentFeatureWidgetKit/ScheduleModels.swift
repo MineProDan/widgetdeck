@@ -57,8 +57,8 @@ public struct ClassSlot: Codable, Hashable, Sendable, Identifiable {
     public var shortLocation: String? { room?.nilIfEmpty ?? location.flatMap(LocationFormat.short) }
 }
 
-/// Shortens calendar locations like "Information & Computer Science, 6210 Donald Bren Hall,
-/// Irvine, CA 92697, United States" to the useful part ("6210 Donald Bren Hall").
+/// Shortens calendar locations like "School of Engineering, 4100 Maple Hall,
+/// Springfield, IL 62704, United States" to the useful part ("4100 Maple Hall").
 extension String {
     var nilIfEmpty: String? {
         let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
@@ -90,7 +90,7 @@ public enum LocationFormat {
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .filter { !$0.isEmpty }
         guard parts.count > 1 else { return parts.first }
-        // Drop the address tail: country, then "CA 92697"-style state + postal code, then the city.
+        // Drop the address tail: country, then "IL 62704"-style state + postal code, then the city.
         if let last = parts.last, countries.contains(last.lowercased()) { parts.removeLast() }
         var droppedRegion = false
         if let last = parts.last, last.contains(where: \.isNumber), last.count <= 12, parts.count > 1 {

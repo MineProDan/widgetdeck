@@ -129,11 +129,11 @@ struct ScheduleBuilderTests {
     }
 
     @Test(arguments: [
-        ("Information & Computer Science, 6210 Donald Bren Hall, Irvine, CA 92697, United States", "6210 Donald Bren Hall"),
+        ("School of Engineering, 4100 Maple Hall, Springfield, IL 62704, United States", "4100 Maple Hall"),
         ("Room 3B", "Room 3B"),
-        ("Science Library, Irvine, CA 92697", "Science Library"),
+        ("Science Library, Springfield, IL 62704", "Science Library"),
         ("Main Campus\nEngineering Building 201", "Engineering Building 201"),
-        ("Starbucks, 123 Main St, Irvine, CA 92617", "Starbucks"),
+        ("Starbucks, 123 Main St, Springfield, IL 62701", "Starbucks"),
     ])
     func shortLocation(full: String, short: String) {
         #expect(LocationFormat.short(full) == short)
@@ -147,6 +147,20 @@ struct ScheduleBuilderTests {
         #expect(LeaveByPlanner.locationsToLookUp([monday], now: now, lookahead: LeaveByPlanner.widgetLookahead) == ["Room 3B"])
     }
 
+    @Test func leaveAlertNamesTheBuildingNotTheStreetAddress() {
+        // Alerts show on the Lock Screen, so the full calendar address must not appear.
+        let now = date(2026, 10, 1, 8)
+        var lecture = slot("BIO 201", date(2026, 10, 1, 10, 30))
+        let full = "School of Engineering, 4100 Maple Hall, Springfield, IL 62704, United States"
+        lecture.location = full
+        let alerts = LeaveByPlanner.plan(classes: [lecture], etas: [full: 19 * 60], bufferMinutes: 0, mode: .walking,
+                                         remindedClassIDs: [], now: now)
+        let body = try? #require(alerts.first?.body)
+        #expect(body?.contains("4100 Maple Hall") == true)
+        #expect(body?.contains("Springfield") == false)
+        #expect(body?.contains("62704") == false)
+    }
+
     @Test func roomSuggestionFromNotes() {
         #expect(LocationFormat.roomSuggestion(in: "Lecture in ICS 192 with Prof. Lee", excluding: nil) == "ICS 192")
         #expect(LocationFormat.roomSuggestion(in: "BIO 201 meets in Rm 3B", excluding: "BIO 201") == "Rm 3B")
@@ -158,7 +172,7 @@ struct ScheduleBuilderTests {
         var usual1 = event("BIO 201", start: date(2026, 10, 5, 9), weekly: true, series: "bio", id: "a")
         var usual2 = event("BIO 201", start: date(2026, 10, 7, 9), weekly: true, series: "bio", id: "b")
         var moved = event("BIO 201", start: date(2026, 10, 9, 9), weekly: true, series: "bio", id: "c")
-        usual1.location = "Donald Bren Hall, Irvine"; usual2.location = "Donald Bren Hall, Irvine"; moved.location = "Science Library"
+        usual1.location = "Maple Hall, Springfield"; usual2.location = "Maple Hall, Springfield"; moved.location = "Science Library"
         let classes = ScheduleBuilder.build(events: [usual1, usual2, moved], links: [], courses: [course]).classes
         #expect(classes.map(\.shortLocation) == ["ICS 192", "ICS 192", "Science Library"])
     }
@@ -290,6 +304,60 @@ extension TodayScheduleSnapshot: Equatable {
 }
 
 // MARK: - Timeline
+
+@Suite("Weekly patterns")
+struct WeeklyPatternTests {
+    private let toronto = calendar("America/Toronto")
+
+    /// One-off events (no repeat rule), each its own series, like an imported timetable.
+    private func oneOff(_ title: String, _ start: Date) -> CalendarEvent {
+        event(title, start: start, minutes: 80, series: "\(title)-\(start.timeIntervalSince1970)")
+    }
+
+    @Test func sameTimeEveryWeekCountsAsClass() {
+        // Mondays 5:30 PM, a week apart: past 4 PM and not set to repeat.
+        let events = [oneOff("Calculus", date(2026, 10, 5, 17, 30)), oneOff("Calculus", date(2026, 10, 12, 17, 30))]
+        let on = ScheduleBuilder.build(events: events, links: [], courses: [], inferWeeklyPatterns: true, calendar: toronto)
+        #expect(on.classes.map(\.code) == ["Calculus", "Calculus"])
+        #expect(Set(on.classes.compactMap(\.courseID)).count == 1)
+        let off = ScheduleBuilder.build(events: events, links: [], courses: [], inferWeeklyPatterns: false, calendar: toronto)
+        #expect(off.classes.isEmpty)
+    }
+
+    @Test func needsTheSameWeekdayAndTime() {
+        let once = [oneOff("Seminar", date(2026, 10, 5, 19))]
+        let moved = [oneOff("Seminar", date(2026, 10, 5, 19)), oneOff("Seminar", date(2026, 10, 12, 20))]
+        let otherDay = [oneOff("Seminar", date(2026, 10, 5, 19)), oneOff("Seminar", date(2026, 10, 13, 19))]
+        for events in [once, moved, otherDay] {
+            #expect(ScheduleBuilder.weeklyPatternIDs(in: events, calendar: toronto).isEmpty)
+        }
+    }
+
+    @Test func titleMustMatchInTheSameCalendar() {
+        var other = oneOff("Calculus", date(2026, 10, 12, 17, 30))
+        other.calendarID = "personal"
+        let events = [oneOff("Calculus", date(2026, 10, 5, 17, 30)), other]
+        #expect(ScheduleBuilder.weeklyPatternIDs(in: events, calendar: toronto).isEmpty)
+    }
+
+    @Test func weeklyDeadlinesAndAllDayEventsStayAsTheyAre() {
+        let events = [oneOff("Problem set due", date(2026, 10, 5, 23, 59)), oneOff("Problem set due", date(2026, 10, 12, 23, 59)),
+                      event("Reading week", start: date(2026, 10, 5), minutes: 1440, allDay: true, series: "a"),
+                      event("Reading week", start: date(2026, 10, 12), minutes: 1440, allDay: true, series: "b")]
+        let schedule = ScheduleBuilder.build(events: events, links: [], courses: [], inferWeeklyPatterns: true, calendar: toronto)
+        #expect(schedule.classes.isEmpty)
+        #expect(schedule.deadlines.count == 4)
+    }
+
+    @Test func settingDefaultsOnForOlderSettingsFiles() throws {
+        let old = try JSONDecoder().decode(StudentSettings.self, from: Data(#"{"schoolCalendarIDs":["cal"]}"#.utf8))
+        #expect(old.inferWeeklyPatterns)
+        var off = StudentSettings()
+        off.inferWeeklyPatterns = false
+        let roundTrip = try JSONDecoder().decode(StudentSettings.self, from: JSONEncoder().encode(off))
+        #expect(!roundTrip.inferWeeklyPatterns)
+    }
+}
 
 @Suite("ScheduleTimeline")
 struct ScheduleTimelineTests {
@@ -474,6 +542,40 @@ struct WeekGridTests {
         let layout = WeekGridLayout.make(classes: [slot("A", date(2026, 9, 28, 9, in: cal))], now: saturday, calendar: cal)
         #expect(layout.monday == date(2026, 9, 28, in: cal))
         #expect(layout.todayIndex == nil)
+    }
+}
+
+@Suite("SyncWindow")
+struct SyncWindowTests {
+    /// The bug: the window started at yesterday, so on Wednesday Monday's classes were never read
+    /// and vanished from the week grid.
+    @Test(arguments: [(2026, 9, 21), (2026, 9, 22), (2026, 9, 23), (2026, 9, 24), (2026, 9, 25), (2026, 9, 26), (2026, 9, 27)])
+    func coversTheWholeDisplayedWeek(day: (Int, Int, Int)) {
+        let cal = calendar("America/Toronto")
+        let now = date(day.0, day.1, day.2, 13, in: cal)
+        let window = SyncWindow.range(now: now, calendar: cal)
+        let layout = WeekGridLayout.make(classes: [], now: now, calendar: cal)
+        #expect(window.start <= layout.monday)
+        #expect(window.start <= date(2026, 9, 21, in: cal))
+        #expect(window.end == date(day.0, day.1, day.2 + 15, in: cal))
+    }
+
+    @Test func mondayStillIncludesYesterday() {
+        let cal = calendar("America/Toronto")
+        let window = SyncWindow.range(now: date(2026, 9, 21, 9, in: cal), calendar: cal)
+        #expect(window.start == date(2026, 9, 20, in: cal))
+    }
+
+    @Test func wednesdayKeepsMondaysClasses() {
+        let cal = calendar("America/Toronto")
+        let wednesday = date(2026, 9, 23, 13, in: cal)
+        let window = SyncWindow.range(now: wednesday, calendar: cal)
+        let monday = event("BIO 201", start: date(2026, 9, 21, 9, in: cal), weekly: true)
+        #expect(monday.start >= window.start && monday.start < window.end)
+        let built = ScheduleBuilder.build(events: [monday], links: [], courses: [], now: wednesday, calendar: cal)
+        let layout = WeekGridLayout.make(classes: built.classes, now: wednesday, calendar: cal)
+        #expect(built.classes.count == 1)
+        #expect(built.classes[0].start >= layout.monday)
     }
 }
 

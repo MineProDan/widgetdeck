@@ -1,0 +1,380 @@
+<title>Widgetdeck Theme Decks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75,700&family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Caveat:wght@700&family=Fredoka:wght@700&family=Graduate&family=Playfair+Display:wght@700&family=Quicksand:wght@700&family=Silkscreen:wght@700&family=Space+Grotesk:wght@700&family=Unbounded:wght@700&family=Young+Serif&display=swap">
+<style>
+/* Layout: a swatch-counter page. Three live phones up top driven by one deck selection, then the full deck catalogue as swatch cards. */
+:root {
+  --ground: #EEEBE4;
+  --surface: #F8F6F1;
+  --fg: #22232E;
+  --fg-soft: #4A4C59;
+  --fg-mute: #686A76;
+  --hair: #D9D4C9;
+  --focus: #22232E;
+  --display: "Bricolage Grotesque", -apple-system, system-ui, sans-serif;
+  --label: "Archivo", "Arial Narrow", sans-serif;
+  --body: -apple-system, "SF Pro Text", system-ui, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #17181E; --surface: #20212A; --fg: #F1EEE7; --fg-soft: #C9C6BF; --fg-mute: #A3A19B; --hair: #33343F; --focus: #F1EEE7;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #17181E; --surface: #20212A; --fg: #F1EEE7; --fg-soft: #C9C6BF; --fg-mute: #A3A19B; --hair: #33343F; --focus: #F1EEE7;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.45; padding-inline: 20px; padding-block: 36px 64px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 48px; }
+h1, h2 { font-family: var(--display); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(34px, 6vw, 56px); }
+h2 { font-size: 28px; }
+p { margin: 0; max-width: 64ch; color: var(--fg-soft); }
+.caps { font-family: var(--label); font-stretch: 75%; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; color: var(--fg-mute); }
+header { display: grid; gap: 14px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+::selection { background: var(--fg); color: var(--ground); }
+
+/* Picker rail */
+.rail { display: flex; gap: 8px; flex-wrap: wrap; }
+.rail button { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--hair); background: var(--surface); border-radius: 22px; padding: 6px 12px 6px 6px; cursor: pointer; font-size: 14px; }
+.rail button[aria-pressed="true"] { background: var(--fg); color: var(--ground); border-color: var(--fg); }
+.rail .dots { display: inline-flex; }
+.rail .dots i { width: 14px; height: 22px; display: block; }
+.rail .dots i:first-child { border-radius: 6px 0 0 6px; }
+.rail .dots i:last-child { border-radius: 0 6px 6px 0; }
+
+/* Stage */
+.stage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.stage figure { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.stage figcaption { text-align: center; display: grid; gap: 2px; }
+.stage figcaption b { font-weight: 600; font-size: 14px; }
+.seg { display: inline-flex; background: var(--surface); border: 1px solid var(--hair); border-radius: 10px; padding: 3px; gap: 3px; }
+.seg button { border: 0; background: transparent; border-radius: 7px; padding: 5px 12px; cursor: pointer; font-size: 13px; color: var(--fg-soft); }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--ground); }
+@media (max-width: 960px) { .stage { grid-template-columns: 1fr; justify-items: center; } }
+
+.phone-frame { width: 289px; height: 625px; border-radius: 44px; background: #0E0F13; padding: 8px; box-shadow: 0 30px 50px -30px rgba(20,20,30,.6); }
+.phone-clip { width: 273px; height: 609px; border-radius: 37px; overflow: hidden; position: relative; }
+.phone { width: 390px; height: 870px; transform: scale(0.7); transform-origin: top left; position: absolute; top: 0; left: 0; font-family: var(--body); color: #22232E; }
+
+/* Phone internals (all sizes in iOS points at 390 wide) */
+.status { height: 54px; display: flex; justify-content: space-between; align-items: center; padding: 14px 30px 0; font-weight: 600; font-size: 16px; }
+.status .isl { width: 120px; height: 34px; background: #000; border-radius: 20px; }
+.pad { padding: 0 24px; }
+.wcaps { font-family: var(--label); font-stretch: 75%; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; color: #5B5D6B; line-height: 1.25; }
+.disp { font-weight: 700; line-height: 1.05; color: #22232E; }
+.sub { font-size: 16px; line-height: 1.4; color: #4A4C59; }
+.btn { height: 54px; border-radius: 14px; background: #22232E; color: #FFFDF8; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 17px; }
+.strips { display: flex; gap: 12px; padding: 14px 24px 34px; overflow: hidden; }
+.strip { width: 104px; flex: none; overflow: hidden; transform: translateY(22px); transition: transform .35s cubic-bezier(.2,.8,.2,1); box-shadow: 0 1px 2px rgba(34,35,46,.1), 0 14px 30px -12px rgba(34,35,46,.28); cursor: pointer; }
+.strip.on { transform: translateY(0); box-shadow: 0 1px 2px rgba(34,35,46,.1), 0 14px 30px -12px rgba(34,35,46,.55); }
+.strip .step { height: 46px; position: relative; }
+.strip .band { padding: 9px; min-height: 72px; display: grid; gap: 4px; align-content: start; }
+.strip .band .wcaps { font-size: 9px; }
+.punch { position: absolute; display: block; }
+.dots-row { display: flex; gap: 6px; align-items: center; }
+.dots-row i { width: 6px; height: 6px; border-radius: 3px; background: #CFC8BA; display: block; }
+.dots-row i.on { width: 18px; background: #22232E; }
+
+.chip { overflow: hidden; display: flex; box-shadow: 0 1px 2px rgba(34,35,46,.08), 0 10px 22px -12px rgba(34,35,46,.4); }
+.chip.v { flex-direction: column; }
+.chip .field { position: relative; flex: none; }
+.chip .band { flex: 1; padding: 12px 14px; display: grid; gap: 5px; align-content: start; min-width: 0; }
+.bar { position: absolute; left: 14px; right: 14px; bottom: 14px; height: 10px; border-radius: 5px; background: rgba(255,253,248,.18); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: 5px; }
+.check { position: absolute; width: 42px; height: 42px; border-radius: 21px; border: 3px solid rgba(255,253,248,.95); display: grid; place-items: center; }
+.tabbar { position: absolute; left: 0; right: 0; bottom: 0; height: 83px; border-top: 1px solid rgba(34,35,46,.1); display: grid; grid-template-columns: repeat(5, 1fr); padding-top: 8px; }
+.tab { display: grid; justify-items: center; gap: 3px; align-content: start; }
+.tab svg { width: 26px; height: 26px; }
+.tab span { font-family: var(--label); font-stretch: 75%; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 10px; }
+.fan { position: relative; height: 196px; }
+.fan .chip { position: absolute; width: 104px; height: 150px; left: 50%; top: 14px; margin-left: -52px; }
+
+.wall { position: absolute; inset: 0; }
+.widgets { position: absolute; top: 74px; left: 26px; right: 26px; display: grid; grid-template-columns: 158px 158px; gap: 22px; }
+.widgets .chip { height: 158px; box-shadow: 0 12px 30px -14px rgba(34,35,46,.45); }
+.widgets .wide { grid-column: span 2; }
+.dock { position: absolute; bottom: 22px; left: 18px; right: 18px; height: 92px; border-radius: 32px; background: rgba(255,255,255,.28); display: flex; justify-content: space-around; align-items: center; }
+.dock i { width: 62px; height: 62px; border-radius: 15px; display: block; }
+
+/* Catalogue */
+.cat { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--hair); border-radius: 16px; padding: 14px; display: grid; gap: 12px; cursor: pointer; text-align: left; }
+.card[aria-pressed="true"] { border-color: var(--fg); box-shadow: 0 0 0 1px var(--fg); }
+.swatches { display: grid; grid-template-columns: repeat(5, 1fr); height: 64px; border-radius: 10px; overflow: hidden; position: relative; }
+.swatches i { display: block; }
+.card .name { font-size: 26px; line-height: 1.05; }
+.card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; font-size: 13px; }
+.card dt { color: var(--fg-mute); }
+.card dd { margin: 0; min-width: 0; color: var(--fg-soft); }
+.paints { font-size: 12px; color: var(--fg-mute); }
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.notes div { display: grid; gap: 6px; }
+.notes h3 { margin: 0; font-size: 16px; }
+@media (prefers-reduced-motion: reduce) { .strip { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="caps">Widgetdeck · Theme decks · Demo</span>
+    <h1>Ten ways to paint your home screen.</h1>
+    <p>Every deck keeps the Paint Chip skeleton: a colour field, an ivory label band with all the words, and a die-cut punch hole. Each one swaps the five section paints, the display font, how round the corners are and the shape of the punch hole. Pick one below; all three phones switch. Every deck is free.</p>
+  </header>
+
+  <div class="rail" id="rail" role="group" aria-label="Theme decks"></div>
+
+  <section class="stage" aria-label="Live demo">
+    <figure>
+      <div class="seg" role="group" aria-label="Picker screen">
+        <button id="seg-onb" aria-pressed="true">Onboarding</button>
+        <button id="seg-set" aria-pressed="false">Settings → Theme</button>
+      </div>
+      <div class="phone-frame"><div class="phone-clip"><div class="phone" id="p1"></div></div></div>
+      <figcaption><b id="cap1">Step 1: Pick your vibe</b><span class="caps">Tap a strip inside the phone too</span></figcaption>
+    </figure>
+    <figure>
+      <div style="height:33px"></div>
+      <div class="phone-frame"><div class="phone-clip"><div class="phone" id="p2"></div></div></div>
+      <figcaption><b>The app, Home tab</b><span class="caps">Chips, fonts, corners, punch holes, tab bar</span></figcaption>
+    </figure>
+    <figure>
+      <div style="height:33px"></div>
+      <div class="phone-frame"><div class="phone-clip"><div class="phone" id="p3"></div></div></div>
+      <figcaption><b>Home-screen widgets</b><span class="caps">Same deck in WidgetKit</span></figcaption>
+    </figure>
+  </section>
+
+  <section style="display:grid;gap:16px">
+    <h2>The catalogue</h2>
+    <p>Built for a 16–20 crowd with different tastes: loud and cartoony, calm and oceanic, bookish, cosy café, gamer, Y2K, sporty, starry and lo-fi. Paint names on the band change with the deck, so a class chip reads "Hot Sauce · BIO 201" in Saturday Cartoons.</p>
+    <div class="cat" id="cat"></div>
+  </section>
+
+  <section class="notes">
+    <div><h3>What stays the same</h3><p>Layouts, body text (SF), condensed caps labels, the two-sizes-per-chip rule, no text on colour fields, no gradients or glass. Someone who can read one deck can read them all.</p></div>
+    <div><h3>Accessibility</h3><p>Every deck passes WCAG AA for all text: ink on the band is at least 14:1 and caps labels at least 4.6:1. Dark paints (Tech, Evening) stay dark so fill bars and mood keys keep 3:1 or better. The tests check this for every deck.</p></div>
+    <div><h3>How it ships</h3><p>Picked in onboarding step 1 and in Settings → Theme. The choice is stored in the App Group, so widgets redraw in the same deck. Theme Sync can still recolour a deck from a wallpaper; the deck's font and shapes stay.</p></div>
+  </section>
+</div>
+
+<script>
+const DECKS = [
+  { id:"paint-chip", name:"Paint Chip", code:"WG 0914", mood:"The original: warm, matte, calm", insp:"Hardware-store paint swatches",
+    p:["#E07A5F","#81B29A","#F2CC8F","#3D405B","#6D597A"], n:["Coral Hour","Sage Noon","Beach Sand","Deep Tide","Plum Dusk"], paper:"#F7F3EA", band:"#FFFDF8",
+    font:"'Bricolage Grotesque'", fs:1, tr:-0.02, punch:"circle", cs:1, cap:40, bias:0, fontName:"Bricolage Grotesque" },
+  { id:"saturday-cartoons", name:"Saturday Cartoons", code:"WG 0606", mood:"Bold, bouncy, loud in a good way", insp:"Saturday-morning cartoons and sticker sheets",
+    p:["#FF6B4A","#3FC380","#FFD23F","#2B59C3","#7B3FB8"], n:["Hot Sauce","Slime Time","Cheese Puff","Cobalt Cape","Grape Soda"], paper:"#FFF6E0", band:"#FFFFFF",
+    font:"'Fredoka'", fs:1, tr:-0.01, punch:"star", cs:1.35, cap:28, bias:0.019, fontName:"Fredoka" },
+  { id:"tide-pool", name:"Tide Pool", code:"WG 0808", mood:"Cool, salty, a little dreamy", insp:"Rock pools, surf wax and aquarium blues",
+    p:["#FF8C7A","#3FB8AF","#F3E3C3","#0E3B5C","#4A4E8C"], n:["Reef Coral","Lagoon","Sand Dollar","Deep Sea","Jellyfish"], paper:"#EEF6F5", band:"#FBFEFD",
+    font:"'Quicksand'", fs:1, tr:-0.01, punch:"drop", cs:1.2, cap:26, bias:0.025, fontName:"Quicksand" },
+  { id:"old-library", name:"Old Library", code:"WG 1891", mood:"Dark academia, candlelit, bookish", insp:"Leather spines, ink blots and late-night essays",
+    p:["#9E3B2F","#5E7052","#D9C3A0","#2F2A26","#4A3550"], n:["Oxblood","Ivy","Parchment","Walnut Ink","Aubergine"], paper:"#F2EBDD", band:"#FBF7EE",
+    font:"'Playfair Display'", fs:1, tr:-0.01, punch:"keyhole", cs:0.5, cap:8, bias:0.0605, fontName:"Playfair Display" },
+  { id:"matcha-cafe", name:"Matcha Café", code:"WG 0730", mood:"Soft, sweet, slow mornings", insp:"Café menus, matcha lattes and strawberry milk",
+    p:["#E8A0A6","#8DB36A","#EADBC4","#5B4636","#7D5A6E"], n:["Strawberry Milk","Matcha","Oat Latte","Hojicha","Red Bean"], paper:"#F6F1E7", band:"#FFFDF9",
+    font:"'Young Serif'", fs:0.94, tr:-0.02, punch:"flower", cs:1.15, cap:24, bias:-0.035, fontName:"Young Serif" },
+  { id:"pocket-arcade", name:"Pocket Arcade", code:"WG 0089", mood:"Pixel-sharp, high-score energy", insp:"Handheld consoles, 8-bit sprites and arcade cabinets",
+    p:["#E2504B","#6BAA3C","#C4CF8A","#2A2D4F","#6A3C8E"], n:["Power-Up","Extra Life","Pea Screen","Cartridge","Boss Level"], paper:"#ECEDE4", band:"#F8F8F2",
+    font:"'Silkscreen'", fs:0.66, tr:0, punch:"pixel", cs:0.3, cap:4, bias:0.04, fontName:"Silkscreen" },
+  { id:"butterfly-clip", name:"Butterfly Clip", code:"WG 2001", mood:"Y2K, gel-pen bright, playful", insp:"Butterfly clips, gel pens and flip phones",
+    p:["#FF7EB6","#7FD8BE","#C9DBFF","#4A40A0","#8E4FB5"], n:["Bubblegum","Gel Pen Mint","Baby Blue","Flip Phone","Glitter Grape"], paper:"#FBF2FA", band:"#FFFFFF",
+    font:"'Unbounded'", fs:0.76, tr:-0.03, punch:"sparkle", cs:1.25, cap:26, bias:0, fontName:"Unbounded" },
+  { id:"game-day", name:"Game Day", code:"WG 1023", mood:"Varsity, loud, team spirit", insp:"Varsity jackets, pennants and Friday-night lights",
+    p:["#B8322F","#2F7D4F","#E9C46A","#1F2F4E","#4B2E5C"], n:["Varsity Red","Turf","Trophy Gold","Navy Stripe","Night Game"], paper:"#F4F1E8", band:"#FFFEFA",
+    font:"'Graduate'", fs:0.82, tr:0, punch:"diamond", cs:0.45, cap:7, bias:0.0085, fontName:"Graduate" },
+  { id:"cosmic-sleepover", name:"Cosmic Sleepover", code:"WG 1111", mood:"Starry, cozy, a bit witchy", insp:"Glow-in-the-dark ceiling stars and astrology apps",
+    p:["#F28C6B","#6CC5B0","#F6E7A8","#1E1B4B","#4B2B6F"], n:["Mars Glow","Aurora","Starlight","Deep Space","Nebula"], paper:"#F1EEF8", band:"#FDFCFF",
+    font:"'Space Grotesk'", fs:1, tr:-0.02, punch:"moon", cs:1, cap:40, bias:-0.004, fontName:"Space Grotesk" },
+  { id:"lofi-study", name:"Lo-fi Study", code:"WG 0230", mood:"Rainy window, lamp on, beats playing", insp:"Lo-fi study streams and rainy desk setups",
+    p:["#E39B6C","#8FA89B","#E8D9C8","#34364F","#6B5B8C"], n:["Desk Lamp","Rainy Sage","Knit Sweater","Night Window","Lo-fi Violet"], paper:"#F3EFEA", band:"#FFFDFA",
+    font:"'Caveat'", fs:1.25, tr:0, punch:"heart", cs:1, cap:40, bias:0.025, fontName:"Caveat" },
+];
+const PUNCH_NAMES = { circle:"Circle", star:"Star", drop:"Water drop", keyhole:"Keyhole", flower:"Flower", pixel:"Pixel", sparkle:"Sparkle", diamond:"Diamond", moon:"Moon", heart:"Heart" };
+const S = 0, W = 1, A = 2, T = 3, E = 4;
+let current = DECKS[2];
+let applied = DECKS[0]; // what onboarding chrome is drawn in (the default until "Use")
+let pickerMode = "onb";
+let maskSeq = 0;
+
+// Same unit-square outlines as PunchHoleShape.swift.
+function starPts() {
+  const pts = [];
+  for (let i = 0; i < 10; i++) {
+    const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? 0.5 * 0.42 : 0.5;
+    pts.push((0.5 + r * Math.cos(a)).toFixed(4) + " " + (0.54 + r * Math.sin(a)).toFixed(4));
+  }
+  return pts.join(" ");
+}
+function punchSVG(kind, size, fill) {
+  const m = kind === "circle" ? 1 : 1.4, s = size * m;
+  const k = 0.5523 * 0.36;
+  let inner;
+  switch (kind) {
+    case "circle": inner = `<circle cx=".5" cy=".5" r=".5" fill="${fill}"/>`; break;
+    case "star": inner = `<polygon points="${starPts()}" fill="${fill}"/>`; break;
+    case "drop": inner = `<path fill="${fill}" d="M.5 0 C.5 0 .86 .42 .86 .64 C.86 ${.64 + k} ${.5 + k} 1 .5 1 C${.5 - k} 1 .14 ${.64 + k} .14 .64 C.14 .42 .5 0 .5 0Z"/>`; break;
+    case "keyhole": inner = `<circle cx=".5" cy=".3" r=".3" fill="${fill}"/><polygon points=".4 .45 .6 .45 .72 1 .28 1" fill="${fill}"/>`; break;
+    case "flower": inner = [[.5,.26],[.74,.5],[.5,.74],[.26,.5]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r=".26" fill="${fill}"/>`).join("") + `<circle cx=".5" cy=".5" r=".2" fill="${fill}"/>`; break;
+    case "pixel": inner = `<polygon fill="${fill}" points=".2 0 .8 0 .8 .2 1 .2 1 .8 .8 .8 .8 1 .2 1 .2 .8 0 .8 0 .2 .2 .2"/>`; break;
+    case "sparkle": inner = `<path fill="${fill}" d="M.5 0 Q.56 .44 1 .5 Q.56 .56 .5 1 Q.44 .56 0 .5 Q.44 .44 .5 0Z"/>`; break;
+    case "diamond": inner = `<polygon fill="${fill}" points=".5 0 1 .5 .5 1 0 .5"/>`; break;
+    case "moon": { const id = "mk" + (++maskSeq);
+      inner = `<mask id="${id}" maskContentUnits="userSpaceOnUse"><rect x="-1" y="-1" width="3" height="3" fill="#fff"/><circle cx=".72" cy=".36" r=".42" fill="#000"/></mask><circle cx=".5" cy=".5" r=".5" fill="${fill}" mask="url(#${id})"/>`; break; }
+    case "heart": inner = `<circle cx=".29" cy=".35" r=".27" fill="${fill}"/><circle cx=".71" cy=".35" r=".27" fill="${fill}"/><polygon points=".06 .48 .5 .3 .94 .48 .5 .96" fill="${fill}"/>`; break;
+  }
+  return { svg: `<svg viewBox="0 0 1 1" width="${s}" height="${s}" aria-hidden="true">${inner}</svg>`, size: s, shift: (s - size) / 2 };
+}
+function punchAt(deck, size, inset, centered) {
+  const p = punchSVG(deck.punch, size, deck.paper);
+  const top = Math.max(inset - p.shift, 0);
+  const pos = centered ? `top:${top}px;left:50%;margin-left:${-p.size / 2}px` : `top:${top}px;left:${Math.max(inset - p.shift, 0)}px`;
+  return `<span class="punch" style="${pos};width:${p.size}px;height:${p.size}px">${p.svg}</span>`;
+}
+const corner = (d, r) => r <= 0 ? 0 : Math.min(r * d.cs, d.cap);
+// Same as the app: scale the face to Bricolage's width, then shift it so its capitals sit in the
+// middle of the line box (WXFont.capCentringBias).
+const dfont = (d, size) => `font-family:${d.font},var(--display);font-size:${(size * d.fs).toFixed(1)}px;letter-spacing:${d.tr}em;line-height:${(1.05 / d.fs).toFixed(3)};position:relative;top:${-d.bias}em`;
+
+function stripHTML(d, on) {
+  const order = [A, W, S, T];
+  return `<div class="strip${on ? " on" : ""}" data-deck="${d.id}" role="button" tabindex="0" aria-label="${d.name}" style="border-radius:${corner(d, 12)}px;background:${d.band}">
+    ${order.map((i, idx) => `<div class="step" style="background:${d.p[i]}">${idx === 0 ? punchAt(d, 10, 10, true) : ""}</div>`).join("")}
+    <div class="band" style="background:${d.band}"><span class="wcaps">${d.code}</span><span class="disp" style="${dfont(d, 15)}">${d.name}</span></div></div>`;
+}
+function stripsRow(sel) {
+  const i = DECKS.indexOf(sel);
+  const start = Math.max(0, Math.min(i - 1, DECKS.length - 3));
+  return `<div class="strips">${DECKS.slice(start, start + 4).map(d => stripHTML(d, d === sel)).join("")}</div>`;
+}
+function chip(d, { color, vertical = true, w, h, field, caption, value, trend, trendColor, punchSize = 9, inset = 10, radius = 16, inner = "", valueSize = 28 }) {
+  const fieldStyle = vertical ? `height:${field}px` : `width:${field}px`;
+  return `<div class="chip ${vertical ? "v" : ""}" style="${w ? `width:${w}px;` : ""}${h ? `height:${h}px;` : ""}border-radius:${corner(d, radius)}px;background:${d.band}">
+    <div class="field" style="${fieldStyle};background:${color}">${inner}${punchAt(d, punchSize, inset)}</div>
+    <div class="band" style="background:${d.band}">
+      <span class="wcaps">${caption}</span>
+      <span class="disp" style="${dfont(d, valueSize)};font-variant-numeric:tabular-nums">${value}</span>
+      ${trend ? `<span class="wcaps" style="color:${trendColor || "#5B5D6B"}">${trend}</span>` : ""}
+    </div></div>`;
+}
+const status = (dark) => `<div class="status" style="color:${dark ? "#fff" : "#22232E"}"><span>9:41</span><span class="isl"></span><span>100%</span></div>`;
+
+function renderPicker() {
+  const d = current, base = pickerMode === "onb" ? applied : current;
+  const p1 = document.getElementById("p1");
+  if (pickerMode === "onb") {
+    p1.innerHTML = `<div style="position:absolute;inset:0;background:${base.paper}">
+      ${status(false)}
+      <div class="pad" style="display:flex;justify-content:space-between;align-items:center;height:44px"><div class="dots-row"><i class="on"></i><i></i><i></i><i></i></div><span class="wcaps">Skip</span></div>
+      <div class="pad" style="display:grid;gap:10px;margin-top:6px"><div class="disp" style="${dfont(base, 40)}">Pick your vibe.</div>
+      <div class="sub" style="max-width:300px">One theme styles the app and every widget you add. Change it any time in Settings.</div></div>
+      ${stripsRow(d)}
+      <div class="pad" style="display:grid;gap:6px"><span class="wcaps">${d.code} · ${d.mood}</span><span class="disp" style="${dfont(d, 28)}">${d.name}</span></div>
+      <div class="pad" style="position:absolute;left:0;right:0;bottom:34px;display:grid;gap:8px"><div class="btn">Use ${d.name}</div>
+      <div class="sub" style="font-size:13px;color:#5B5D6B;text-align:center">Or match your wallpaper later with Theme Sync.</div></div></div>`;
+  } else {
+    const mini = (color, cap, val, bar) => chip(d, { color, h: 128, field: 62, caption: cap, value: val, radius: 22, valueSize: 22,
+      inner: bar ? `<div class="bar"><i style="width:82%;background:${d.p[A]}"></i></div>` : "" });
+    p1.innerHTML = `<div style="position:absolute;inset:0;background:${base.paper}">
+      ${status(false)}
+      <div class="pad" style="height:44px;display:flex;align-items:center;color:#22232E;font-size:17px">‹ Settings</div>
+      <div class="pad" style="display:grid;gap:8px"><div class="disp" style="${dfont(base, 40)}">Theme</div><div class="sub">Colours, fonts and shapes for the app and every widget.</div></div>
+      ${stripsRow(d)}
+      <div class="pad" style="display:grid;gap:6px"><span class="wcaps">${d.code} · ${d.mood}</span><span class="disp" style="${dfont(d, 28)}">${d.name}</span>
+      <div class="sub" style="font-size:15px">Inspired by ${d.insp.charAt(0).toLowerCase() + d.insp.slice(1)}. ${PUNCH_NAMES[d.punch]} punch holes.</div></div>
+      <div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px">
+        ${mini(d.p[S], d.n[S] + " · BIO 201", "14 min")}${mini(d.p[T], "Battery", "82%", true)}
+      </div></div>`;
+  }
+  p1.querySelectorAll(".strip").forEach(el => el.addEventListener("click", () => select(el.dataset.deck)));
+  document.getElementById("cap1").textContent = pickerMode === "onb" ? "Step 1: Pick your vibe" : "Settings → Theme";
+}
+
+const ICONS = [
+  '<path d="M4 11 13 4l9 7v10h-6v-6h-6v6H4z"/>',
+  '<path d="M5 5h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H5zM21 5h-4a2 2 0 0 0-2 2"/>',
+  '<path d="M13 3v6M13 17v6M3 13h6M17 13h6M6 6l3 3M17 17l3 3M6 20l3-3M17 9l3-3"/>',
+  '<path d="M6 20c0-8 6-14 15-15-1 9-7 15-15 15zM6 20l7-7"/>',
+  '<rect x="6" y="6" width="14" height="14" rx="2"/><path d="M10 3v3M16 3v3M10 20v3M16 20v3M3 10h3M3 16h3M20 10h3M20 16h3"/>'
+];
+function renderApp() {
+  const d = current;
+  const fanCards = [[W, "Habits"], [A, "Palette"], [T, "Battery"], [S, "Next Class"]];
+  const angles = [-27, -9, 9, 27];
+  document.getElementById("p2").innerHTML = `<div style="position:absolute;inset:0;background:${d.paper}">
+    ${status(false)}
+    <div class="pad" style="display:flex;justify-content:space-between;align-items:start;margin-top:8px">
+      <div style="display:grid;gap:8px"><div class="disp" style="${dfont(d, 40)}">Today</div><div class="sub" style="font-size:15px">Tuesday morning. Biology is next.</div></div>
+      <div style="width:36px;height:36px;border-radius:18px;background:${d.band};display:grid;place-items:center;box-shadow:0 1px 3px rgba(34,35,46,.15)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22232E" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></div>
+    </div>
+    <div class="pad" style="margin-top:22px">${chip(d, { color: d.p[S], vertical: false, h: 132, field: 124, punchSize: 12, inset: 14, caption: d.n[S] + " · BIO 201", value: "in 14 min", trend: "Room 204 · leave 08:52", trendColor: "#B2492F", valueSize: 30,
+      inner: `<div class="bar" style="height:6px;background:rgba(255,253,248,.32)"><i style="width:62%;background:${d.band}"></i></div>` })}</div>
+    <div class="pad" style="margin-top:24px;display:flex;justify-content:space-between"><span class="wcaps">On your home screen</span><span class="wcaps" style="color:#B2492F">Edit</span></div>
+    <div class="fan">${fanCards.map(([i, name], k) => `<div style="position:absolute;inset:0;transform:rotate(${angles[k]}deg);transform-origin:50% 336px">${chip(d, { color: d.p[i], w: 104, h: 150, field: 74, punchSize: 9, inset: 9, caption: d.n[i], value: name, radius: 12, valueSize: 16 })}</div>`).join("")}</div>
+    <div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:0">
+      ${chip(d, { color: d.p[W], h: 120, field: 50, caption: "Habits · today", value: "3 of 4", trend: "Streak 12 days", trendColor: "#4C7A62", valueSize: 22 })}
+      ${chip(d, { color: d.p[E], h: 120, field: 50, caption: d.n[E] + " · Mood", value: "Good", trend: "Logged 08:10", valueSize: 22 })}
+    </div>
+    <nav class="tabbar" style="background:${d.paper}">${["Home","Student","Aesthetic","Wellness","Tech"].map((t, i) => `<div class="tab" style="color:${i === 0 ? "#22232E" : "#6B6D7A"}"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${ICONS[i]}</svg><span>${t}</span></div>`).join("")}</nav>
+  </div>`;
+}
+
+function renderWidgets() {
+  const d = current;
+  document.getElementById("p3").innerHTML = `<div class="wall" style="background:${d.p[T]}"></div>
+    <div class="wall" style="background:radial-gradient(120% 70% at 20% 0%, ${d.p[S]}55, transparent 60%), radial-gradient(90% 60% at 100% 100%, ${d.p[E]}, transparent 70%)"></div>
+    ${status(true)}
+    <div class="widgets">
+      ${chip(d, { color: d.p[S], h: 158, field: 76, caption: "Next class · BIO 201", value: "14 min", trend: "Room 204", trendColor: "#B2492F", radius: 22, valueSize: 28 })}
+      ${chip(d, { color: d.p[T], h: 158, field: 76, caption: "Battery · charging", value: "82%", trend: "Est. 1h 10m", trendColor: "#4C7A62", radius: 22, valueSize: 28,
+        inner: `<div class="bar" style="height:14px;border-radius:7px"><i style="width:82%;background:${d.p[A]}"></i></div>` })}
+      <div class="wide">${chip(d, { color: d.p[W], vertical: false, h: 158, field: 150, punchSize: 11, inset: 13, caption: "Habits · today", value: "3 of 4 done", trend: "Water next · streak 12", trendColor: "#4C7A62", radius: 22, valueSize: 28,
+        inner: `<div class="check" style="left:54px;top:58px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="${d.band}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></div>` })}</div>
+      ${chip(d, { color: d.p[E], h: 158, field: 76, caption: d.n[E] + " · Mood", value: "How's today?", radius: 22, valueSize: 18,
+        inner: `<div style="position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:5px">${["#A99BB3","#BCAFC5","#CFC4D6","#E2D9E7","#F4EFF6"].map(c => `<i style="flex:1;height:22px;border-radius:6px;background:${c};display:block"></i>`).join("")}</div>` })}
+      ${chip(d, { color: d.p[A], h: 158, field: 76, caption: d.n[A] + " · Palette", value: d.name, radius: 22, valueSize: 18,
+        inner: `<div style="position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:4px">${d.p.map(c => `<i style="flex:1;height:22px;border-radius:${corner(d, 8) / 2}px;background:${c};display:block;box-shadow:0 0 0 1px rgba(34,35,46,.08)"></i>`).join("")}</div>` })}
+    </div>
+    <div class="dock">${[d.p[S], d.p[W], d.p[A], d.band].map(c => `<i style="background:${c}"></i>`).join("")}</div>`;
+}
+
+function renderRail() {
+  document.getElementById("rail").innerHTML = DECKS.map(d => `<button data-deck="${d.id}" aria-pressed="${d === current}"><span class="dots">${[A, W, S, T].map(i => `<i style="background:${d.p[i]}"></i>`).join("")}</span>${d.name}</button>`).join("");
+}
+function renderCatalogue() {
+  document.getElementById("cat").innerHTML = DECKS.map(d => `<button class="card" data-deck="${d.id}" aria-pressed="${d === current}">
+    <div class="swatches" style="border-radius:${Math.max(corner(d, 14), 3)}px">${d.p.map((c, i) => `<i style="background:${c};position:relative">${i === 0 ? punchAt(d, 11, 10) : ""}</i>`).join("")}</div>
+    <div style="display:grid;gap:4px"><span class="caps">${d.code} · ${d.mood}</span><span class="name" style="${dfont(d, 26)};font-weight:700">${d.name}</span></div>
+    <span class="paints">${d.n.join(" · ")}</span>
+    <dl><dt>Font</dt><dd>${d.fontName}</dd><dt>Punch</dt><dd>${PUNCH_NAMES[d.punch]}</dd><dt>Corners</dt><dd>${d.cs === 1 && d.cap === 40 ? "Standard" : d.cs < 1 ? "Sharper (max " + d.cap + " pt)" : "Rounder (max " + d.cap + " pt)"}</dd><dt>Inspired by</dt><dd>${d.insp}</dd></dl>
+  </button>`).join("");
+}
+function select(id) {
+  current = DECKS.find(d => d.id === id) || DECKS[0];
+  render();
+}
+function render() { maskSeq = 0; renderRail(); renderPicker(); renderApp(); renderWidgets(); renderCatalogue(); }
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("#rail button, #cat .card");
+  if (b) select(b.dataset.deck);
+});
+document.addEventListener("keydown", e => {
+  const s = e.target.closest && e.target.closest(".strip");
+  if (s && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); select(s.dataset.deck); }
+});
+function setMode(m) {
+  pickerMode = m;
+  document.getElementById("seg-onb").setAttribute("aria-pressed", m === "onb");
+  document.getElementById("seg-set").setAttribute("aria-pressed", m === "set");
+  renderPicker();
+}
+document.getElementById("seg-onb").addEventListener("click", () => setMode("onb"));
+document.getElementById("seg-set").addEventListener("click", () => setMode("set"));
+render();
+</script>

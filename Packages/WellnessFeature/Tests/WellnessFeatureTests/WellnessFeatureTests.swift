@@ -360,3 +360,15 @@ struct MoodDailyTests {
         #expect(daily[12] == nil)
     }
 }
+
+@Suite("Habits widget caption")
+struct HabitCaptionTests {
+    @Test func longestFirstThenFewerNamesThenHabits() {
+        #expect(WellnessCopy.habitCaptions(["Read 20 min", "Water, 8 glasses", "Stretch"]) ==
+                ["Read · Water · Stretch", "Read · Water +1", "Read +2", "Habits"])
+    }
+
+    @Test func singleHabit() {
+        #expect(WellnessCopy.habitCaptions(["Meditate"]) == ["Meditate", "Habits"])
+    }
+}

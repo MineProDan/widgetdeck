@@ -42,6 +42,22 @@ struct SettingsView: View {
                 }
             }
 
+            Section {
+                NavigationLink {
+                    ThemePickerView()
+                } label: {
+                    LabeledContent {
+                        Text(WXDeck.deck(id: environment.deckID).name)
+                    } label: {
+                        Label("Theme", systemImage: "paintpalette")
+                    }
+                }
+            } header: {
+                Text("Look")
+            } footer: {
+                Text("Colours, fonts and shapes for the app and every widget.")
+            }
+
             if let student = environment.studentStore {
                 Section {
                     Button {
@@ -56,10 +72,14 @@ struct SettingsView: View {
                     } label: {
                         Label("Redo calendar setup", systemImage: "calendar.badge.plus")
                     }
+                    Toggle(isOn: Binding(get: { student.settings.inferWeeklyPatterns },
+                                         set: { value in Task { await student.setInferWeeklyPatterns(value) } })) {
+                        Label("Same time every week", systemImage: "repeat")
+                    }
                 } header: {
                     Text("Classes")
                 } footer: {
-                    Text("Asks the room, travel and heads-up questions again. Redoing calendar setup also lets you pick your school calendars again.")
+                    Text("Asks the room, travel and heads-up questions again. Redoing calendar setup also lets you pick your school calendars again. Same time every week counts events with the same name at the same weekly time as classes, even when they aren't set to repeat.")
                 }
             }
 
@@ -83,6 +103,8 @@ struct SettingsView: View {
                     ShareLink(item: exportURL) {
                         Label("Share export file", systemImage: "doc.text")
                     }
+                    // Leaving Settings ends the share; don't keep a readable copy of the data around.
+                    .onDisappear { DataExporter.removeExports() }
                 }
 
                 Button(role: .destructive) {

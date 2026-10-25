@@ -1,7 +1,8 @@
 import SwiftUI
 import WidgetKit
 
-/// The punch hole: a Paper Ivory circle near the top-left of every colour field.
+/// The punch hole: a Paper Ivory mark near the top-left of every colour field. A circle in the
+/// Paint Chip deck; other theme decks die-cut their own shape (`WXDeck.PunchShape`).
 public struct PunchHole: Hashable, Sendable {
     public var diameter: CGFloat
     /// Distance from the field's top and leading edges.
@@ -302,10 +303,10 @@ public struct ChipLabelBand: View {
                 Text(caption).wxLabel(captionSize).lineLimit(3)
             }
             HStack(alignment: .firstTextBaseline) {
-                Text(value).wxGrotesk(valueSize, tabular: tabular)
+                Text(wxValue: value, size: valueSize).wxGrotesk(valueSize, tabular: tabular)
                 if let trailingValue {
                     Spacer(minLength: 8)
-                    Text(trailingValue).wxGrotesk(valueSize, tabular: true)
+                    Text(wxValue: trailingValue, size: valueSize).wxGrotesk(valueSize, tabular: true)
                 }
             }
             if let trend {
@@ -351,11 +352,15 @@ struct PunchHoleMark: View {
     @Environment(\.widgetRenderingMode) private var renderingMode
 
     var body: some View {
-        Circle()
+        let shape = WXDeck.current.punch
+        // Larger marks grow around the same centre, so the inset to the hole's centre is unchanged.
+        let size = punchHole.diameter * shape.sizeMultiplier
+        let shift = (size - punchHole.diameter) / 2
+        PunchHoleShape(shape)
             .fill(DSRenderingMode(renderingMode) == .fullColor ? WXColor.paperIvory : Color.primary.opacity(0.6))
-            .frame(width: punchHole.diameter, height: punchHole.diameter)
-            .padding(.top, punchHole.inset)
-            .padding(.leading, punchHole.centered ? 0 : punchHole.inset)
+            .frame(width: size, height: size)
+            .padding(.top, max(punchHole.inset - shift, 0))
+            .padding(.leading, punchHole.centered ? 0 : max(punchHole.inset - shift, 0))
             .frame(maxWidth: punchHole.centered ? .infinity : nil, alignment: .top)
             .accessibilityHidden(true)
     }

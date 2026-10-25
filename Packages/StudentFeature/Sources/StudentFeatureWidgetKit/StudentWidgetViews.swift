@@ -267,10 +267,8 @@ public struct NextClassWidgetView: View {
     private var rectangular: some View {
         VStack(alignment: .leading, spacing: 1) {
             if let slot {
-                Text([slot.code, leaveBy(for: slot).map {
-                    String(localized: "Leave \(slot.leaveByIsEstimate == true ? "~" : "")\(ScheduleFormat.time($0))")
-                } ?? slot.shortLocation]
-                    .compactMap { $0 }.joined(separator: " · "))
+                // The leave time gets its own line: sharing the caption with the code cut it off ("Leave ~10:0…").
+                Text([slot.code, slot.shortLocation].compactMap { $0 }.joined(separator: " · "))
                     .wxLabel(11, color: .primary).lineLimit(1)
                 Group {
                     if slot.isInProgress(at: entry.date) {
@@ -282,6 +280,12 @@ public struct NextClassWidgetView: View {
                     }
                 }
                 .font(WXFont.headline(22)).lineLimit(1).minimumScaleFactor(0.7)
+                if let leave = leaveBy(for: slot) {
+                    Text(slot.leaveByIsEstimate == true
+                         ? String(localized: "Leave ~\(ScheduleFormat.time(leave)) est.")
+                         : String(localized: "Leave by \(ScheduleFormat.time(leave))"))
+                        .wxLabel(11, color: .primary).lineLimit(1)
+                }
             } else {
                 Text("Next class").wxLabel(11, color: .primary)
                 Text(entry.moment.hasData ? "None soon" : "Connect calendar").font(WXFont.title(15)).lineLimit(1)

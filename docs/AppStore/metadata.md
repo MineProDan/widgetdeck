@@ -1,17 +1,17 @@
 # App Store metadata (US English, MVP)
 
-Based on `docs/plan/08-go-to-market.md` §2.1 and cut down to what version 1.0 actually ships: **Tech, Student, Aesthetic and Wellness** (decided 2026-09-30: launch with Wellness). Guideline 2.3.1 says metadata must not advertise features the build doesn't have. Assignments, grades/GPA, focus timers and leave-by travel times are built and in 1.0 (2026-10-01); Pinterest, the curated feed and transparent widgets are not, so they stay out.
+Based on `docs/plan/08-go-to-market.md` §2.1 and cut down to what version 1.0 actually ships: **Tech, Student, Aesthetic and Wellness** (decided 2026-09-30: launch with Wellness). Guideline 2.3.1 says metadata must not advertise features the build doesn't have. Assignments, grades/GPA, focus timers and leave-by travel times are built and in 1.0 (2026-10-01); Pinterest, the curated feed and transparent widgets are not, so they stay out. The ten theme decks (2026-10-06) are in 1.0.
 
 | Field (limit) | Value | Length |
 |---|---|---|
 | **Name (30)** | `Widgetdeck: Aesthetic Widgets` | 29 |
 | **Subtitle (30)** | `Class Schedule, Themes & Stats` | 30 |
 | **Keywords (100)** | `home screen,theme,schedule,class,student,wallpaper,habit,mood,gpa,pomodoro,battery,calendar,planner` | 99 |
-| **Promotional text (170)** | `Pick a vibe and every widget follows it. Next class and when to leave, habits, mood, battery and your photos, all in one look.` | 126 |
+| **Promotional text (170)** | `Ten looks, from Old Library to Pocket Arcade, and every widget follows yours. Next class and when to leave, habits, mood, battery and your photos.` | 146 |
 | **Category** | Primary: Productivity · Secondary: Lifestyle | |
-| **Age rating** | 4+ (no user-generated content, no web browsing, no mature themes) | |
+| **Age rating** | 9+ because "Health or Wellness Topics" = Yes (habits, mood, breathing); everything else None/No (no user-generated content, no web browsing, no mature themes) | |
 | **Price** | **Free. No in-app purchases** | |
-| **Copyright** | `2027 Daniel Radu Betiu` | |
+| **Copyright** | `2026 Daniel Radu Betiu` | |
 | **Support URL** | `https://mineprodan.github.io/support/` (source: `docs/github-pages/support/`) | |
 | **Privacy Policy URL** | `https://mineprodan.github.io/privacy/` (source: `docs/github-pages/privacy/`) | |
 
@@ -25,7 +25,7 @@ Title words ("Aesthetic", "Widgets") aren't repeated in the keywords, since the 
 One app for your whole home screen: widgets that look good and are actually useful.
 
 PICK A VIBE
-Choose a theme and every Widgetdeck widget follows it. Or use Theme Sync: pick your wallpaper photo and Widgetdeck builds a matching palette, checked for readable contrast.
+Choose one of ten theme decks, from Old Library and Matcha Café to Pocket Arcade and Lo-fi Study, each with its own colors, fonts and shapes. The app and every Widgetdeck widget follow it. Or use Theme Sync: pick your wallpaper photo and Widgetdeck builds a matching palette, checked for readable contrast.
 
 STUDENT
 • Next Class and Today's Schedule widgets, built from the calendars you choose

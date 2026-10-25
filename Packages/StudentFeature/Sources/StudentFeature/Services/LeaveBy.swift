@@ -49,6 +49,8 @@ public enum LeaveByPlanner {
                             remindedClassIDs: Set<String>, now: Date) -> [PlannedReminder] {
         candidates(classes, now: now).compactMap { slot in
             guard let location = slot.location?.nilIfBlank else { return nil }
+            // Alerts show on the Lock Screen: name the room or building, never the full street address.
+            let place = slot.shortLocation ?? location
             if let eta = etas[location], eta > 0, eta <= maxTravel {
                 let leave = slot.start.addingTimeInterval(-eta - TimeInterval(max(0, bufferMinutes) * 60))
                 // Round down to the minute so "Leave by 8:41" is never later than the true time.
@@ -59,7 +61,7 @@ public enum LeaveByPlanner {
                     identifier: "\(identifierPrefix)\(slot.id).\(Int(fire.timeIntervalSince1970))",
                     fireDate: fire,
                     title: String(localized: "Leave by \(ScheduleFormat.time(fire)) for \(slot.code)"),
-                    body: String(localized: "About \(minutes) min \(mode.phrase) to \(location). Class starts \(ScheduleFormat.time(slot.start))."),
+                    body: String(localized: "About \(minutes) min \(mode.phrase) to \(place). Class starts \(ScheduleFormat.time(slot.start))."),
                     courseID: slot.courseID)
             }
             guard !remindedClassIDs.contains(slot.id) else { return nil }
@@ -67,7 +69,7 @@ public enum LeaveByPlanner {
             guard fire > now else { return nil }
             return PlannedReminder(identifier: "\(identifierPrefix)\(slot.id).fallback", fireDate: fire,
                                    title: String(localized: "\(slot.code) in 15 min"),
-                                   body: String(localized: "\(location) · couldn't estimate travel time"),
+                                   body: String(localized: "\(place) · couldn't estimate travel time"),
                                    courseID: slot.courseID)
         }
     }

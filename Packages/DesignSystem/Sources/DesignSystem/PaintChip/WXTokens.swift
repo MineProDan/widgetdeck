@@ -92,7 +92,8 @@ struct WXShadowModifier: ViewModifier {
     let cornerRadius: CGFloat
 
     func body(content: Content) -> some View {
-        content.background {
+        let cornerRadius = WXDeck.current.corner(cornerRadius)
+        return content.background {
             ZStack {
                 ForEach(Array(shadow.layers.enumerated()), id: \.offset) { _, layer in
                     RoundedRectangle(cornerRadius: max(0, cornerRadius + layer.spread), style: .continuous)
@@ -114,9 +115,10 @@ extension View {
         modifier(WXShadowModifier(shadow: shadow, cornerRadius: cornerRadius))
     }
 
-    /// Clips to a continuous rounded rectangle.
+    /// Clips to a continuous rounded rectangle. `radius` is a `WXRadius` value; the active theme
+    /// deck turns it into its own roundness (`WXDeck.corner`), so a deck's shape reaches every chip.
     public func wxRounded(_ radius: CGFloat) -> some View {
-        clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
+        clipShape(RoundedRectangle(cornerRadius: WXDeck.current.corner(radius), style: .continuous))
     }
 }
 

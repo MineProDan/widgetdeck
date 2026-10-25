@@ -61,11 +61,14 @@ struct SelectRow: View {
 struct CalendarPickerSheet: View {
     let calendars: [CalendarSource]
     @State var selected: Set<String>
-    let onSave: (Set<String>) -> Void
+    @State var inferWeekly: Bool
+    let onSave: (Set<String>, Bool) -> Void
 
-    init(calendars: [CalendarSource], selected: Set<String>, onSave: @escaping (Set<String>) -> Void) {
+    init(calendars: [CalendarSource], selected: Set<String>, inferWeekly: Bool,
+         onSave: @escaping (Set<String>, Bool) -> Void) {
         self.calendars = calendars
         _selected = State(initialValue: selected)
+        _inferWeekly = State(initialValue: inferWeekly)
         self.onSave = onSave
     }
 
@@ -73,7 +76,7 @@ struct CalendarPickerSheet: View {
         SheetScaffold(title: String(localized: "School calendars"),
                       subtitle: String(localized: "Widgetdeck reads only these, and never changes them."),
                       actionTitle: String(localized: "Save")) {
-            onSave(selected)
+            onSave(selected, inferWeekly)
         } content: {
             VStack(alignment: .leading, spacing: 8) {
                 if calendars.isEmpty {
@@ -86,6 +89,15 @@ struct CalendarPickerSheet: View {
                         if selected.contains(calendar.id) { selected.remove(calendar.id) } else { selected.insert(calendar.id) }
                     }
                 }
+            }
+            VStack(alignment: .leading, spacing: 10) {
+                WXSectionHeader("Finding classes")
+                Toggle(isOn: $inferWeekly) {
+                    Text("Same time every week").wxBody(16, color: WXColor.ink)
+                }
+                .tint(WXColor.mossPositive)
+                Text("Counts events with the same name at the same time each week as classes, even when they aren't set to repeat. Many school timetables are added that way.")
+                    .wxBody(14)
             }
         }
     }

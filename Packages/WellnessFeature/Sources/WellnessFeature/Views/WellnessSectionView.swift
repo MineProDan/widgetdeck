@@ -53,7 +53,7 @@ public struct WellnessSectionView: View {
             }
             habitsSection
             moodSection.padding(.top, store.habits.isEmpty ? 14 : 4)
-            breathingChip.padding(.top, 40)
+            breathingChip.padding(.top, 24)
             goalsSection.padding(.top, 36)
             quoteSection.padding(.top, 28)
             Button(String(localized: "Wellness settings")) { isShowingSettings = true }
@@ -108,6 +108,10 @@ public struct WellnessSectionView: View {
                         .frame(minWidth: 44, minHeight: 44)
                         .padding(.vertical, -6)
                 }
+                // People rarely find out on their own that the widgets are interactive.
+                Text("You can tick habits and log your mood from the Habits and Mood widgets too, without opening the app.")
+                    .wxBody(13, lineHeight: 1.45, color: WXColor.inkSecondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }

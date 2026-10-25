@@ -67,6 +67,10 @@ struct RootView: View {
                 Analytics.shared.track(.sectionOpened(section))
             }
         }
+        // A new theme deck redraws every screen and the tab bar (colours, face, corners and punch
+        // holes resolve through `WXDeck.current` when a body is evaluated). `tab` lives in RootView,
+        // so the selected tab survives.
+        .id(environment.deckID)
     }
 
     @ViewBuilder

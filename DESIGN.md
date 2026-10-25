@@ -145,11 +145,35 @@ Four named section colours and one evening colour, all matte and mid-saturation,
 
 **The Pure Field Rule.** Text never sits on a colour field. The field holds only geometry: the punch hole, a fill bar, a drawn glyph or a control. Every word lives on the ivory label band.
 
-**The Theme Stays in the Theme Rule.** User-theme hues (Chrome Lilac, Library Oak and so on) appear only in theme pickers and user-themed widgets, never in system chrome.
+**The Deck Rules Everything Rule** (replaces "The Theme Stays in the Theme", 2026-10-06). The active theme deck (see Theme Decks) restyles the whole app and every widget: section paints, paper, bands, display face, corner roundness and punch hole. Code never hard-codes a hex for these roles; it uses the role tokens (`WXColor.coralHour` means "the Student paint of the active deck"). A Theme Sync palette may recolour the deck's fields on widgets; it never changes the deck's face or shapes.
+
+## Theme Decks
+
+A deck is one complete look. Every deck keeps the Paint Chip anatomy (field, band, punch hole, fan deck, two sizes per chip, no text on fields) and changes only colour, the display face and shape. Body text stays SF and labels stay condensed Archivo caps in every deck, so reading never changes. Ten decks ship, all free, picked in onboarding (step 1) and Settings → Theme. Source of truth: `Packages/DesignSystem/Sources/DesignSystem/Decks/WXDeck.swift`; interactive demo: `docs/design/themes/index.html`.
+
+| Deck | Code | Student · Wellness · Aesthetic · Tech · Evening | Paper / Band | Display face | Corners | Punch |
+|---|---|---|---|---|---|---|
+| Paint Chip (default) | WG 0914 | #E07A5F · #81B29A · #F2CC8F · #3D405B · #6D597A | #F7F3EA / #FFFDF8 | Bricolage Grotesque | ×1 | circle |
+| Saturday Cartoons | WG 0606 | #FF6B4A · #3FC380 · #FFD23F · #2B59C3 · #7B3FB8 | #FFF6E0 / #FFFFFF | Fredoka Bold | ×1.35, max 28 | star |
+| Tide Pool | WG 0808 | #FF8C7A · #3FB8AF · #F3E3C3 · #0E3B5C · #4A4E8C | #EEF6F5 / #FBFEFD | Quicksand Bold | ×1.2, max 26 | water drop |
+| Old Library | WG 1891 | #9E3B2F · #5E7052 · #D9C3A0 · #2F2A26 · #4A3550 | #F2EBDD / #FBF7EE | Playfair Display Bold | ×0.5, max 8 | keyhole |
+| Matcha Café | WG 0730 | #E8A0A6 · #8DB36A · #EADBC4 · #5B4636 · #7D5A6E | #F6F1E7 / #FFFDF9 | Young Serif (×0.94) | ×1.15, max 24 | flower |
+| Pocket Arcade | WG 0089 | #E2504B · #6BAA3C · #C4CF8A · #2A2D4F · #6A3C8E | #ECEDE4 / #F8F8F2 | Silkscreen Bold (×0.66) | max 4 | pixel |
+| Butterfly Clip | WG 2001 | #FF7EB6 · #7FD8BE · #C9DBFF · #4A40A0 · #8E4FB5 | #FBF2FA / #FFFFFF | Unbounded Bold (×0.76) | ×1.25, max 26 | sparkle |
+| Game Day | WG 1023 | #B8322F · #2F7D4F · #E9C46A · #1F2F4E · #4B2E5C | #F4F1E8 / #FFFEFA | Graduate (×0.82) | ×0.45, max 7 | diamond |
+| Cosmic Sleepover | WG 1111 | #F28C6B · #6CC5B0 · #F6E7A8 · #1E1B4B · #4B2B6F | #F1EEF8 / #FDFCFF | Space Grotesk Bold | ×1 | moon |
+| Lo-fi Study | WG 0230 | #E39B6C · #8FA89B · #E8D9C8 · #34364F · #6B5B8C | #F3EFEA / #FFFDFA | Caveat Bold (×1.25) | ×1 | heart |
+
+### Named Rules
+**The Same Skeleton Rule.** A deck may change paint, face, roundness and the punch silhouette. It may not add gradients, glass, glow, texture, text on fields or a third type size.
+
+**The Role Contract Rule.** In every deck Student, Wellness and Aesthetic are mid/light paints and Tech and Evening are dark, paper and bands are light, ink passes 4.5:1 on band and paper, and the Aesthetic paint passes 3:1 on the Tech paint (fill bars). `DeckTests` enforces this; a new deck that fails it doesn't ship.
+
+**The Even Size Rule.** Faces that run wide or small carry a `displayScale` so a layout built for Bricolage still fits (real strings at most ~15 % wider) while its line box stays 1.05 × the nominal size, and display text is shifted so its capitals sit in the middle of the line box, as Bricolage's do. Never resize or nudge individual screens per deck.
 
 ## Typography
 
-**Display Font:** Bricolage Grotesque (fallback: -apple-system)
+**Display Font:** Bricolage Grotesque in the Paint Chip deck; each theme deck swaps in its own display face (see Theme Decks) (fallback: -apple-system)
 **Body Font:** SF Pro via -apple-system (native iOS body)
 **Label Font:** Archivo, condensed (width 75), uppercase
 

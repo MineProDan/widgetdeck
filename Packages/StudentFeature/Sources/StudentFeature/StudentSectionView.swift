@@ -387,8 +387,9 @@ public struct StudentSectionView: View {
                 })
             .presentationDetents([.large])
         case .calendars:
-            CalendarPickerSheet(calendars: store.calendars, selected: store.settings.schoolCalendarIDs) { ids in
-                Task { await store.setSchoolCalendars(ids) }
+            CalendarPickerSheet(calendars: store.calendars, selected: store.settings.schoolCalendarIDs,
+                                inferWeekly: store.settings.inferWeeklyPatterns) { ids, inferWeekly in
+                Task { await store.setSchoolCalendars(ids, inferWeeklyPatterns: inferWeekly) }
             }
         case .reminders:
             ReminderSheet(rule: store.globalRule,

@@ -26,3 +26,6 @@ Package.resolved.bak
 .env.*
 Secrets.xcconfig
 
+# Video ad: its own repo (github.com/MineProDan/iospremium_video)
+marketing/promo-video/
+

@@ -1,5 +1,6 @@
 import Charts
 import SwiftUI
+import WidgetKit
 
 /// A small line/area chart (mood, habits, battery history). Static and widget-safe.
 public struct TrendLine: View {

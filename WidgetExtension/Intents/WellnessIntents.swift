@@ -9,6 +9,8 @@ struct ToggleHabitIntent: AppIntent {
     static let title: LocalizedStringResource = "Tick off habit"
     static let description = IntentDescription("Marks a habit done (or not done) for today.")
     static let isDiscoverable = false
+    // On the Home Screen the phone is already unlocked; this only stops taps from a locked phone (StandBy).
+    static let authenticationPolicy: IntentAuthenticationPolicy = .requiresAuthentication
 
     @Parameter(title: "Habit ID") var habitID: String
 
@@ -32,6 +34,8 @@ struct LogMoodIntent: AppIntent {
     static let title: LocalizedStringResource = "Log mood"
     static let description = IntentDescription("Logs how today went.")
     static let isDiscoverable = false
+    // On the Home Screen the phone is already unlocked; this only stops taps from a locked phone (StandBy).
+    static let authenticationPolicy: IntentAuthenticationPolicy = .requiresAuthentication
 
     @Parameter(title: "Mood", default: 3) var mood: Int
 

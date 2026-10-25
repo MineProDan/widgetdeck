@@ -37,7 +37,15 @@ public struct StudentSchedule: Sendable, Equatable {
 
 /// Turns raw events + our annotations into classes and deadlines. Pure: no EventKit, no I/O.
 public enum ScheduleBuilder {
-    public static func build(events: [CalendarEvent], links: [CourseEventLink], courses: [Course], now: Date = .now) -> StudentSchedule {
+    /// - Parameter inferWeeklyPatterns: treat one-off events that meet at the same weekday and time
+    ///   every week as recurring (see `weeklyPatternIDs`). Student settings → "Same time every week".
+    public static func build(events: [CalendarEvent], links: [CourseEventLink], courses: [Course], now: Date = .now,
+                             inferWeeklyPatterns: Bool = false, calendar: Calendar = .current) -> StudentSchedule {
+        var events = events
+        if inferWeeklyPatterns {
+            let weekly = weeklyPatternIDs(in: events, calendar: calendar)
+            for index in events.indices where weekly.contains(events[index].id) { events[index].isWeeklyRecurring = true }
+        }
         let linkBySeries = Dictionary(links.map { ($0.seriesKey, $0) }, uniquingKeysWith: { a, b in a.updatedAt >= b.updatedAt ? a : b })
         // Fallback when the series identifier changed: the newest correction for the same calendar + title.
         let linkByTitle = Dictionary(links.compactMap { link in link.titleKey.map { ($0, link) } },
@@ -110,6 +118,27 @@ public enum ScheduleBuilder {
         return StudentSchedule(classes: classes, deadlines: deadlines, courses: allCourses, newCourses: newCourses,
                                seriesByOccurrence: seriesByOccurrence, titleKeyBySeries: titleKeyBySeries,
                                roomSuggestions: roomSuggestions)
+    }
+
+    /// Occurrence ids of events that aren't marked as repeating but are a weekly class in practice:
+    /// the same title in the same calendar, on the same weekday at the same start time, at least
+    /// twice in the window. Many school timetables are imported as separate events, one per class.
+    /// All-day events and deadline-like titles ("Problem set due") are left alone.
+    static func weeklyPatternIDs(in events: [CalendarEvent], calendar: Calendar = .current) -> Set<String> {
+        struct Slot: Hashable { var title: String; var weekday: Int; var hour: Int; var minute: Int }
+        var groups: [Slot: [CalendarEvent]] = [:]
+        for event in events where !event.isWeeklyRecurring && !event.isAllDay
+            && !EventClassifier.containsDeadlineKeyword(event.title) {
+            let parts = calendar.dateComponents([.weekday, .hour, .minute], from: event.start)
+            let slot = Slot(title: titleKey(for: event), weekday: parts.weekday ?? 0, hour: parts.hour ?? 0, minute: parts.minute ?? 0)
+            groups[slot, default: []].append(event)
+        }
+        var ids: Set<String> = []
+        for occurrences in groups.values {
+            let days = Set(occurrences.map { calendar.startOfDay(for: $0.start) })
+            if days.count >= 2 { ids.formUnion(occurrences.map(\.id)) }
+        }
+        return ids
     }
 
     /// SHA-256 of calendar id + trimmed, lowercased title. Stored instead of the title (links keep

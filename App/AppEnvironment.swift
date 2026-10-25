@@ -22,6 +22,9 @@ final class AppEnvironment {
     /// Shown in Settings when the persistent store couldn't open (the app then runs in memory).
     private(set) var storeErrorMessage: String?
     private(set) var theme: DSTheme = .standard
+    /// The active theme deck's id (`WXDeck`). The tab content is keyed on it, so picking a deck
+    /// redraws every screen in the new colours, face and shapes.
+    private(set) var deckID: String = WXDeck.current.id
     var selectedSection: AppSection = .student
     /// Course to open from a widget or reminder deep link (consumed by the Student section).
     var requestedCourseID: UUID?
@@ -58,6 +61,8 @@ final class AppEnvironment {
     func bootstrap() async {
         guard !didBootstrap else { return }
         didBootstrap = true
+        // An export left behind if the app was quit mid-share.
+        DataExporter.removeExports()
 
         MetricKitSubscriber.shared.start()
         account.start()
@@ -175,6 +180,36 @@ final class AppEnvironment {
         await loadActiveTheme()
     }
 
+    /// Makes `deck` the look of the app and every widget (Settings → Theme, onboarding vibe).
+    /// A deck brings its own colours, so a Theme Sync or earlier vibe palette is cleared; Theme Sync
+    /// can recolour the new deck again later (fonts and shapes stay the deck's).
+    func applyDeck(_ deck: WXDeck) async {
+        WXDeck.select(deck)
+        deckID = deck.id
+        await clearActiveTheme()
+        await WidgetReloadCoordinator.widgetCenterReloader(WidgetKind.allCases.map(\.kindIdentifier))
+        Analytics.shared.track(AnalyticsEvent("deck_applied", parameters: ["deck": deck.id]))
+    }
+
+    private func clearActiveTheme() async {
+        guard let stack else {
+            ActiveThemeStore().write(nil)
+            theme = .standard
+            return
+        }
+        do {
+            let profiles = RecordStore<UserProfile>(stack: stack)
+            if var profile = try await profiles.fetchAll().first, profile.activeThemeID != nil {
+                profile.activeThemeID = nil
+                profile.updatedAt = .now
+                try await profiles.upsert(profile)
+            }
+        } catch {
+            logger.error("Clearing the active theme failed: \(error.localizedDescription, privacy: .public)")
+        }
+        await loadActiveTheme()
+    }
+
     // MARK: Data management
 
     func exportData() async throws -> URL {
@@ -192,6 +227,8 @@ final class AppEnvironment {
         await studentStore?.focus.stop() // ends the focus Live Activity
         let report = await DataEraser(stack: stack, keychain: keychain, zoneEraser: zoneEraser).eraseEverything()
         theme = .standard
+        WXDeck.select(.paintChip)
+        deckID = WXDeck.paintChip.id
         // Class reminders and mood reminders would otherwise still fire for deleted data.
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()

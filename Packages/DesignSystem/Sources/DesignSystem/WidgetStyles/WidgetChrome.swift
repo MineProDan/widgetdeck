@@ -9,7 +9,7 @@ extension WidgetFamilyKind {
         case .systemSmall: self = .systemSmall
         case .systemMedium: self = .systemMedium
         case .systemLarge: self = .systemLarge
-        case .systemExtraLarge: self = .systemExtraLarge
+        case .systemExtraLarge, .systemExtraLargePortrait: self = .systemExtraLarge
         case .accessoryCircular: self = .accessoryCircular
         case .accessoryRectangular: self = .accessoryRectangular
         case .accessoryInline: self = .accessoryInline

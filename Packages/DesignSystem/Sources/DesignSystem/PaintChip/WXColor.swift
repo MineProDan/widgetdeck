@@ -5,24 +5,26 @@ import SwiftUI
 ///
 /// Colours are paint, not UI chrome: they do not change with light/dark mode. Use the section
 /// mapping (`WXSection.color`) instead of picking a hue by hand, so "The Colour Is Law" holds.
+/// The five section paints, Paper Ivory and Label Ivory come from the active theme deck
+/// (`WXDeck.current`); the names below are the Paint Chip deck's, kept as stable role names.
 public enum WXColor {
     // MARK: Section and evening colours
     /// Student and "next up" moments.
-    public static let coralHour = Color(wxHex: 0xE07A5F)
+    public static var coralHour: Color { Color(wxHex: WXDeck.current.student) }
     /// Wellness habits, midday Flow, positive completion fields.
-    public static let sageNoon = Color(wxHex: 0x81B29A)
+    public static var sageNoon: Color { Color(wxHex: WXDeck.current.wellness) }
     /// Aesthetic and theme surfaces, the battery fill on ink.
-    public static let beachSand = Color(wxHex: 0xF2CC8F)
+    public static var beachSand: Color { Color(wxHex: WXDeck.current.aesthetic) }
     /// Tech chips, afternoon focus, heavier academic blocks.
-    public static let deepTide = Color(wxHex: 0x3D405B)
+    public static var deepTide: Color { Color(wxHex: WXDeck.current.tech) }
     /// Evening and mood only.
-    public static let plumDusk = Color(wxHex: 0x6D597A)
+    public static var plumDusk: Color { Color(wxHex: WXDeck.current.evening) }
 
     // MARK: Neutrals
     /// App ground and punch-hole fill.
-    public static let paperIvory = Color(wxHex: 0xF7F3EA)
+    public static var paperIvory: Color { Color(wxHex: WXDeck.current.paper) }
     /// Chip label bands and card surfaces.
-    public static let labelIvory = Color(wxHex: 0xFFFDF8)
+    public static var labelIvory: Color { Color(wxHex: WXDeck.current.band) }
     /// Quiet data fills on ink (memory bar), palette surfaces.
     public static let shell = Color(wxHex: 0xF6DDB2)
     /// Primary text, primary buttons, active tab.
@@ -57,7 +59,7 @@ public enum WXColor {
     public static let moodTintsOnPlum: [Color] = [0xA99BB3, 0xBCAFC5, 0xCFC4D6, 0xE2D9E7, 0xF4EFF6].map { Color(wxHex: $0) }
 
     /// Thermal-state paints, nominal → critical (Tech thermal strip).
-    public static let thermal: [Color] = [sageNoon, beachSand, coralHour, clayLink]
+    public static var thermal: [Color] { [sageNoon, beachSand, coralHour, clayLink] }
 }
 
 /// Which colour a piece of UI belongs to. The colour means that section everywhere.
@@ -77,15 +79,17 @@ public enum WXSection: String, CaseIterable, Sendable, Identifiable {
         }
     }
 
-    /// The paint name printed on a chip's label band ("Coral Hour · BIO 201").
+    /// The paint name printed on a chip's label band ("Coral Hour · BIO 201"), from the active deck.
     public var paintName: String {
-        switch self {
-        case .student: "Coral Hour"
-        case .wellness: "Sage Noon"
-        case .aesthetic: "Beach Sand"
-        case .tech: "Deep Tide"
-        case .evening: "Plum Dusk"
+        let names = WXDeck.current.paintNames
+        let index = switch self {
+        case .student: 0
+        case .wellness: 1
+        case .aesthetic: 2
+        case .tech: 3
+        case .evening: 4
         }
+        return names.indices.contains(index) ? names[index] : ""
     }
 
     public init(_ section: AppSection) {

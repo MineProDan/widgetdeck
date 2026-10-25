@@ -9,6 +9,9 @@ public struct StudentSettings: Codable, Sendable, Equatable {
     public var schoolCalendarIDs: Set<String> = []
     /// The user tapped "Connect later": show the demo schedule, don't re-prompt.
     public var deferredConnect = false
+    /// Count one-off events at the same weekday and time every week as classes (timetables
+    /// imported as separate events). On by default.
+    public var inferWeeklyPatterns = true
     /// Reminders list imported as assignments (S-05). `nil` = no import.
     public var remindersListID: String?
     /// When to remind before an assignment is due (S-05). `nil` = off.
@@ -29,7 +32,7 @@ public struct StudentSettings: Codable, Sendable, Equatable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case schoolCalendarIDs, deferredConnect, remindersListID, assignmentReminder, gradeScale
+        case schoolCalendarIDs, deferredConnect, inferWeeklyPatterns, remindersListID, assignmentReminder, gradeScale
         case leaveByEnabled, travelMode, leaveBufferMinutes, focusPreset
     }
 
@@ -38,6 +41,7 @@ public struct StudentSettings: Codable, Sendable, Equatable {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         schoolCalendarIDs = try c.decodeIfPresent(Set<String>.self, forKey: .schoolCalendarIDs) ?? []
         deferredConnect = try c.decodeIfPresent(Bool.self, forKey: .deferredConnect) ?? false
+        inferWeeklyPatterns = try c.decodeIfPresent(Bool.self, forKey: .inferWeeklyPatterns) ?? true
         remindersListID = try c.decodeIfPresent(String.self, forKey: .remindersListID)
         assignmentReminder = try? c.decodeIfPresent(ReminderOffset.self, forKey: .assignmentReminder)
         gradeScale = (try? c.decodeIfPresent(GradeScale.self, forKey: .gradeScale)) ?? .plusMinus

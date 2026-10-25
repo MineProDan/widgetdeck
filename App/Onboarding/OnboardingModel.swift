@@ -26,7 +26,8 @@ final class OnboardingModel {
     static let sectionsKey = "onboarding.sections"
 
     var step: Step = .vibe
-    var pickedPaintID: String = WXThemePaint.launchThemes[1].id
+    /// The theme deck highlighted on the vibe step (applied when the user taps Use).
+    var pickedDeckID: String = WXDeck.current.id
     var sections: Set<AppSection> = [.student, .aesthetic]
     /// Kinds of Widgetdeck widgets found on the home or lock screen, once detected.
     private(set) var detectedWidgetKinds: [String] = []
@@ -43,9 +44,7 @@ final class OnboardingModel {
         self.configurations = configurations
     }
 
-    var pickedPaint: WXThemePaint {
-        WXThemePaint.launchThemes.first { $0.id == pickedPaintID } ?? WXThemePaint.launchThemes[1]
-    }
+    var pickedDeck: WXDeck { WXDeck.deck(id: pickedDeckID) }
 
     /// Sections in display order.
     var orderedSections: [AppSection] { Self.offeredSections.filter(sections.contains) }
@@ -102,31 +101,6 @@ final class OnboardingModel {
         ]))
     }
 
-    /// The Theme saved when the user picks a vibe: lightest step is the background, darkest the
-    /// primary (dark widget fields), third step the accent (warm/light fields).
-    static func theme(for paint: WXThemePaint) -> Theme {
-        func rgba(_ hex: UInt32) -> RGBAColor {
-            RGBAColor(red: Double((hex >> 16) & 0xFF) / 255, green: Double((hex >> 8) & 0xFF) / 255,
-                      blue: Double(hex & 0xFF) / 255)
-        }
-        let steps = paint.steps
-        return Theme(
-            // Stable per paint, so picking the same vibe twice (or on two devices) is one record.
-            id: UUID(uuidString: "0B0A0D1E-0000-4000-8000-" + String(format: "%012X", paint.code.hashValueStable)) ?? UUID(),
-            name: paint.name,
-            source: .preset,
-            palette: [
-                .background: rgba(steps[0]),
-                .surface: rgba(steps[1]),
-                .accent: rgba(steps[2]),
-                .primary: rgba(steps[3]),
-                .textOnBackground: rgba(0x22232E),
-                .textOnAccent: rgba(0x22232E),
-            ],
-            packID: "launch." + paint.code.replacingOccurrences(of: " ", with: "")
-        )
-    }
-
     /// Default detection: `WidgetCenter.getCurrentConfigurations`.
     static func currentWidgetKinds() async -> Result<[String], any Error> {
         await withCheckedContinuation { continuation in
@@ -134,17 +108,5 @@ final class OnboardingModel {
                 continuation.resume(returning: result.map { $0.map(\.kind) }.mapError { $0 as any Error })
             }
         }
-    }
-}
-
-private extension String {
-    /// A deterministic (not per-launch-seeded) 48-bit hash for building stable preset IDs.
-    var hashValueStable: UInt64 {
-        var hash: UInt64 = 0xcbf29ce484222325
-        for byte in utf8 {
-            hash ^= UInt64(byte)
-            hash = hash &* 0x100000001b3
-        }
-        return hash & 0xFFFF_FFFF_FFFF
     }
 }

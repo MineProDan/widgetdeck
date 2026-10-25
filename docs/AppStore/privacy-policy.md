@@ -1,6 +1,6 @@
 # Widgetdeck Privacy Policy
 
-**Effective date:** October 3, 2026
+**Effective date:** October 6, 2026
 **Developer:** Daniel Radu Betiu (the "developer", "we")
 **Contact:** mineprodan@gmail.com
 
@@ -20,6 +20,7 @@ Widgetdeck doesn't collect your personal data. There's no account, no ads and no
 | **Notifications** (only if you allow them) | Class reminders and an optional evening mood reminder | Scheduled on your iPhone |
 | **Habits, mood check-ins and notes** | Wellness section and widgets | On your iPhone and in your iCloud private database. Mood notes are end-to-end encrypted by iCloud. We can't access any of it |
 | **Battery, storage, heat, CPU and memory readings** | Tech section and widgets | Calculated and stored on your iPhone. Recent readings are kept for 7 days, then deleted |
+| **Sync log** | A short record of when data synced and widgets refreshed, to help fix widgets that stop updating. It never includes calendar contents | On your iPhone only (the last 400 lines). It leaves your iPhone only if you share it from **Settings → About → Sync log** |
 | **Your courses, themes, reminder settings and widget settings** (including the room, travel mode and leave-by choice you set for a course) | So they appear on your other devices | Synced with Apple's iCloud **private database**, in your iCloud account. We can't access it |
 
 ## What we don't do
@@ -36,6 +37,10 @@ Widgetdeck doesn't collect your personal data. There's no account, no ads and no
 ## Crash reports
 
 If you've chosen to share analytics with app developers in iOS Settings, Apple may give us anonymous crash and performance reports. You control this in **Settings → Privacy & Security → Analytics & Improvements**.
+
+## Exporting your data
+
+**Settings → Export my data** makes one file with your profile, courses, assignments, grades, reminder settings, habits, mood check-ins (with notes) and goals. It's created on your iPhone and goes only where you save or share it.
 
 ## Deleting your data
 

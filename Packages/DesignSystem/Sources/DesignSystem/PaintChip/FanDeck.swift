@@ -125,7 +125,7 @@ public struct PaintStrip: View {
                     .frame(height: stepHeight)
                     .overlay(alignment: .top) {
                         if index == 0 {
-                            Circle().fill(WXColor.paperIvory).frame(width: 10, height: 10).padding(.top, 10)
+                            PunchHoleMark(punchHole: .strip)
                         }
                     }
             }

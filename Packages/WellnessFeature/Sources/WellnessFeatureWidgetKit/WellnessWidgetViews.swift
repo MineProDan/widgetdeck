@@ -41,6 +41,20 @@ public enum WellnessCopy {
 
     /// "2 of 3 today".
     public static func progress(done: Int, of total: Int) -> String { String(localized: "\(done) of \(total) today") }
+
+    /// Caption candidates for the Habits widget, longest first: every name, then fewer names with a
+    /// count of the rest ("Read · Water +1", "Read +2"), then "Habits". The widget shows the first
+    /// one that fits on one line, so the caption never wraps.
+    public static func habitCaptions(_ names: [String]) -> [String] {
+        let short = names.map(shortName)
+        var captions = short.indices.reversed().map { last in
+            let shown = short[...last].joined(separator: " · ")
+            let rest = short.count - last - 1
+            return rest > 0 ? "\(shown) +\(rest)" : shown
+        }
+        captions.append(String(localized: "Habits"))
+        return captions
+    }
 }
 
 // MARK: - Habits (small, medium)
@@ -86,9 +100,17 @@ public struct HabitsWidgetView<Toggle: AppIntent>: View {
             if items.isEmpty {
                 ChipLabelBand(caption: String(localized: "Habits"), value: String(localized: "Rest day"), valueSize: 20)
             } else {
-                ChipLabelBand(caption: items.map { WellnessCopy.shortName($0.name) }.joined(separator: " · "),
-                              value: WellnessCopy.progress(done: snapshot.doneCount, of: snapshot.dueItems.count),
-                              trend: family == .systemMedium ? trend(snapshot) : nil, trendColor: WXColor.mossPositive, tabular: true)
+                // ViewThatFits compares each band's one-line (ideal) width, so it skips captions that would wrap.
+                ViewThatFits(in: .horizontal) {
+                    let captions = WellnessCopy.habitCaptions(items.map(\.name))
+                    ForEach(captions.indices, id: \.self) { index in
+                        let caption = captions[index]
+                        ChipLabelBand(caption: caption,
+                                      value: WellnessCopy.progress(done: snapshot.doneCount, of: snapshot.dueItems.count),
+                                      trend: family == .systemMedium ? trend(snapshot) : nil,
+                                      trendColor: WXColor.mossPositive, tabular: true)
+                    }
+                }
             }
         } else {
             ChipLabelBand(caption: String(localized: "Habits"), value: String(localized: "Add a habit"),
@@ -203,7 +225,7 @@ public struct MoodWidgetView<Log: AppIntent>: View {
 
     /// The paint name is only true while no theme recolours the field.
     private var caption: String {
-        entry.isSample || ActiveThemeStore().read() == nil ? String(localized: "Plum Dusk · Mood") : String(localized: "Mood")
+        entry.isSample || ActiveThemeStore().read() == nil ? "\(WXSection.evening.paintName) · \(String(localized: "Mood"))" : String(localized: "Mood")
     }
 
     private var circular: some View {

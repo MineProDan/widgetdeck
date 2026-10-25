@@ -72,13 +72,18 @@ final class HomeModel {
         WidgetKind.allCases.first { $0.kindIdentifier == identifier }
     }
 
-    /// Card paint follows the section and the user's applied theme, so the deck matches the widgets.
+    /// Card paint follows the widget's own paint and the user's applied theme, so the deck matches the
+    /// widgets. Mood, Affirmation and Breathe are painted Evening (Plum Dusk), not their section's Sage.
     static func card(for kind: WidgetKind, theme: ActiveThemeSnapshot?) -> DeckCard {
-        let section: WXSection = switch kind.section {
-        case .tech: .tech
-        case .student, nil: .student
-        case .aesthetic: .aesthetic
-        case .wellness: .wellness
+        let section: WXSection = switch kind {
+        case .mood, .affirmation, .breathe: .evening
+        default:
+            switch kind.section {
+            case .tech: .tech
+            case .student, nil: .student
+            case .aesthetic: .aesthetic
+            case .wellness: .wellness
+            }
         }
         return DeckCard(id: kind.rawValue,
                         color: WidgetThemePaint.resolve(section.color, theme: theme),
@@ -119,12 +124,15 @@ final class HomeModel {
     }
 
     /// Faded example shown before any widget is added (the mockup's deck).
-    static let exampleCards = [
-        DeckCard(id: "e-sage", color: WXColor.sageNoon, paint: "Sage Noon", name: "Habits"),
-        DeckCard(id: "e-sand", color: WXColor.beachSand, paint: "Beach Hour", name: "Palette"),
-        DeckCard(id: "e-tide", color: WXColor.deepTide, paint: "Deep Tide", name: "Battery"),
-        DeckCard(id: "e-coral", color: WXColor.coralHour, paint: "Coral Hour", name: "Next Class")
-    ]
+    /// Computed, so the example follows the active theme deck.
+    static var exampleCards: [DeckCard] {
+        [
+            DeckCard(id: "e-sage", color: WXColor.sageNoon, paint: WXSection.wellness.paintName, name: "Habits"),
+            DeckCard(id: "e-sand", color: WXColor.beachSand, paint: WXSection.aesthetic.paintName, name: "Palette"),
+            DeckCard(id: "e-tide", color: WXColor.deepTide, paint: WXSection.tech.paintName, name: "Battery"),
+            DeckCard(id: "e-coral", color: WXColor.coralHour, paint: WXSection.student.paintName, name: "Next Class")
+        ]
+    }
 
     static func subtitle(for date: Date, calendar: Calendar = .current) -> String {
         let hour = calendar.component(.hour, from: date)

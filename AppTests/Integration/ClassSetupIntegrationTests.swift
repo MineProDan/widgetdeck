@@ -13,7 +13,7 @@ struct ClassSetupIntegrationTests {
         try await repo.save(course)
         let store = StudentStore(repository: repo)
         await store.applySetup(.init(room: "ICS 192", travel: .driving, headsUp: .leave), to: course)
-        let saved = try #require(try await repo.courses().first)
+        let saved = try #require(await repo.courses().first)
         #expect(saved.leaveAuto == true)
         #expect(saved.travelMode == .driving)
         #expect(saved.room == "ICS 192")
@@ -26,7 +26,7 @@ struct ClassSetupIntegrationTests {
         try await repo.save(course)
         let store = StudentStore(repository: repo)
         await store.applySetup(.init(room: "", travel: nil, headsUp: .before15), to: course)
-        let rule = try #require(try await repo.reminderRules().first)
+        let rule = try #require(await repo.reminderRules().first)
         #expect(rule.isEnabled)
         #expect(rule.courseID == course.id)
     }
