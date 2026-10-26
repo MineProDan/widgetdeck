@@ -64,16 +64,15 @@ Tick in order. Everything marked **(owner)** needs a person with the Apple Devel
 
 - [x] Submitted 1.0.0 (4) for review on 2026-10-24 (Waiting for Review).
 
-## 4. Soft launch (~2 weeks)
+## 4. Launch (worldwide since 2026-10-26)
 
-- [x] Pricing and Availability: price **Free**; **Canada, Australia, New Zealand, Ireland only**. Set: $0.00, available only in CAN/AUS/NZL/IRL, new territories off (checked 2026-10-06).
+- [x] Pricing and Availability: price **Free**; **all regions** (owner, 2026-10-26; was CA/AU/NZ/IE only). China mainland needs an ICP filing, so leave it out.
 - [ ] Release. Keep `flags.json` ready: if T-03 causes trouble, set `"T-03.cpuMemory": false`. No new build is needed.
 - [ ] Watch the gates: **crash-free ≥ 99.5%** (Xcode Organizer / App Store Connect), **onboarding → first widget ≥ 55%**, **rating ≥ 4.5**.
   - **Decided 2026-09-30: use App Store Connect's opt-in App Analytics** (App Store Connect → Analytics: sessions, active devices, retention, crashes; only from users who share analytics with developers). There's no in-app analytics and no in-app toggle, so the privacy label stays "Data Not Collected". App Analytics can't see "first widget added", so judge that gate from day-1/day-7 retention and sessions per active device instead.
 
-## 5. Full launch
+## 5. After launch
 
-- [ ] Gates met, then add US, UK and the other territories in Pricing and Availability.
 - [ ] Custom Product Pages `/study`, `/aesthetic`, `/tech`.
 
 ## 6. Updates and hotfixes
