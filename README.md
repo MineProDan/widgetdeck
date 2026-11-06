@@ -21,9 +21,9 @@ Everything is built with SwiftUI, WidgetKit, ActivityKit and App Intents, and th
 
 <div align="center">
 
-<video src="https://github.com/MineProDan/widgetdeck/raw/main/docs/readme/reel.mp4" poster="docs/readme/banner.jpg" controls muted loop playsinline width="100%"></video>
+<a href="docs/readme/reel.mp4"><img src="docs/readme/reel.gif" alt="15 second reel of Widgetdeck widgets" width="560"></a>
 
-<sub>If the video doesn't play, <a href="docs/readme/reel.mp4">open the 15 second reel</a>.</sub>
+<sub>Click for the full-quality 15 second reel.</sub>
 
 </div>
 
@@ -116,7 +116,7 @@ Each package also has its own tests (`xcodebuild test -scheme <Package>-Package`
 ## Docs
 
 - [`PRODUCT.md`](PRODUCT.md): who it's for · [`DESIGN.md`](DESIGN.md): the Paint Chip visual system
-- [`docs/plan/`](docs/plan/): the original plan · [`docs/AppStore/`](docs/AppStore/): privacy policy, privacy label and release checklist
+- [`docs/AppStore/`](docs/AppStore/): privacy policy, privacy label and release checklist
 
 ## Contributing
 
