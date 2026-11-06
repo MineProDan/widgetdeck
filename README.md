@@ -21,7 +21,7 @@ Everything is built with SwiftUI, WidgetKit, ActivityKit and App Intents, and th
 
 <div align="center">
 
-https://github.com/MineProDan/widgetdeck/raw/main/docs/readme/reel.mp4
+<video src="https://github.com/MineProDan/widgetdeck/raw/main/docs/readme/reel.mp4" poster="docs/readme/banner.jpg" controls muted loop playsinline width="100%"></video>
 
 <sub>If the video doesn't play, <a href="docs/readme/reel.mp4">open the 15 second reel</a>.</sub>
 
